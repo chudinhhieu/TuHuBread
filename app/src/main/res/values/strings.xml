@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TuHuBread</string>
+    <string name="menu_home">Trang chủ</string>
+    <string name="menu_food">Đặt hàng</string>
+    <string name="menu_cart">Đơn hàng</string>
+    <string name="menu_other">Khác</string>
+</resources>
