@@ -29,6 +29,28 @@ public class DbHelper extends SQLiteOpenHelper {
                 "ngayKetThuc date not null,"+
                 "soTienGiam number not null)";
         db.execSQL(sql_KhuyenMai);
+        //Khách hàng
+        String sql_KhachHang = "create table KhachHang(" + "id_makhachhang integer primary key Autoincrement," +
+                "hoTen text not null," + "soDienThoai text not null," +
+                "taiKhoan text not null," + "matKhau text not null, " +
+                "ngaySinh date not null," + "diaChi text not null," +
+                "soDuTaiKhoan number not null)";
+        db.execSQL(sql_KhachHang);
+        //Đơn hàng
+        String sql_DonHang = "create table DonHang(" + "id_madonhang integer primary key Autoincrement," +
+                "id_khachHang integer references KhachHang(id_makhachhang)," + "thoiGianTao date not null," +
+                "trangThai int," + "id_khuyenMai integer references KhuyenMai(id_KhuyenMai), " +
+                "tongTien number not null)";
+        db.execSQL(sql_DonHang);
+        //Chi tiết đơn hàng
+        String sql_ChiTietDonHang = "create table ChiTietDonHang(" + "id_ct integer primary key Autoincrement," +
+                "id_donHang integer references DonHang," + "id_monAn integer references MonAn," +
+                "soLuong int, " + "giaTien number not null)";
+        db.execSQL(sql_ChiTietDonHang);
+        //Món ăn yêu thích
+        String sql_MonAnYeuThich = "create table MonAnYeuThich(" + "id_mamonan integer references MonAn," + "id_khachHang integer references KhachHang)";
+        db.execSQL(sql_MonAnYeuThich);
+
 
     }
 
