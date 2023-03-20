@@ -1,8 +1,6 @@
 package hieucdph29636.fpoly.tuhubread.DTO;
 
 public class MonAn {
-<<<<<<< HEAD
-=======
     private int id_MonAn;
     private String tenMon;
     private int gia;
@@ -89,5 +87,4 @@ public class MonAn {
     public void setAnhMonAn(int anhMonAn) {
         this.anhMonAn = anhMonAn;
     }
->>>>>>> origin/master
 }

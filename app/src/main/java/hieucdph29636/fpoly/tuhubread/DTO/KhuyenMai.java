@@ -1,8 +1,6 @@
 package hieucdph29636.fpoly.tuhubread.DTO;
 
 public class KhuyenMai {
-<<<<<<< HEAD
-=======
     private int id_KhuyenMai;
     private String code;
     private String moTaKM;
@@ -66,5 +64,4 @@ public class KhuyenMai {
     public void setSoTienGiam(int soTienGiam) {
         this.soTienGiam = soTienGiam;
     }
->>>>>>> origin/master
 }
