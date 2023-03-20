@@ -51,16 +51,59 @@ public class DbHelper extends SQLiteOpenHelper {
         String sql_MonAnYeuThich = "create table MonAnYeuThich(" + "id_mamonan integer references MonAn," + "id_khachHang integer references KhachHang)";
         db.execSQL(sql_MonAnYeuThich);
 
+        // Nhân Viên
+        String sql_NhanVien="create table NhanVien("+"id_NhanVien integer primary key autoincrement,"+"code text not null,"+
+                "hoTen text not null,"+
+                "soDienThoai text not null,"+
+                "taiKhoan text not null,"+
+                "matKhau text not null,"+
+                "ngaySinh date not null,"+
+                "quyenNhanVien text not null)";
+        db.execSQL(sql_NhanVien);
+
+        // Đánh giá
+        String sql_DanhGia="create table DanhGia("+"id_DanhGia integer primary key autoincrement,"+"code text not null,"+
+                "id_khachHang integer references KhachHang(id_makhachhang),"+
+                "id_monAn integer references MonAn(id_MonAn),"+
+                " binhLuan text not null,"+
+                "diem integer not null,"+
+                "anhDanhGia blob not null)";
+        db.execSQL(sql_DanhGia);
+
+        // Đơn nạp tiền
+        String sql_DonNapTien="create table DonNapTien("+"id_DonNapTien integer primary key autoincrement,"+"code text not null,"+
+                "id_khachHang integer references KhachHang(id_makhachhang),"+
+                "thoiGianTao date not null,"+
+                "trangThai integer not null,"+
+                "tienNap number not null,"+
+                "anhHoaDon blob not null)";
+        db.execSQL(sql_DonNapTien);
+
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-      String sql_Loai="drop table if exists LoaiMonAn";
-      db.execSQL(sql_Loai);
-      String sql_Mon="drop table if exists MonAn";
-      db.execSQL(sql_Mon);
+        String sql_Loai="drop table if exists LoaiMonAn";
+        db.execSQL(sql_Loai);
+        String sql_Mon="drop table if exists MonAn";
+        db.execSQL(sql_Mon);
         String sql_KM="drop table if exists KhuyenMai";
         db.execSQL(sql_KM);
+        String sql_NhanVien = "drop table if exists NhanVien";
+        db.execSQL(sql_NhanVien);
+        String sql_DanhGia = "drop table if exists DanhGia";
+        db.execSQL(sql_DanhGia);
+        String sql_DonNapTien = "drop table if exists DonNapTien";
+        db.execSQL(sql_DonNapTien);
+        String sql_KhachHang = "drop table if exists KhachHang";
+        db.execSQL(sql_KhachHang);
+        String sql_DonHang = "drop table if exists DonHang";
+        db.execSQL(sql_DonHang);
+        String sql_ChiTietDonHang = "drop table if exists ChiTietDonHang";
+        db.execSQL(sql_ChiTietDonHang);
+        String sql_MonAnYeuThich = "drop table if exists MonAnYeuThich";
+        db.execSQL(sql_MonAnYeuThich);
+
     }
 }
