@@ -21,7 +21,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 "tenMon text not null,"+"gia number not null,"+
                 "moTa text not null,"+"thanhPhan text not null,"+
                 "trangThai text not null,"+"id_loaiDoAn integer references MonAn(id_MonAn),"+
-                "anhMonAn blob not null)";
+                "anhMonAn blod not null)";
         db.execSQL(sql_Mon);
         String sql_KhuyenMai="create table KhuyenMai("+"id_KhuyenMai integer primary key autoincrement,"+"code text not null,"+
                 "moTaKM text not null,"+
@@ -29,31 +29,27 @@ public class DbHelper extends SQLiteOpenHelper {
                 "ngayKetThuc date not null,"+
                 "soTienGiam number not null)";
         db.execSQL(sql_KhuyenMai);
-
-        String sql_NhanVien="create table NhanVien("+"id_NhanVien integer primary key autoincrement,"+"code text not null,"+
-                "hoTen text not null,"+
-                "soDienThoai text not null,"+
-                "taiKhoan text not null,"+
-                "matKhau text not null,"+
-                "ngaySinh date not null,"+
-                "quyenNhanVien text not null)";
-        db.execSQL(sql_NhanVien);
-
-        String sql_DanhGia="create table DanhGia("+"id_DanhGia integer primary key autoincrement,"+"code text not null,"+
-                "id_khachHang integer references KhachHang(id_KhachHang),"+
-                "id_monAn integer references MonAn(id_MonAn),"+
-               " binhLuan text not null,"+
-                "diem integer not null,"+
-                "anhDanhGia blob not null)";
-        db.execSQL(sql_DanhGia);
-
-        String sql_DonNapTien="create table DonNapTien("+"id_DonNapTien integer primary key autoincrement,"+"code text not null,"+
-                "id_khachHang integer references KhachHang(id_KhachHang),"+
-                "thoiGianTao date not null,"+
-                "trangThai integer not null,"+
-                "tienNap number not null,"+
-                "anhHoaDon blob not null)";
-        db.execSQL(sql_DonNapTien);
+        //Khách hàng
+        String sql_KhachHang = "create table KhachHang(" + "id_makhachhang integer primary key Autoincrement," +
+                "hoTen text not null," + "soDienThoai text not null," +
+                "taiKhoan text not null," + "matKhau text not null, " +
+                "ngaySinh date not null," + "diaChi text not null," +
+                "soDuTaiKhoan number not null)";
+        db.execSQL(sql_KhachHang);
+        //Đơn hàng
+        String sql_DonHang = "create table DonHang(" + "id_madonhang integer primary key Autoincrement," +
+                "id_khachHang integer references KhachHang(id_makhachhang)," + "thoiGianTao date not null," +
+                "trangThai int," + "id_khuyenMai integer references KhuyenMai(id_KhuyenMai), " +
+                "tongTien number not null)";
+        db.execSQL(sql_DonHang);
+        //Chi tiết đơn hàng
+        String sql_ChiTietDonHang = "create table ChiTietDonHang(" + "id_ct integer primary key Autoincrement," +
+                "id_donHang integer references DonHang," + "id_monAn integer references MonAn," +
+                "soLuong int, " + "giaTien number not null)";
+        db.execSQL(sql_ChiTietDonHang);
+        //Món ăn yêu thích
+        String sql_MonAnYeuThich = "create table MonAnYeuThich(" + "id_mamonan integer references MonAn," + "id_khachHang integer references KhachHang)";
+        db.execSQL(sql_MonAnYeuThich);
 
 
     }
@@ -64,14 +60,7 @@ public class DbHelper extends SQLiteOpenHelper {
       db.execSQL(sql_Loai);
       String sql_Mon="drop table if exists MonAn";
       db.execSQL(sql_Mon);
-      String sql_KM="drop table if exists KhuyenMai";
-      db.execSQL(sql_KM);
-      String sql_NhanVien = "drop table if exists NhanVien";
-      db.execSQL(sql_NhanVien);
-      String sql_DanhGia = "drop table if exists DanhGia";
-      db.execSQL(sql_DanhGia);
-      String sql_DonNapTien = "drop table if exists DonNapTien";
-      db.execSQL(sql_DonNapTien);
-
+        String sql_KM="drop table if exists KhuyenMai";
+        db.execSQL(sql_KM);
     }
 }
