@@ -1,18 +1,16 @@
 package hieucdph29636.fpoly.tuhubread.DTO;
 
-import java.sql.Blob;
-
 public class DanhGia {
  private int id_DanhGia, id_khachHang,id_monAn;
  private String binhLuan;
  private int diem;
- private Blob anhDanhGia;
+ private byte[] anhDanhGia;
 
     public DanhGia() {
     }
 
-    public DanhGia(int id_danhGia, int id_khachHang, int id_monAn, String binhLuan, int diem, Blob anhDanhGia) {
-        this.id_DanhGia = id_danhGia;
+    public DanhGia(int id_DanhGia, int id_khachHang, int id_monAn, String binhLuan, int diem, byte[] anhDanhGia) {
+        this.id_DanhGia = id_DanhGia;
         this.id_khachHang = id_khachHang;
         this.id_monAn = id_monAn;
         this.binhLuan = binhLuan;
@@ -61,11 +59,11 @@ public class DanhGia {
         this.diem = diem;
     }
 
-    public Blob getAnhDanhGia() {
+    public byte[] getAnhDanhGia() {
         return anhDanhGia;
     }
 
-    public void setAnhDanhGia(Blob anhDanhGia) {
+    public void setAnhDanhGia(byte[] anhDanhGia) {
         this.anhDanhGia = anhDanhGia;
     }
 }

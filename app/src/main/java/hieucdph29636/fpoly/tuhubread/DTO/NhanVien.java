@@ -5,21 +5,21 @@ import java.util.Date;
 public class NhanVien {
   private int id_NhanVien;
   private String hoTen,soDienThoai,taiKhoan,matKhau;
-  private Date ngaySinh;
-  private String quenNhanVien;
+  private String ngaySinh;
+  private String quyenNhanVien;
 
 
     public NhanVien() {
     }
 
-    public NhanVien(int id, String hoTen, String soDienThoai, String taiKhoan, String matKhau, Date ngaySinh, String quenNhanVien) {
+    public NhanVien(int id, String hoTen, String soDienThoai, String taiKhoan, String matKhau, String ngaySinh, String quyenNhanVien) {
         this.id_NhanVien = id;
         this.hoTen = hoTen;
         this.soDienThoai = soDienThoai;
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
         this.ngaySinh = ngaySinh;
-        this.quenNhanVien = quenNhanVien;
+        this.quyenNhanVien = quyenNhanVien;
     }
 
     public int getId() {
@@ -62,19 +62,19 @@ public class NhanVien {
         this.matKhau = matKhau;
     }
 
-    public Date getNgaySinh() {
+    public String getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(Date ngaySinh) {
+    public void setNgaySinh(String ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 
     public String getQuenNhanVien() {
-        return quenNhanVien;
+        return quyenNhanVien;
     }
 
     public void setQuenNhanVien(String quenNhanVien) {
-        this.quenNhanVien = quenNhanVien;
+        this.quyenNhanVien = quenNhanVien;
     }
 }

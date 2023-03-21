@@ -1,20 +1,17 @@
 package hieucdph29636.fpoly.tuhubread.DTO;
 
-import java.sql.Blob;
-import java.util.Date;
-
 public class DonNapTien {
     int id_DonNapTien, id_khachHang;
-    Date thoiGianTao;
+    String thoiGianTao;
     int trangThai;
-    Number tienNap;
-    Blob anhHoaDon;
+    int tienNap;
+    byte[] anhHoaDon;
 
     public DonNapTien() {
     }
 
-    public DonNapTien(int id, int id_khachHang, Date thoiGianTao, int trangThai, Number tienNap, Blob anhHoaDon) {
-        this.id_DonNapTien = id;
+    public DonNapTien(int id_DonNapTien, int id_khachHang, String thoiGianTao, int trangThai, int tienNap, byte[] anhHoaDon) {
+        this.id_DonNapTien = id_DonNapTien;
         this.id_khachHang = id_khachHang;
         this.thoiGianTao = thoiGianTao;
         this.trangThai = trangThai;
@@ -22,11 +19,11 @@ public class DonNapTien {
         this.anhHoaDon = anhHoaDon;
     }
 
-    public int getId() {
+    public int getid_DonNapTien() {
         return id_DonNapTien;
     }
 
-    public void setId(int id) {
+    public void setid_DonNapTien(int id) {
         this.id_DonNapTien = id;
     }
 
@@ -38,11 +35,11 @@ public class DonNapTien {
         this.id_khachHang = id_khachHang;
     }
 
-    public Date getThoiGianTao() {
+    public String getThoiGianTao() {
         return thoiGianTao;
     }
 
-    public void setThoiGianTao(Date thoiGianTao) {
+    public void setThoiGianTao(String thoiGianTao) {
         this.thoiGianTao = thoiGianTao;
     }
 
@@ -54,19 +51,19 @@ public class DonNapTien {
         this.trangThai = trangThai;
     }
 
-    public Number getTienNap() {
+    public int getTienNap() {
         return tienNap;
     }
 
-    public void setTienNap(Number tienNap) {
+    public void setTienNap(int tienNap) {
         this.tienNap = tienNap;
     }
 
-    public Blob getAnhHoaDon() {
+    public byte[] getAnhHoaDon() {
         return anhHoaDon;
     }
 
-    public void setAnhHoaDon(Blob anhHoaDon) {
+    public void setAnhHoaDon(byte[] anhHoaDon) {
         this.anhHoaDon = anhHoaDon;
     }
 }
