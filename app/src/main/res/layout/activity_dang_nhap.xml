@@ -110,7 +110,7 @@
             android:layout_height="60dp"
             android:text="ĐĂNG NHẬP"
             android:fontFamily="@font/mali"
-            android:backgroundTint="@color/gray"
+            android:backgroundTint="@color/main"
             android:textStyle="bold"
             android:textSize="18dp"
             android:textColor="@color/white"/>

@@ -9,15 +9,14 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import hieucdph29636.fpoly.tuhubread.DBHelper.DBHelper;
-import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAnYeuThich;
+import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class MonAnYeuThichDAO {
     SQLiteDatabase db;
-    DBHelper dbHelper;
+    DbHelper dbHelper;
     public MonAnYeuThichDAO (Context context){
-        dbHelper= new DBHelper(context);
+        dbHelper= new DbHelper(context);
         db=dbHelper.getWritableDatabase();
 
     }

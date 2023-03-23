@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 import hieucdph29636.fpoly.tuhubread.DBHelper.DBHelper;
 import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.KhachHang;
@@ -18,6 +19,15 @@ public class DonHangDAO {
     DBHelper dbHelper;
     public DonHangDAO(Context context){
         dbHelper= new DBHelper(context);
+=======
+import hieucdph29636.fpoly.tuhubread.DBHelper.DbHelper;;
+import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
+public class DonHangDAO {
+    SQLiteDatabase db;
+    DbHelper dbHelper;
+    public DonHangDAO(Context context){
+        dbHelper= new DbHelper(context);
+>>>>>>> origin/master
         db=dbHelper.getWritableDatabase();
     }
     public void close(){dbHelper.close();}

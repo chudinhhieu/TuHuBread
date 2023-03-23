@@ -6,16 +6,20 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+
 import java.util.ArrayList;
 import java.util.List;
-import hieucdph29636.fpoly.tuhubread.DBHelper.DBHelper;
+
+import hieucdph29636.fpoly.tuhubread.DBHelper.*;
 import hieucdph29636.fpoly.tuhubread.DTO.KhachHang;
+import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class KhachHangDAO {
     SQLiteDatabase db;
-    DBHelper dbHelper;
+    DbHelper dbHelper;
     public KhachHangDAO(Context context){
-        dbHelper= new DBHelper(context);
+        dbHelper= new DbHelper(context);
+
         db=dbHelper.getWritableDatabase();
     }
     public void close(){dbHelper.close();}
