@@ -36,6 +36,10 @@ public class DbHelper extends SQLiteOpenHelper {
                 "ngaySinh date not null," + "diaChi text not null," +
                 "soDuTaiKhoan number not null)";
         db.execSQL(sql_KhachHang);
+        db.execSQL("INSERT INTO KhachHang values (1,'nguyen van a','0999998686','a12','12434','2/1/2000','Thai Binh',3000)");
+        db.execSQL("INSERT INTO KhachHang values (2,'nguyen duc trung','0386998686','trungnd','1234','2/7/2002','Thai Binh',32000)");
+        db.execSQL("INSERT INTO KhachHang values (3,'nguyen xuan truong','0869998686','truonnx','90888','6/7/2003','Ha Noi',5000)");
+        db.execSQL("INSERT INTO KhachHang values (4,'nguyen van a','0369998875','a','1243799','1/1/2001','Quang Ninh',10000)");
         //Đơn hàng
         String sql_DonHang = "create table DonHang(" + "id_madonhang integer primary key Autoincrement," +
                 "id_khachHang integer references KhachHang(id_makhachhang)," + "thoiGianTao date not null," +
