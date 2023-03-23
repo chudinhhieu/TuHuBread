@@ -9,18 +9,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-import hieucdph29636.fpoly.tuhubread.DBHelper.DBHelper;
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
-
-public class ChiTietDonHangDAO {
-    SQLiteDatabase db;
-    DBHelper dbHelper;
-    public ChiTietDonHangDAO (Context context){
-        dbHelper= new DBHelper(context);
-=======
-import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class ChiTietDonHangDAO {
@@ -28,11 +18,9 @@ public class ChiTietDonHangDAO {
     DbHelper dbHelper;
     public ChiTietDonHangDAO (Context context){
         dbHelper= new DbHelper(context);
->>>>>>> origin/master
         db=dbHelper.getWritableDatabase();
 
     }
-    public void close(){dbHelper.close();}
     public List<ChiTietDonHang> selectAll(){
         List<ChiTietDonHang> listABC = new ArrayList<ChiTietDonHang>();
 
@@ -72,11 +60,7 @@ public class ChiTietDonHangDAO {
         String[] tham_so=new String[]{ttcKhachHang.getId_donHang()+""};
         return db.update("ChiTietDonHang",values,"id_ChiTietDonHang=?",tham_so);
     }
-<<<<<<< HEAD
-    public int ChiTietDonHang(ChiTietDonHang ttcKhachHang){
-=======
     public int deleteChiTietDonHang(ChiTietDonHang ttcKhachHang){
->>>>>>> origin/master
         String[] tham_so=new String[]{ttcKhachHang.getId_donHang()+""};
         return db.delete("ChiTietDonHang","id_ChiTietDonHang=?",tham_so);
     }

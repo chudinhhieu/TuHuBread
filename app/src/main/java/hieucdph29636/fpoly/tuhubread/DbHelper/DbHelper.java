@@ -1,4 +1,4 @@
-package hieucdph29636.fpoly.tuhubread.DbHelper;
+package hieucdph29636.fpoly.tuhubread.DBHelper;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,12 +23,20 @@ public class DbHelper extends SQLiteOpenHelper {
                 "trangThai text not null,"+"id_loaiDoAn integer references MonAn(id_MonAn),"+
                 "anhMonAn blod not null)";
         db.execSQL(sql_Mon);
+        // Khuyến Mãi
         String sql_KhuyenMai="create table KhuyenMai("+"id_KhuyenMai integer primary key autoincrement,"+"code text not null,"+
                 "moTaKM text not null,"+
                 "ngayBatDau date not null,"+
                 "ngayKetThuc date not null,"+
                 "soTienGiam number not null)";
         db.execSQL(sql_KhuyenMai);
+        db.execSQL("INSERT INTO KhuyenMai (id_khuyenMai,code,moTa,ngayBatDau,ngayKetThuc,soTienGiam) VALUES (1,'abc','khuyen mai 10%','1/1/2023','31/12/2023',3000)");
+        db.execSQL("INSERT INTO KhuyenMai (id_khuyenMai,code,moTa,ngayBatDau,ngayKetThuc,soTienGiam) VALUES (2,'xyz','khuyen mai 20%','1/1/2023','31/12/2023',5000)");
+        db.execSQL("INSERT INTO KhuyenMai (id_khuyenMai,code,moTa,ngayBatDau,ngayKetThuc,soTienGiam) VALUES (3,'dfg','khuyen mai 30%','1/1/2023','31/12/2023',8000)");
+        db.execSQL("INSERT INTO KhuyenMai (id_khuyenMai,code,moTa,ngayBatDau,ngayKetThuc,soTienGiam) VALUES (4,'qjk','khuyen mai 40%','1/1/2023','31/12/2023',10000)");
+        db.execSQL("INSERT INTO KhuyenMai (id_khuyenMai,code,moTa,ngayBatDau,ngayKetThuc,soTienGiam) VALUES (5,'akm','khuyen mai 50%','1/1/2023','31/12/2023',13000)");
+
+
         //Khách hàng
         String sql_KhachHang = "create table KhachHang(" + "id_makhachhang integer primary key Autoincrement," +
                 "hoTen text not null," + "soDienThoai text not null," +
@@ -36,6 +44,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 "ngaySinh date not null," + "diaChi text not null," +
                 "soDuTaiKhoan number not null)";
         db.execSQL(sql_KhachHang);
+
         //Đơn hàng
         String sql_DonHang = "create table DonHang(" + "id_madonhang integer primary key Autoincrement," +
                 "id_khachHang integer references KhachHang(id_makhachhang)," + "thoiGianTao date not null," +
