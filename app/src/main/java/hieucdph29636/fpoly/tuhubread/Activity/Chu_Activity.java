@@ -14,18 +14,25 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
+import hieucdph29636.fpoly.tuhubread.DAO.DonNapTienDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.NhanVienDAO;
+import hieucdph29636.fpoly.tuhubread.DTO.DonNapTien;
 import hieucdph29636.fpoly.tuhubread.DTO.NhanVien;
 import hieucdph29636.fpoly.tuhubread.R;
+import hieucdph29636.fpoly.tuhubread.adapter.DonNapTien_Adapter;
 import hieucdph29636.fpoly.tuhubread.adapter.NhanVienAdapter;
 import hieucdph29636.fpoly.tuhubread.adapter.ViewPagerAdapter;
 
 public class Chu_Activity extends AppCompatActivity {
     private RecyclerView rcv;
 
-    NhanVienDAO nhanVienDAO;
-    ArrayList<NhanVien> dsnv ;
-    NhanVienAdapter nhanVienAdapter;
+//    NhanVienDAO nhanVienDAO;
+//    ArrayList<NhanVien> dsnv ;
+//    NhanVienAdapter nhanVienAdapter;
+
+    DonNapTienDAO donNapTienDAO;
+    ArrayList<DonNapTien> dsdnt;
+    DonNapTien_Adapter donNapTien_adapter;
 
     private ViewPager viewPager;
     BottomNavigationView bottomNavigationView;
@@ -33,13 +40,21 @@ public class Chu_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chu);
-        // todo: nếu muốn màn hình chủ giống khách or something? hãy sửa lại phần layout dòng trên
+        //todo: nếu muốn màn hình chủ giống khách or something? hãy sửa lại phần layout dòng trên
 
-            rcv = findViewById(R.id.rcv);
-            nhanVienDAO = new NhanVienDAO(this);
-            dsnv = nhanVienDAO.getAll_nv(this);
-            nhanVienAdapter = new NhanVienAdapter(this,dsnv);
-            rcv.setAdapter(nhanVienAdapter);
+           rcv = findViewById(R.id.rcv);
+//            nhanVienDAO = new NhanVienDAO(this);
+//            dsnv = nhanVienDAO.getAll_nv(this);
+//            nhanVienAdapter = new NhanVienAdapter(this,dsnv);
+//            rcv.setAdapter(nhanVienAdapter);
+
+
+        donNapTienDAO = new DonNapTienDAO(this);
+        dsdnt = donNapTienDAO.getAll_donNapTien(this);
+        donNapTien_adapter = new DonNapTien_Adapter(this,dsdnt);
+        rcv.setAdapter(donNapTien_adapter);
+
+
 
 
            // viewPager = findViewById(R.id.view_pager1);

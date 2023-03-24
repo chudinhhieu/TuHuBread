@@ -14,20 +14,22 @@ import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class DonNapTienDAO {
 
+    DbHelper dbHelper;
+
+    public DonNapTienDAO(Context context) {
+        dbHelper = new DbHelper(context);
+    }
     public static ArrayList<DonNapTien> getAll_donNapTien(Context context){
         DbHelper helper  = new DbHelper(context);
         ArrayList<DonNapTien> ds_dnt = new ArrayList<>();
         SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cs = db.rawQuery("Select * from DonNapTien", null);
-        while ((!cs.isAfterLast())){
-            int id_DonNapTien = cs.getInt(0);
-            int id_khachHang = cs.getInt(1);
-            String thoiGianTao = cs.getString(2);
-            int trangThai = cs.getInt(3);
-            int tienNap = cs.getInt(4);
-            byte[] anhHoaDon = cs.getBlob(5);
-            DonNapTien dnt = new DonNapTien(id_DonNapTien,id_khachHang,thoiGianTao,trangThai,tienNap,anhHoaDon);
-            ds_dnt.add(dnt);
+
+        if (cs.getCount() !=0){
+            cs.moveToFirst();
+            do {
+                ds_dnt.add(new DonNapTien(cs.getInt(0),cs.getInt(1),cs.getString(2), cs.getInt(3),cs.getInt(4),cs.getBlob(5)));
+            }while (cs.moveToNext());
 
         }
         cs.close();
@@ -70,4 +72,14 @@ public class DonNapTienDAO {
         int row = db.delete("DonNapTien","id_DonNapTien=?",new String[]{ttdonnaptien.getid_DonNapTien()+" "});
         return (row>0);
     }
+
+//    while ((!cs.isAfterLast())){
+//            int id_DonNapTien = cs.getInt(0);
+//            int id_khachHang = cs.getInt(1);
+//            String thoiGianTao = cs.getString(2);
+//            int trangThai = cs.getInt(3);
+//            int tienNap = cs.getInt(4);
+//            byte[] anhHoaDon = cs.getBlob(5);
+//            DonNapTien dnt = new DonNapTien(id_DonNapTien,id_khachHang,thoiGianTao,trangThai,tienNap,anhHoaDon);
+//            ds_dnt.add(dnt);
 }
