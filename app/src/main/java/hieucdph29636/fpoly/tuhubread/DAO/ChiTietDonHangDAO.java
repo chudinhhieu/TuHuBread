@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
+import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class ChiTietDonHangDAO {
@@ -20,7 +21,6 @@ public class ChiTietDonHangDAO {
         db=dbHelper.getWritableDatabase();
 
     }
-    public void close(){dbHelper.close();}
     public List<ChiTietDonHang> selectAll(){
         List<ChiTietDonHang> listABC = new ArrayList<ChiTietDonHang>();
 
