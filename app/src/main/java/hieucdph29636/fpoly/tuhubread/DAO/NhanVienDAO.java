@@ -25,7 +25,7 @@ public class NhanVienDAO {
             String taikhoan = cs.getString(3);
             String matkhau = cs.getString(4);
             String ngaysinh_nv = cs.getString(5);
-            String quyen_nv = cs.getString(6);
+            int quyen_nv = cs.getInt(6);
             NhanVien nv = new NhanVien(id_nv,ten_nv,sdt_nv,taikhoan,matkhau,ngaysinh_nv,quyen_nv);
             dsnv.add(nv);
 

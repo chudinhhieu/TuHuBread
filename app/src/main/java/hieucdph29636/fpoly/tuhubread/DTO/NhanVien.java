@@ -6,13 +6,13 @@ public class NhanVien {
   private int id_NhanVien;
   private String hoTen,soDienThoai,taiKhoan,matKhau;
   private String ngaySinh;
-  private String quyenNhanVien;
+  private Integer quyenNhanVien;
 
 
     public NhanVien() {
     }
 
-    public NhanVien(int id, String hoTen, String soDienThoai, String taiKhoan, String matKhau, String ngaySinh, String quyenNhanVien) {
+    public NhanVien(int id, String hoTen, String soDienThoai, String taiKhoan, String matKhau, String ngaySinh, Integer quyenNhanVien) {
         this.id_NhanVien = id;
         this.hoTen = hoTen;
         this.soDienThoai = soDienThoai;
@@ -70,11 +70,11 @@ public class NhanVien {
         this.ngaySinh = ngaySinh;
     }
 
-    public String getQuenNhanVien() {
+    public Integer getQuenNhanVien() {
         return quyenNhanVien;
     }
 
-    public void setQuenNhanVien(String quenNhanVien) {
+    public void setQuenNhanVien(Integer quenNhanVien) {
         this.quyenNhanVien = quenNhanVien;
     }
 }

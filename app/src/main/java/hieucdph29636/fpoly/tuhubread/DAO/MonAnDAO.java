@@ -23,8 +23,8 @@ public class MonAnDAO {
         db=dbHelper.getWritableDatabase();
     }
     public void close(){dbHelper.close();}
-    public List<MonAn> selectAll(){
-        List<MonAn> listPro = new ArrayList<MonAn>();
+    public ArrayList<MonAn> selectAll(){
+        ArrayList<MonAn> listPro = new ArrayList<MonAn>();
 
         Cursor c = db.rawQuery("SELECT * FROM MonAn ",null);
 
@@ -35,7 +35,7 @@ public class MonAnDAO {
                 int _gia=c.getInt(2);
                 String _mota=c.getString(3);
                 String _thanhphan=c.getString(4);
-                String _trangThai=c.getString(5);
+                int _trangThai=c.getInt(5);
                 int id_LoaiDoAn=c.getInt(6);
                 int _anh=c.getInt(7);
                 MonAn tmpLoai = new MonAn( _id, _name,_gia,_mota,_thanhphan,_trangThai,id_LoaiDoAn,_anh);

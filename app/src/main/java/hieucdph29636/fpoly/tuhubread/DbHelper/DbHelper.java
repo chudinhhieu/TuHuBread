@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class DbHelper extends SQLiteOpenHelper {
     public static final String DB_NAME="Duan1";
-    public static final int DB_VERSION=1;
+    public static final int DB_VERSION=4;
     public DbHelper(@Nullable Context context) {
         super(context, DB_NAME, null,DB_VERSION);
     }
@@ -17,12 +17,24 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sql_Loai="create table LoaiMonAn("+"id_loaiDoAn integer primary key Autoincrement,"+"tenLoai text not null)";
         db.execSQL(sql_Loai);
+        db.execSQL("INSERT INTO LoaiMonAn(id_loaiDoAn,tenLoai) VALUES(1,'banh mì'),(2,'sandwich'),(3,'nuoc')");
         String sql_Mon="create table MonAn("+"id_MonAn integer primary key autoincrement,"+
                 "tenMon text not null,"+"gia number not null,"+
                 "moTa text not null,"+"thanhPhan text not null,"+
-                "trangThai text not null,"+"id_loaiDoAn integer references MonAn(id_MonAn),"+
-                "anhMonAn blod not null)";
+                "trangThai integer not null,"+"id_loaiDoAn integer references LoaiMonAn(id_loaiDoAn),"+
+                "anhMonAn blod)";
         db.execSQL(sql_Mon);
+        db.execSQL("INSERT INTO MonAn (id_MonAn, tenMon, gia,moTa,thanhPhan,trangThai,id_loaiDoAn,anhMonAn)\n" +
+                "VALUES (1,'banh 1',35000,'ngon lắm','rau củ',1,1,null)," +
+                "(2,'banh 2',35000,'ngon lắm','rau củ',1,1,null)," +
+                "(3,'banh 3',35000,'ngon lắm','rau củ',1,1,null)," +
+                "(4,'banh sw1',25000,'ngon lắm','rau củ',2,2,null)," +
+                "(5,'banh sw2',25000,'ngon lắm','rau củ',1,2,null)," +
+                "(6,'banh sw3',25000,'ngon lắm','rau củ',1,2,null)," +
+                "(7,'nước 1',15000,'ngon lắm','rau củ',2,3,null)," +
+                "(8,'nước 2',15000,'ngon lắm','rau củ',1,3,null)," +
+                "(9,'nước 3',15000,'ngon lắm','rau củ',1,3,null)," +
+                "(10,'nước 4',15000,'ngon lắm','rau củ',1,3,null);");
         String sql_KhuyenMai="create table KhuyenMai("+"id_KhuyenMai integer primary key autoincrement,"+"code text not null,"+
                 "moTaKM text not null,"+
                 "ngayBatDau date not null,"+
@@ -44,21 +56,20 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(sql_DonHang);
         //Chi tiết đơn hàng
         String sql_ChiTietDonHang = "create table ChiTietDonHang(" + "id_ct integer primary key Autoincrement," +
-                "id_donHang integer references DonHang," + "id_monAn integer references MonAn," +
+                "id_donHang integer references DonHang(id_madonhang)," + "id_monAn integer references MonAn(id_MonAn)," +
                 "soLuong int, " + "giaTien number not null)";
         db.execSQL(sql_ChiTietDonHang);
         //Món ăn yêu thích
-        String sql_MonAnYeuThich = "create table MonAnYeuThich(" + "id_mamonan integer references MonAn," + "id_khachHang integer references KhachHang)";
+        String sql_MonAnYeuThich = "create table MonAnYeuThich(" + "id_mamonan integer references MonAn(id_MonAn)," + "id_khachHang integer references KhachHang(id_makhachhang))";
         db.execSQL(sql_MonAnYeuThich);
-
         // Nhân Viên
-        String sql_NhanVien="create table NhanVien("+"id_NhanVien integer primary key autoincrement,"+"code text not null,"+
+        String sql_NhanVien="create table NhanVien("+"id_NhanVien integer primary key autoincrement,"+
                 "hoTen text not null,"+
                 "soDienThoai text not null,"+
                 "taiKhoan text not null,"+
                 "matKhau text not null,"+
                 "ngaySinh date not null,"+
-                "quyenNhanVien text not null)";
+                "quyenNhanVien int not null)";
         db.execSQL(sql_NhanVien);
 
         // Đánh giá
