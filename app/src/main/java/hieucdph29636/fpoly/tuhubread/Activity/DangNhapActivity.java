@@ -1,17 +1,18 @@
-package hieucdph29636.fpoly.tuhubread;
+package hieucdph29636.fpoly.tuhubread.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import hieucdph29636.fpoly.tuhubread.R;
 
 public class DangNhapActivity extends AppCompatActivity {
     TextInputLayout edL_taiKhoan, edL_matKhau;
@@ -37,7 +38,12 @@ public class DangNhapActivity extends AppCompatActivity {
                 if (kiemTraKyTu()){
                     return;
                 }
-                startActivity(new Intent(DangNhapActivity.this,MainActivity.class));
+                 if(ed_taiKhoan.getText().toString().equals("admin") || ed_matKhau.getText().toString().equals("admin123")){
+                    Intent intent = new Intent(DangNhapActivity.this,Chu_Activity.class);
+                    startActivity(intent);
+                    return;
+                }
+                startActivity(new Intent(DangNhapActivity.this, MainActivity.class));
             }
         });
     }

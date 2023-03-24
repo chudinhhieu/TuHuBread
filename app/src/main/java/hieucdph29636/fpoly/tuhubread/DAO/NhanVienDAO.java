@@ -12,22 +12,23 @@ import hieucdph29636.fpoly.tuhubread.DTO.NhanVien;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class NhanVienDAO {
+    DbHelper dbHelper;
 
-    public static ArrayList<NhanVien> getAll_nv( Context context){
+    public NhanVienDAO(Context context) {
+        dbHelper = new DbHelper(context);
+    }
+
+    public static ArrayList<NhanVien> getAll_nv(Context context){
         DbHelper helper  = new DbHelper(context);
         ArrayList<NhanVien> dsnv = new ArrayList<>();
         SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cs = db.rawQuery("Select * from NhanVien", null);
-        while ((!cs.isAfterLast())){
-            int id_nv = cs.getInt(0);
-            String ten_nv = cs.getString(1);
-            String sdt_nv = cs.getString(2);
-            String taikhoan = cs.getString(3);
-            String matkhau = cs.getString(4);
-            String ngaysinh_nv = cs.getString(5);
-            int quyen_nv = cs.getInt(6);
-            NhanVien nv = new NhanVien(id_nv,ten_nv,sdt_nv,taikhoan,matkhau,ngaysinh_nv,quyen_nv);
-            dsnv.add(nv);
+
+        if (cs.getCount() !=0){
+            cs.moveToFirst();
+            do {
+                dsnv.add(new NhanVien(cs.getInt(0), cs.getString(1),cs.getString(2),cs.getString(3), cs.getString(4),cs.getString(5), cs.getInt(6)));
+            }while (cs.moveToNext());
 
         }
         cs.close();
@@ -77,3 +78,13 @@ public class NhanVienDAO {
 
 
 }
+//  while ((!cs.isAfterLast())){
+//          int id_nv = cs.getInt(0);
+//          String ten_nv = cs.getString(1);
+//          String sdt_nv = cs.getString(2);
+//          String taikhoan = cs.getString(3);
+//          String matkhau = cs.getString(4);
+//          String ngaysinh_nv = cs.getString(5);
+//          int quyen_nv = cs.getInt(6);
+//          NhanVien nv = new NhanVien(id_nv,ten_nv,sdt_nv,taikhoan,matkhau,ngaysinh_nv,quyen_nv);
+//          dsnv.add(nv);

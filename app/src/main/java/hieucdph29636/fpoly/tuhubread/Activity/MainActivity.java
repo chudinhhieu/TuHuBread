@@ -1,4 +1,4 @@
-package hieucdph29636.fpoly.tuhubread;
+package hieucdph29636.fpoly.tuhubread.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import hieucdph29636.fpoly.tuhubread.R;
 import hieucdph29636.fpoly.tuhubread.adapter.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {

@@ -13,12 +13,22 @@ import hieucdph29636.fpoly.tuhubread.DTO.NhanVien;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class DanhGiaDAO {
+    DbHelper dbHelper;
+
+    public DanhGiaDAO(Context context) {
+        dbHelper = new DbHelper(context);
+    }
 
     public static ArrayList<DanhGia> getAll_danhGia(Context context){
         DbHelper helper  = new DbHelper(context);
         ArrayList<DanhGia> dsdg = new ArrayList<>();
         SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cs = db.rawQuery("Select * from DanhGia", null);
+
+
+
+
+
         while ((!cs.isAfterLast())){
             int id_DanhGia = cs.getInt(0);
             int id_khachHang = cs.getInt(1);
