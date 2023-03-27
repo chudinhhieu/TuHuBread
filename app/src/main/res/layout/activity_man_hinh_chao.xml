@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ManHinhChao">
+    tools:context=".Activity.ManHinhChao">
     <ImageView
         android:id="@+id/logo_mhc"
         android:src="@drawable/logo"

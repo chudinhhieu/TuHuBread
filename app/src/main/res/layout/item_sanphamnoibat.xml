@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="140dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginEnd="5dp"
+    app:cardElevation="3dp"
+   >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+        <ImageView
+            android:id="@+id/img_spnb"
+            android:layout_width="wrap_content"
+            android:layout_height="130dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/banh_mi_ga_nuong_sa"/>
+        <TextView
+            android:id="@+id/tv_ten_spnb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="@font/mali"
+            android:textColor="@color/black"
+            android:text="Bánh mì"/>
+        <TextView
+            android:id="@+id/tv_gia_spnb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:fontFamily="@font/mali"
+            android:textColor="@color/gray"
+            android:text="30000đ"/>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_mua_spnb"
+            app:cardCornerRadius="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_btn_spnb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mali"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="Mua"/>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+    
+</androidx.cardview.widget.CardView>
