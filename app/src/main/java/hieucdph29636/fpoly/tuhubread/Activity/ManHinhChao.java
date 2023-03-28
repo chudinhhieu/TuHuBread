@@ -1,4 +1,4 @@
-package hieucdph29636.fpoly.tuhubread;
+package hieucdph29636.fpoly.tuhubread.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
-import hieucdph29636.fpoly.tuhubread.Activity.DangNhapActivity;
+import hieucdph29636.fpoly.tuhubread.R;
 
 public class ManHinhChao extends AppCompatActivity {
     ImageView logo;

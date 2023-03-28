@@ -13,9 +13,6 @@
         android:theme="@style/Theme.TuHuBread"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.Chi_Tiet_Khuyen_Mai"
-            android:exported="false" />
-        <activity
             android:name=".Activity.ChiTiet_Don_nap_tien"
             android:exported="false" />
         <activity
@@ -39,7 +36,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activity.KhuyenMaiActivity"
+            android:name=".ManHinhChao"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
