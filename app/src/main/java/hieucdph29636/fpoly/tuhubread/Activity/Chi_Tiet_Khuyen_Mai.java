@@ -65,6 +65,7 @@ public class Chi_Tiet_Khuyen_Mai extends AppCompatActivity {
                     Toast.makeText(Chi_Tiet_Khuyen_Mai.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
                     khuyenMaiDAO.selectAll();
                     onBackPressed();
+
                 }
 
             }
