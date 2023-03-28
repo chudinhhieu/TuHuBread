@@ -13,12 +13,18 @@
         android:theme="@style/Theme.TuHuBread"
         tools:targetApi="31">
         <activity
-            android:name=".ChiTiet_KhachHang"
+            android:name=".Activity.ChiTiet_KhachHang"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".Activity.Ds_DonNapTien_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Ds_nv_Activity"
+            android:exported="false" />
         <activity
             android:name=".Activity.ChiTiet_Don_nap_tien"
             android:exported="false" />

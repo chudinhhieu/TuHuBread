@@ -24,6 +24,7 @@ public class DonNapTien_Adapter extends RecyclerView.Adapter<DonNapTien_Adapter.
     Context context;
     ArrayList<DonNapTien> ds_dnt;
 
+
     public DonNapTien_Adapter(Context context, ArrayList<DonNapTien> ds_dnt) {
         this.context = context;
         this.ds_dnt = ds_dnt;
@@ -31,16 +32,27 @@ public class DonNapTien_Adapter extends RecyclerView.Adapter<DonNapTien_Adapter.
 
     @NonNull
     @Override
-    public DonNapTien_Adapter.ViewHolder1 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder1 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         View view = inflater.inflate(R.layout.item_ds_don_nap_tien,parent,false);
-        return new DonNapTien_Adapter.ViewHolder1(view) ;
+        return new ViewHolder1(view) ;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DonNapTien_Adapter.ViewHolder1 holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder1 holder, int position) {
+
         int index = position;
-        holder.tv_demo_dnt.setText(ds_dnt.get(index).getid_DonNapTien());
+        holder.tv_madon_dnt.setText(ds_dnt.get(index).getid_DonNapTien()+"");
+        holder.tv_tien_dnt.setText(ds_dnt.get(index).getTienNap()+"");
+        holder.tv_tt_dnt.setText(ds_dnt.get(index).getTrangThai()+"");
+
+        int trangthai = Integer.parseInt(holder.tv_tt_dnt.getText().toString());
+        if (trangthai == 0) {
+            holder.tv_tt_dnt.setText("Chưa thanh toán");
+        } else {
+            holder.tv_tt_dnt.setText("Đã thanh toán");
+        }
+
 
         holder.linear_dnt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,12 +79,14 @@ public class DonNapTien_Adapter extends RecyclerView.Adapter<DonNapTien_Adapter.
     }
 
     public class ViewHolder1 extends RecyclerView.ViewHolder{
-        TextView tv_demo_dnt;
+        TextView tv_madon_dnt,tv_tien_dnt,tv_tt_dnt;
         LinearLayout linear_dnt;
         public ViewHolder1(@NonNull View itemView) {
             super(itemView);
           linear_dnt = itemView.findViewById(R.id.linear_dnt);
-          tv_demo_dnt = itemView.findViewById(R.id.tv_demo_dnt);
+          tv_madon_dnt = itemView.findViewById(R.id.tv_madon_dnt);
+          tv_tien_dnt = itemView.findViewById(R.id.tv_tien_dnt);
+          tv_tt_dnt = itemView.findViewById(R.id.tv_tt_dnt);
         }
     }
 

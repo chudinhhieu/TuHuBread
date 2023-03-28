@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
-import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class ChiTietDonHangDAO {

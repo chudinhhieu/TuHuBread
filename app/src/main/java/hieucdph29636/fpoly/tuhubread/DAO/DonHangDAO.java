@@ -11,8 +11,7 @@ import java.util.List;
 
 
 import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
-import hieucdph29636.fpoly.tuhubread.DTO.KhachHang;
-import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
+
 
 public class DonHangDAO {
     SQLiteDatabase db;

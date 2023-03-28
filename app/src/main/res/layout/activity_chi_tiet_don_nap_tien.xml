@@ -206,14 +206,47 @@
 
         </LinearLayout>
 
+    <LinearLayout
 
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Insert Ảnh nạp tiền"
-        android:textSize="25dp"
-        android:textColor="#ED0A0A"
+        android:layout_below="@id/tv_ctls"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp">
+
+        <ImageView
+
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/img_icon" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" Ảnh nạp tiền:"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+
+            />
+
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/imgAnhHoaDon"
         />
+
+
 
         <LinearLayout
             android:layout_width="match_parent"

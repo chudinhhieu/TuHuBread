@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import hieucdph29636.fpoly.tuhubread.DTO.NhanVien;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
@@ -67,10 +66,10 @@ public class NhanVienDAO {
         return (row>0);
     }
 
-    public static boolean delete_nv(Context context, NhanVien ttnhanvien){
+    public static boolean delete_nv(Context context, int id){
         DbHelper helper = new DbHelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
-        int row = db.delete("NhanVien","id_NhanVien=?",new String[]{ttnhanvien.getId()+" "});
+        int row = db.delete("NhanVien","id_NhanVien=?",new String[]{id+" "});
         return (row>0);
     }
 

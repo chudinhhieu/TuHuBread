@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
     android:layout_height="match_parent"
     tools:context=".Activity.Chu_Activity">
 
-    <!--    <androidx.viewpager.widget.ViewPager-->
-<!--        android:id="@+id/view_pager1"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_above="@id/bottom_nav1" />-->
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Danh sách nhân viên"
+    android:id="@+id/btn_dsnv"
+    />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv"
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="733dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:layout_marginTop="50dp"
+        android:layout_height="wrap_content"
+        android:text="Danh sách đơn nạp tiền"
+        android:id="@+id/btn_dsdnt"
+        />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav1"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-
-        app:itemBackground="@color/white"
-        app:itemIconTint="@color/custom_color_bottom_nav"
-        app:itemTextColor="@color/custom_color_bottom_nav"
-        app:labelVisibilityMode="selected"
-        app:menu="@menu/menu_bottom_nav" />
 </LinearLayout>

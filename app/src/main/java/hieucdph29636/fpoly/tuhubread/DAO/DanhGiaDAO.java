@@ -5,11 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.sql.Blob;
 import java.util.ArrayList;
 
 import hieucdph29636.fpoly.tuhubread.DTO.DanhGia;
-import hieucdph29636.fpoly.tuhubread.DTO.NhanVien;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class DanhGiaDAO {

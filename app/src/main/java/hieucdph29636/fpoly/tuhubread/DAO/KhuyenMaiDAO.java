@@ -5,13 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import hieucdph29636.fpoly.tuhubread.DTO.KhuyenMai;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
+import hieucdph29636.fpoly.tuhubread.DTO.KhuyenMai;
+
 
 public class KhuyenMaiDAO {
     SQLiteDatabase db;

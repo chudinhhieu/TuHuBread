@@ -7,9 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-import hieucdph29636.fpoly.tuhubread.DTO.DanhGia;
 import hieucdph29636.fpoly.tuhubread.DTO.DonNapTien;
-import hieucdph29636.fpoly.tuhubread.DTO.NhanVien;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class DonNapTienDAO {
@@ -66,10 +64,10 @@ public class DonNapTienDAO {
         return (row>0);
     }
 
-    public static boolean delete_donNapTien(Context context, DonNapTien ttdonnaptien){
+    public static boolean delete_donNapTien(Context context, int id){
         DbHelper helper = new DbHelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
-        int row = db.delete("DonNapTien","id_DonNapTien=?",new String[]{ttdonnaptien.getid_DonNapTien()+" "});
+        int row = db.delete("DonNapTien","id_DonNapTien=?",new String[]{id+" "});
         return (row>0);
     }
 

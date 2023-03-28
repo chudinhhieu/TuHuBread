@@ -11,12 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import hieucdph29636.fpoly.tuhubread.DTO.KhachHang;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
+import hieucdph29636.fpoly.tuhubread.DTO.KhachHang;
+
 
 public class KhachHangDAO {
     SQLiteDatabase db;
-    DbHelper dbHelper;
+   DbHelper dbHelper;
     public KhachHangDAO(Context context){
         dbHelper= new DbHelper(context);
 

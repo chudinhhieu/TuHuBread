@@ -2,28 +2,98 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
+
     android:id="@+id/linear_dnt"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_tt_dnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trạng thái"
+        android:fontFamily="@font/mali"
+        android:textSize="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="180dp"
+        android:textColor="#E10D0D"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="130dp"
-            android:src="@drawable/money"
-            />
 
-        <TextView
-            android:id="@+id/tv_demo_dnt"
+        <ImageView
+            android:layout_width="83dp"
+            android:layout_height="130dp"
+            android:src="@drawable/money" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đây là demo của đơn nạp tiền"
-            android:textSize="25dp"
-            android:layout_marginTop="20dp"
-            />
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+
+                    android:fontFamily="@font/mali"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mã đơn: "
+                    android:textSize="25dp"
+                    android:layout_marginLeft="10dp"
+
+                    />
+                <TextView
+                    android:id="@+id/tv_madon_dnt"
+                    android:fontFamily="@font/mali"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TH123"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="10dp"
+
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+
+                    android:fontFamily="@font/mali"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tổng đơn: "
+                    android:textSize="25dp"
+                    android:layout_marginLeft="10dp"
+
+                    />
+                <TextView
+                    android:id="@+id/tv_tien_dnt"
+                    android:fontFamily="@font/mali"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="35000"
+                    android:textSize="25dp"
+                    android:layout_marginLeft="10dp"
+
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
 
 
     </LinearLayout>
