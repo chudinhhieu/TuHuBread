@@ -7,112 +7,46 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DbHelper extends SQLiteOpenHelper {
-    public static final String DB_NAME="Duan1";
-    public static final int DB_VERSION=3;
-    public DbHelper(@Nullable Context context) {
-        super(context, DB_NAME, null,DB_VERSION);
+    public static final String DB_NAME= "Duan1";
+    public static final int DB_VERISON=1;
+    public DbHelper(@Nullable Context context){
+        super(context,DB_NAME,null,DB_VERISON);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql_Loai="create table LoaiMonAn("+"id_loaiDoAn integer primary key Autoincrement,"+"tenLoai text not null)";
-        db.execSQL(sql_Loai);
-        String sql_Mon="create table MonAn("+"id_MonAn integer primary key autoincrement,"+
-                "tenMon text not null,"+"gia number not null,"+
-                "moTa text not null,"+"thanhPhan text not null,"+
-                "trangThai text not null,"+"id_loaiDoAn integer references MonAn(id_MonAn),"+
-                "anhMonAn blod not null)";
-        db.execSQL(sql_Mon);
-        String sql_KhuyenMai="create table KhuyenMai("+"id_KhuyenMai integer primary key autoincrement,"+"code text not null,"+
-                "moTaKM text not null,"+
-                "ngayBatDau date not null,"+
-                "ngayKetThuc date not null,"+
-                "soTienGiam number not null)";
-        db.execSQL(sql_KhuyenMai);
-        db.execSQL("INSERT INTO KhuyenMai(id_KhuyenMai,code,moTaKM,ngayBatDau,ngayKetThuc,soTienGiam) VALUES(1,'code1','Khuyến mãi 1','11/02/2023','15/02/2023',15000)," +
-                "(2,'code2','Khuyến mãi 2','11/02/2023','15/02/2023',15000)," +
-                "(3,'code3','Khuyến mãi 3','11/02/2023','15/02/2023',15000)," +
-                "(4,'code4','Khuyến mãi 4','11/02/2023','15/02/2023',15000)," +
-                "(5,'code5','Khuyến mãi 5','11/02/2023','15/02/2023',15000)");
-        //Khách hàng
-        String sql_KhachHang = "create table KhachHang(" + "id_makhachhang integer primary key Autoincrement," +
-                "hoTen text not null," + "soDienThoai text not null," +
-                "taiKhoan text not null," + "matKhau text not null, " +
-                "ngaySinh date not null," + "diaChi text not null," +
+        String sql_KhachHang="create table KhachHang("+"id_makhachhang integer primary key Autoincrement,"+
+                "hoTen text not null,"+"soDienThoai text not null,"+
+                "taiKhoan text not null,"+"matKhau text not null, "+
+                "ngaySinh date not null,"+"diaChi text not null,"+
                 "soDuTaiKhoan number not null)";
         db.execSQL(sql_KhachHang);
-        db.execSQL("INSERT INTO KhachHang values (1,'nguyen van a','0999998686','a12','12434','2/1/2000','Thai Binh',3000)");
-        db.execSQL("INSERT INTO KhachHang values (2,'nguyen duc trung','0386998686','trungnd','1234','2/7/2002','Thai Binh',32000)");
-        db.execSQL("INSERT INTO KhachHang values (3,'nguyen xuan truong','0869998686','truonnx','90888','6/7/2003','Ha Noi',5000)");
-        db.execSQL("INSERT INTO KhachHang values (4,'nguyen van a','0369998875','a','1243799','1/1/2001','Quang Ninh',10000)");
-        //Đơn hàng
-        String sql_DonHang = "create table DonHang(" + "id_madonhang integer primary key Autoincrement," +
-                "id_khachHang integer references KhachHang(id_makhachhang)," + "thoiGianTao date not null," +
-                "trangThai int," + "id_khuyenMai integer references KhuyenMai(id_KhuyenMai), " +
+
+        String sql_DonHang="create table DonHang("+"id_madonhang integer primary key Autoincrement,"+
+                "id_khachHang integer references KhachHang,"+"thoiGianTao date not null,"+
+                "trangThai int,"+"id_khuyenMai integer references KhuyenMai, "+
                 "tongTien number not null)";
         db.execSQL(sql_DonHang);
-        //Chi tiết đơn hàng
-        String sql_ChiTietDonHang = "create table ChiTietDonHang(" + "id_ct integer primary key Autoincrement," +
-                "id_donHang integer references DonHang," + "id_monAn integer references MonAn," +
-                "soLuong int, " + "giaTien number not null)";
+
+        String sql_ChiTietDonHang="create table ChiTietDonHang("+"id_id integer primary key Autoincrement,"+
+                "id_donHang integer references DonHang,"+"id_monAn integer references MonAn,"+
+                "soLuong int, "+"giaTien number not null)";
         db.execSQL(sql_ChiTietDonHang);
-        //Món ăn yêu thích
-        String sql_MonAnYeuThich = "create table MonAnYeuThich(" + "id_mamonan integer references MonAn," + "id_khachHang integer references KhachHang)";
+
+        String sql_MonAnYeuThich="create table MonAnYeuThich("+"id_mamonan integer references MonAn,"+"id_khachHang integer references KhachHang)";
         db.execSQL(sql_MonAnYeuThich);
-
-        // Nhân Viên
-        String sql_NhanVien="create table NhanVien("+"id_NhanVien integer primary key autoincrement,"+"code text not null,"+
-                "hoTen text not null,"+
-                "soDienThoai text not null,"+
-                "taiKhoan text not null,"+
-                "matKhau text not null,"+
-                "ngaySinh date not null,"+
-                "quyenNhanVien text not null)";
-        db.execSQL(sql_NhanVien);
-
-        // Đánh giá
-        String sql_DanhGia="create table DanhGia("+"id_DanhGia integer primary key autoincrement,"+"code text not null,"+
-                "id_khachHang integer references KhachHang(id_makhachhang),"+
-                "id_monAn integer references MonAn(id_MonAn),"+
-                " binhLuan text not null,"+
-                "diem integer not null,"+
-                "anhDanhGia blob not null)";
-        db.execSQL(sql_DanhGia);
-
-        // Đơn nạp tiền
-        String sql_DonNapTien="create table DonNapTien("+"id_DonNapTien integer primary key autoincrement,"+"code text not null,"+
-                "id_khachHang integer references KhachHang(id_makhachhang),"+
-                "thoiGianTao date not null,"+
-                "trangThai integer not null,"+
-                "tienNap number not null,"+
-                "anhHoaDon blob not null)";
-        db.execSQL(sql_DonNapTien);
-
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql_Loai="drop table if exists LoaiMonAn";
-        db.execSQL(sql_Loai);
-        String sql_Mon="drop table if exists MonAn";
-        db.execSQL(sql_Mon);
-        String sql_KM="drop table if exists KhuyenMai";
-        db.execSQL(sql_KM);
-        String sql_NhanVien = "drop table if exists NhanVien";
-        db.execSQL(sql_NhanVien);
-        String sql_DanhGia = "drop table if exists DanhGia";
-        db.execSQL(sql_DanhGia);
-        String sql_DonNapTien = "drop table if exists DonNapTien";
-        db.execSQL(sql_DonNapTien);
-        String sql_KhachHang = "drop table if exists KhachHang";
+        String sql_KhachHang="drop table if exists KhachHang";
         db.execSQL(sql_KhachHang);
-        String sql_DonHang = "drop table if exists DonHang";
+        String sql_DonHang="drop table if exists DonHang";
         db.execSQL(sql_DonHang);
-        String sql_ChiTietDonHang = "drop table if exists ChiTietDonHang";
+        String sql_ChiTietDonHang="drop table if exists ChiTietDonHang";
         db.execSQL(sql_ChiTietDonHang);
-        String sql_MonAnYeuThich = "drop table if exists MonAnYeuThich";
+        String sql_MonAnYeuThich="drop table if exists MonAnYeuThich";
         db.execSQL(sql_MonAnYeuThich);
-
     }
 }
