@@ -3,11 +3,14 @@ package hieucdph29636.fpoly.tuhubread.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -18,7 +21,7 @@ public class DangNhapActivity extends AppCompatActivity {
     TextInputLayout edL_taiKhoan, edL_matKhau;
     TextInputEditText ed_taiKhoan, ed_matKhau;
     Button btn_dangNhap;
-
+    CheckBox chk_nhoTaiKhoan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +31,30 @@ public class DangNhapActivity extends AppCompatActivity {
         ed_taiKhoan = findViewById(R.id.ed_taiKhoan);
         ed_matKhau = findViewById(R.id.ed_matKhau);
         btn_dangNhap = findViewById(R.id.btn_dangNhap);
+        chk_nhoTaiKhoan = findViewById(R.id.chk_nhoTaiKhoan);
+        SharedPreferences sharedPreferences = getSharedPreferences("nhotaiKhoan", MODE_PRIVATE);
+        chk_nhoTaiKhoan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                if (isChecked) {
+                    editor.putString("username", ed_taiKhoan.getText().toString());
+                    editor.putString("password", ed_matKhau.getText().toString());
+                } else {
+                    editor.remove("username");
+                    editor.remove("password");
+                }
+                editor.apply();
+            }
+        });
+        String username = sharedPreferences.getString("username", "");
+        String password = sharedPreferences.getString("password", "");
+        if (!username.isEmpty() && !password.isEmpty()) {
+            ed_taiKhoan.setText(username);
+            ed_matKhau.setText(password);
+        } else {
+            // Không có tài khoản và mật khẩu được lưu trữ.
+        }
         doiMauButton();
         btn_dangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
