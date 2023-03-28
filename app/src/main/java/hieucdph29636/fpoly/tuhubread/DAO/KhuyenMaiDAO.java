@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +21,12 @@ public class KhuyenMaiDAO {
     dbHelper=new DbHelper(context);
     db=dbHelper.getWritableDatabase();
     }
+
     public void close(){dbHelper.close();}
     public List<KhuyenMai> selectAll(){
         List<KhuyenMai> listPro = new ArrayList<KhuyenMai>();
 
-        Cursor c = db.rawQuery("SELECT * FROM KhuyenMai ",null);
+        Cursor c = db.rawQuery("SELECT * FROM KhuyenMai",null);
 
         if(c.moveToFirst()){
             while (!c.isAfterLast()){
@@ -54,15 +56,14 @@ public class KhuyenMaiDAO {
         values.put("soTienGiam",objKM.getSoTienGiam()+"");
         return db.insert("KhuyenMai",null,values);
     }
-    public int updateKMai(KhuyenMai objKM){
+    public long updateKMai(KhuyenMai objKM){
         ContentValues values=new ContentValues();
         values.put("code",objKM.getCode());
         values.put("moTaKM", objKM.getMoTaKM());
         values.put("ngayBatDau",objKM.getNgayBatDau());
         values.put("ngayKetThuc", objKM.getNgayKetThuc());
         values.put("soTienGiam",objKM.getSoTienGiam());
-        String[] so=new String[]{objKM.getId_KhuyenMai()+""};
-        return db.update("khuyenMai",values,"id_KhuyenMai=?",so);
+        return db.update("KhuyenMai",values,"id_KhuyenMai=?",new String[]{String.valueOf(objKM.getId_KhuyenMai())});
     }
     public int deleteKMai(KhuyenMai objKM){
         String[] so=new String[]{objKM.getId_KhuyenMai()+""};
