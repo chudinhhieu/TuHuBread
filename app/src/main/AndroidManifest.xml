@@ -20,6 +20,12 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".Activity.DatMonActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Ds_MonAn"
+            android:exported="false" />
+        <activity
             android:name=".Activity.Ds_DonNapTien_Activity"
             android:exported="false" />
         <activity

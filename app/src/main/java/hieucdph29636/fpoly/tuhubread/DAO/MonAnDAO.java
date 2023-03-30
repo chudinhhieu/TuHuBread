@@ -29,12 +29,12 @@ public class MonAnDAO {
                 int _id = c.getInt(0);
                 String _name = c.getString(1);
                 int _gia=c.getInt(2);
-                String _mota=c.getString(3);
-                String _thanhphan=c.getString(4);
-                int _trangThai=c.getInt(5);
-                int id_LoaiDoAn=c.getInt(6);
-                int _anh=c.getInt(7);
-                MonAn tmpLoai = new MonAn( _id, _name,_gia,_mota,_thanhphan,_trangThai,id_LoaiDoAn,_anh);
+
+                String _thanhphan=c.getString(3);
+                int _trangThai=c.getInt(4);
+                int id_LoaiDoAn=c.getInt(5);
+                int _anh=c.getInt(6);
+                MonAn tmpLoai = new MonAn( _id, _name,_gia,_thanhphan,_trangThai,id_LoaiDoAn,_anh);
                 listPro.add( tmpLoai );
                 c.moveToNext();
             }
@@ -49,7 +49,6 @@ public class MonAnDAO {
         ContentValues values=new ContentValues();
         values.put("tenMon", objMon.getTenMon());
         values.put("gia",objMon.getGia()+"");
-        values.put("MoTa",objMon.getMoTa());
         values.put("thanhPhan",objMon.getThanhPhan());
         values.put("trangThai",objMon.getTrangThai());
         values.put("id_LoaiDoAn",objMon.getId_LoaiDoAn()+"");
@@ -60,7 +59,6 @@ public class MonAnDAO {
         ContentValues values=new ContentValues();
         values.put("tenMon", objMon.getTenMon());
         values.put("gia",objMon.getGia()+"");
-        values.put("MoTa",objMon.getMoTa());
         values.put("thanhPhan",objMon.getThanhPhan());
         values.put("trangThai",objMon.getTrangThai());
         values.put("id_LoaiDoAn",objMon.getId_LoaiDoAn()+"");
@@ -71,4 +69,31 @@ public class MonAnDAO {
     public int deleteMon(MonAn objMon){
         String[] tham_so=new String[]{objMon.getId_MonAn()+""};
         return db.delete("MonAn","id_MonAn=?",tham_so);}
+
+    public ArrayList<MonAn> chonTheoLoai(int id_loaiDoAn){
+        ArrayList<MonAn> listPro = new ArrayList<MonAn>();
+
+        Cursor c = db.rawQuery("SELECT * FROM MonAn where id_loaiDoAn=? ",new String[]{String.valueOf(id_loaiDoAn)});
+
+        if(c.moveToFirst()){
+            while (!c.isAfterLast()){
+                int _id = c.getInt(0);
+                String _name = c.getString(1);
+                int _gia=c.getInt(2);
+                String _thanhphan=c.getString(3);
+                int _trangThai=c.getInt(4);
+                int id_LoaiDoAn=c.getInt(5);
+                int _anh=c.getInt(6);
+                MonAn tmpLoai = new MonAn( _id, _name,_gia,_thanhphan,_trangThai,id_LoaiDoAn,_anh);
+                listPro.add( tmpLoai );
+                c.moveToNext();
+            }
+
+        }else{
+            Log.d("zzz", "selectAll: Không có dữ liệu");
+        }
+
+        return  listPro;
+    }
+
 }

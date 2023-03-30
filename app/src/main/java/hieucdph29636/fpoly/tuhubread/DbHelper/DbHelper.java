@@ -17,24 +17,32 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sql_Loai="create table LoaiMonAn("+"id_loaiDoAn integer primary key Autoincrement,"+"tenLoai text not null)";
         db.execSQL(sql_Loai);
-        db.execSQL("INSERT INTO LoaiMonAn(id_loaiDoAn,tenLoai) VALUES(1,'banh mì'),(2,'sandwich'),(3,'nuoc')");
+        db.execSQL("INSERT INTO LoaiMonAn(id_loaiDoAn,tenLoai) VALUES(0,'Bánh mì'),(1,'Sandwich'),(2,'Nước')");
         String sql_Mon="create table MonAn("+"id_MonAn integer primary key autoincrement,"+
-                "tenMon text not null,"+"gia number not null,"+
-                "moTa text not null,"+"thanhPhan text not null,"+
+                "tenMon text not null,"+"gia number not null,"+ "thanhPhan text,"+
                 "trangThai integer not null,"+"id_loaiDoAn integer references LoaiMonAn(id_loaiDoAn),"+
                 "anhMonAn blod)";
         db.execSQL(sql_Mon);
-        db.execSQL("INSERT INTO MonAn (id_MonAn, tenMon, gia,moTa,thanhPhan,trangThai,id_loaiDoAn,anhMonAn)\n" +
-                "VALUES (1,'banh 1',35000,'ngon lắm','rau củ',1,1,null)," +
-                "(2,'banh 2',35000,'ngon lắm','rau củ',1,1,null)," +
-                "(3,'banh 3',35000,'ngon lắm','rau củ',1,1,null)," +
-                "(4,'banh sw1',25000,'ngon lắm','rau củ',2,2,null)," +
-                "(5,'banh sw2',25000,'ngon lắm','rau củ',1,2,null)," +
-                "(6,'banh sw3',25000,'ngon lắm','rau củ',1,2,null)," +
-                "(7,'nước 1',15000,'ngon lắm','rau củ',2,3,null)," +
-                "(8,'nước 2',15000,'ngon lắm','rau củ',1,3,null)," +
-                "(9,'nước 3',15000,'ngon lắm','rau củ',1,3,null)," +
-                "(10,'nước 4',15000,'ngon lắm','rau củ',1,3,null);");
+        db.execSQL("INSERT INTO MonAn (id_MonAn, tenMon, gia,thanhPhan,trangThai,id_loaiDoAn,anhMonAn)\n" +
+                "VALUES (1,'Bánh mì xúc xích bò băm hầm',30000,'Thành phần: Xúc xích bò băm hầm,rau mùi,hành tây',1,0,null)," +
+                "(2,'Bánh mì xá xíu hongkong',35000,'Thành phần: Thịt xá xíu HongKong,rau mùi,dưa chuột,rau mix,sốt xá xíu,sốt hồng Tuhu',1,0,null)," +
+                "(3,'Bánh mì thịt heo nướng phá lấu',35000,'Thành phần: Thịt heo phá lấu,Pate,rau mùi,dưa chuột,rau mix,sốt hồng Tuhu',1,0,null)," +
+                "(4,'Bánh mì gà xoài cay',35000,'Thành phần: Gà cay,rau mix,xoài,sốt hồng Tuhu',1,0,null)," +
+                "(5,'Bánh mì gà nướng sả',30000,'Thành phần: Gà nướng sả,Pate,rau mùi,dưa chuột,rau mix,sốt hồng Tuhu',1,0,null)," +
+                "(6,'Bánh mì gà Hawaii',35000,'Thành phần: Gà Hawaii,rau mùi,hành tây tím,bắp cải tím,dứa,sốt hồng Tuhu',1,0,null)," +
+                "(7,'Bánh mì bò sốt tiêu đen',45000,'Thành phần: Bò sốt tiêu đen,dưa chuột,rau mùi,hành tây,bắp cải tím,sốt hồng Tuhu',1,0,null)," +
+                "(8,'Bánh mì bò sốt phô mai trứng muối',50000,'Thành phần: Bò sốt phô mai trứng muối,dưa chuột,rau mùi,hành tím muối,rau mix,sốt hồng Tuhu',1,0,null)," +
+                "(9,'Bánh mì bò miếng sốt phô mai',45000,'Thành phần: Bò sốt phô mai,dưa chuột,rau mùi,hành tím muối,rau mix,sốt hồng Tuhu',1,0,null)," +
+                "(10,'Sandwich phô mai sữa',30000,'Thành phần: Sandwich nóng giòn kèm theo phô mai sữa',1,1,null)," +
+                "(11,'Sandwich phô mai Socola',30000,'Thành phần: Sandwich nóng giòn kèm theo phô mai socola thanh ngọt',1,1,null)," +
+                "(12,'Sandwich phô mai xúc xích',30000,'Thành phần: Sandwich nóng giòn kèm theo phô mai xúc xích tiệt trùng',1,1,null)," +
+                "(13,'Sandwich phô mai pate',30000,'Thành phần: Sandwich nóng giòn kèm theo phô mai pate chất lượng',1,1,null)," +
+                "(14,'Sandwich phô mai jambon',30000,'Thành phần: Sandwich nóng giòn kèm theo phô mai jambon heo',1,1,null)," +
+                "(15,'Trà tắc khổng lồ',15000,'Thành phần: Trà tắc mát lạnh cùng với size cực đại',1,2,null)," +
+                "(16,'Trà cozy sữa',25000,'Thành phần: Trà Cozy mát lạnh cùng với vị sữa thanh mát',1,2,null)," +
+                "(17,'Trà chanh khổng lồ',15000,'Thành phần: Trà chanh mát lạnh cùng với size cực đại',1,2,null)," +
+                "(18,'Soda mojito',25000,'Thành phần: Soda mới lạ vị chanh',1,2,null)," +
+                "(19,'Milo cafe',25000,'Sữa Milo kết hợp cùng vị cà phê mới lạ',1,2,null);");
         String sql_KhuyenMai="create table KhuyenMai("+"id_KhuyenMai integer primary key autoincrement,"+"code text not null,"+
                 "moTaKM text not null,"+
                 "ngayBatDau date not null,"+
