@@ -26,7 +26,7 @@ public class DanhGiaDAO {
         if (cs.getCount() !=0){
             cs.moveToFirst();
             do {
-                dsdg.add(new DanhGia( cs.getInt(0), cs.getInt(1), cs.getInt(2), cs.getString(3),cs.getInt(4), cs.getBlob(5)));
+                dsdg.add(new DanhGia( cs.getInt(0), cs.getString(1), cs.getInt(2), cs.getString(3),cs.getInt(4), cs.getBlob(5)));
             }while (cs.moveToNext());
 
         }
@@ -41,7 +41,7 @@ public class DanhGiaDAO {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("id_DanhGia",ttdanhgia.getId_danhGia());
-        values.put("id_khachHang",ttdanhgia.getId_khachHang());
+        values.put("taiKhoan",ttdanhgia.getTaiKhoan());
         values.put("id_monAn",ttdanhgia.getId_monAn());
         values.put("binhLuan",ttdanhgia.getBinhLuan());
         values.put("diem",ttdanhgia.getDiem());
@@ -55,7 +55,7 @@ public class DanhGiaDAO {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("id_DanhGia",ttdanhgia.getId_danhGia());
-        values.put("id_khachHang",ttdanhgia.getId_khachHang());
+        values.put("taiKhoan",ttdanhgia.getTaiKhoan());
         values.put("id_monAn",ttdanhgia.getId_monAn());
         values.put("binhLuan",ttdanhgia.getBinhLuan());
         values.put("diem",ttdanhgia.getDiem());

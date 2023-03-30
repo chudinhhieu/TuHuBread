@@ -26,7 +26,7 @@ public class DonNapTienDAO {
         if (cs.getCount() !=0){
             cs.moveToFirst();
             do {
-                ds_dnt.add(new DonNapTien(cs.getInt(0),cs.getInt(1),cs.getString(2), cs.getInt(3),cs.getInt(4),cs.getBlob(5)));
+                ds_dnt.add(new DonNapTien(cs.getInt(0),cs.getString(1),cs.getString(2), cs.getInt(3),cs.getInt(4),cs.getBlob(5)));
             }while (cs.moveToNext());
 
         }
@@ -40,7 +40,7 @@ public class DonNapTienDAO {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("id_DonNapTien",ttdonnaptien.getid_DonNapTien());
-        values.put("id_khachHang",ttdonnaptien.getId_khachHang());
+        values.put("taiKhoan",ttdonnaptien.getTaiKhoan());
         values.put("thoiGianTao",ttdonnaptien.getThoiGianTao());
         values.put("trangThai",ttdonnaptien.getTrangThai());
         values.put("tienNap",ttdonnaptien.getTienNap());
@@ -55,7 +55,8 @@ public class DonNapTienDAO {
         ContentValues values = new ContentValues();
 
         values.put("id_DonNapTien",ttdonnaptien.getid_DonNapTien());
-        values.put("id_khachHang",ttdonnaptien.getId_khachHang());
+        values.put("taiKhoan",ttdonnaptien.getTaiKhoan());
+
         values.put("thoiGianTao",ttdonnaptien.getThoiGianTao());
         values.put("trangThai",ttdonnaptien.getTrangThai());
         values.put("tienNap",ttdonnaptien.getTienNap());

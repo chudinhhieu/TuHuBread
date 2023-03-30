@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class DbHelper extends SQLiteOpenHelper {
     public static final String DB_NAME="Duan1";
-    public static final int DB_VERSION=100;
+    public static final int DB_VERSION=1;
     public DbHelper(@Nullable Context context) {
         super(context, DB_NAME, null,DB_VERSION);
     }
@@ -55,19 +55,19 @@ public class DbHelper extends SQLiteOpenHelper {
                 "(4,'code4','Khuyến mãi 4','11/02/2023','15/02/2023',15000)," +
                 "(5,'code5','Khuyến mãi 5','11/02/2023','15/02/2023',15000)");
         //Khách hàng
-        String sql_KhachHang = "create table KhachHang(" + "id_makhachhang integer primary key Autoincrement," +
+        String sql_KhachHang = "create table KhachHang(" + "taiKhoan text primary key," +
                 "hoTen text not null," + "soDienThoai text not null," +
-                "taiKhoan text not null," + "matKhau text not null, " +
+                "matKhau text not null, " +
                 "ngaySinh date not null," + "diaChi text not null," +
-                "soDuTaiKhoan number not null)";
+                "soDuTaiKhoan number)";
         db.execSQL(sql_KhachHang);
-        db.execSQL("INSERT INTO KhachHang values (1,'nguyen van a','0999998686','a12','12434','2/1/2000','Thai Binh',3000)");
-        db.execSQL("INSERT INTO KhachHang values (2,'nguyen duc trung','0386998686','trungnd','1234','2/7/2002','Thai Binh',32000)");
-        db.execSQL("INSERT INTO KhachHang values (3,'nguyen xuan truong','0869998686','truonnx','90888','6/7/2003','Ha Noi',5000)");
-        db.execSQL("INSERT INTO KhachHang values (4,'nguyen van a','0369998875','a','1243799','1/1/2001','Quang Ninh',10000)");
+        db.execSQL("INSERT INTO KhachHang values ('chuhieu','Chu Đình Hiếu','0369066475','123456','15/11/2001','Quảng Ninh',3000)");
+        db.execSQL("INSERT INTO KhachHang values ('nguyentruong','Nguyễn Xuân Trường','0123456789','123456','2/7/2002','Thái Bình',32000)");
+        db.execSQL("INSERT INTO KhachHang values ('hahai','Hà Thị Ngọc Hải','0123456789','123456','6/7/2003','Hà Nội',5000)");
+        db.execSQL("INSERT INTO KhachHang values ('tanlinh','Nguyễn Tấn Linh','0123456789','123456','1/1/2001','Hà Nội',10000)");
         //Đơn hàng
         String sql_DonHang = "create table DonHang(" + "id_madonhang integer primary key Autoincrement," +
-                "id_khachHang integer references KhachHang(id_makhachhang)," + "thoiGianTao date not null," +
+                "taiKhoan text references KhachHang(taiKhoan)," + "thoiGianTao date not null," +
                 "trangThai int," + "id_khuyenMai integer references KhuyenMai(id_KhuyenMai), " +
                 "tongTien number not null)";
         db.execSQL(sql_DonHang);
@@ -77,44 +77,40 @@ public class DbHelper extends SQLiteOpenHelper {
                 "soLuong int, " + "giaTien number not null)";
         db.execSQL(sql_ChiTietDonHang);
         //Món ăn yêu thích
-        String sql_MonAnYeuThich = "create table MonAnYeuThich(" + "id_mamonan integer references MonAn(id_MonAn)," + "id_khachHang integer references KhachHang(id_makhachhang))";
+        String sql_MonAnYeuThich = "create table MonAnYeuThich(" + "id_mamonan integer references MonAn(id_MonAn)," + "taiKhoan text references KhachHang(taiKhoan))";
         db.execSQL(sql_MonAnYeuThich);
         // Nhân Viên
-        String sql_NhanVien="create table NhanVien("+"id_NhanVien integer primary key autoincrement,"+
+        String sql_NhanVien="create table NhanVien("+"taiKhoan text primary key,"+
                 "hoTen text not null,"+
                 "soDienThoai text not null,"+
-                "taiKhoan text not null,"+
                 "matKhau text not null,"+
                 "ngaySinh date not null,"+
-                "quyenNhanVien integer not null)";
+                "quyenNhanVien int not null)";
         db.execSQL(sql_NhanVien);
-        db.execSQL("insert into NhanVien(id_NhanVien,hoTen,soDienThoai,taiKhoan,matKhau,ngaySinh,quyenNhanVien)values(1,'Nguyễn Văn An',0912345644,'nhanvien1','123456','20/11/2020',1)");
-        db.execSQL("insert into NhanVien(id_NhanVien,hoTen,soDienThoai,taiKhoan,matKhau,ngaySinh,quyenNhanVien)values(2,'Nguyễn Thị Bình',0912345644,'nhanvien2','123456','20/11/2020',0)");
-        db.execSQL("insert into NhanVien(id_NhanVien,hoTen,soDienThoai,taiKhoan,matKhau,ngaySinh,quyenNhanVien)values(3,'Trần Văn Chinh',0912345644,'nhanvien3','123456','20/11/2020',2)");
-        db.execSQL("insert into NhanVien(id_NhanVien,hoTen,soDienThoai,taiKhoan,matKhau,ngaySinh,quyenNhanVien)values(4,'Đỗ Khánh Đoàn ',0912345644,'nhanvien4','123456','20/11/2020',2)");
-
+        db.execSQL("INSERT INTO NhanVien values ('nhanvien','Nhân Viên','0123456789','123456','1/1/2001',2)");
+        db.execSQL("INSERT INTO NhanVien values ('truongcuahang','Trưởng cửa hàng','0123456789','123456','1/1/2001',1)");
+        db.execSQL("INSERT INTO NhanVien values ('admin','Chủ của hàng','0123456789','123456','1/1/2001',0)");
 
         // Đánh giá
         String sql_DanhGia="create table DanhGia("+"id_DanhGia integer primary key autoincrement,"+"code text not null,"+
-                "id_khachHang integer references KhachHang(id_makhachhang),"+
+                "taiKhoan text references KhachHang(taiKhoan),"+
                 "id_monAn integer references MonAn(id_MonAn),"+
                 " binhLuan text not null,"+
                 "diem integer not null,"+
                 "anhDanhGia blob not null)";
         db.execSQL(sql_DanhGia);
-
         // Đơn nạp tiền
         String sql_DonNapTien="create table DonNapTien("+"id_DonNapTien integer primary key autoincrement,"+
-                "id_khachHang integer references KhachHang(id_makhachhang),"+
+                "taiKhoan text references KhachHang(taiKhoan),"+
                 "thoiGianTao date not null,"+
                 "trangThai integer not null,"+
                 "tienNap number not null,"+
                 "anhHoaDon blob )";
         db.execSQL(sql_DonNapTien);
-        db.execSQL("insert into DonNapTien(id_DonNapTien,id_khachHang,thoiGianTao,trangThai,tienNap,anhHoaDon)values(1,2,'25/3/2023',1,35000,null)");
-        db.execSQL("insert into DonNapTien(id_DonNapTien,id_khachHang,thoiGianTao,trangThai,tienNap,anhHoaDon)values(2,3,'20/3/2023',0,30000,null)");
-        db.execSQL("insert into DonNapTien(id_DonNapTien,id_khachHang,thoiGianTao,trangThai,tienNap,anhHoaDon)values(3,1,'15/3/2023',1,70000,null)");
-        db.execSQL("insert into DonNapTien(id_DonNapTien,id_khachHang,thoiGianTao,trangThai,tienNap,anhHoaDon)values(4,3,'20/3/2023',0,15000,null)");
+        db.execSQL("insert into DonNapTien(id_DonNapTien,taiKhoan,thoiGianTao,trangThai,tienNap,anhHoaDon)values(1,'chuhieu','25/3/2023',1,35000,null)");
+        db.execSQL("insert into DonNapTien(id_DonNapTien,taiKhoan,thoiGianTao,trangThai,tienNap,anhHoaDon)values(2,'nguyentruong','20/3/2023',0,30000,null)");
+        db.execSQL("insert into DonNapTien(id_DonNapTien,taiKhoan,thoiGianTao,trangThai,tienNap,anhHoaDon)values(3,'tanlinh','15/3/2023',1,70000,null)");
+        db.execSQL("insert into DonNapTien(id_DonNapTien,taiKhoan,thoiGianTao,trangThai,tienNap,anhHoaDon)values(4,'hahai','20/3/2023',0,15000,null)");
 
 
 

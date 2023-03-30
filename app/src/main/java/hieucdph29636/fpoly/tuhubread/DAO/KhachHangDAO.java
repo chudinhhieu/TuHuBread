@@ -1,5 +1,6 @@
 package hieucdph29636.fpoly.tuhubread.DAO;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,13 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 import hieucdph29636.fpoly.tuhubread.DTO.KhachHang;
-
+import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class KhachHangDAO {
     SQLiteDatabase db;
-   DbHelper dbHelper;
+    DbHelper dbHelper;
     public KhachHangDAO(Context context){
         dbHelper= new DbHelper(context);
 
@@ -31,15 +31,14 @@ public class KhachHangDAO {
 
         if (c.moveToFirst()){
             while (!c.isAfterLast()){
-                int id = c.getInt(0);
+                String taiKhoan = c.getString(0);
                 String hoTen = c.getString(1);
                 String soDienThoai = c.getString(2);
-                String taiKhoan = c.getString(3);
-                String matKhau = c.getString(4);
-                String ngaySinh = c.getString(5);
-                String diaChi = c.getString(6);
-                int soDuTaiKhoan = c.getInt(7);
-                KhachHang ttKhachHang = new KhachHang(id,hoTen,soDienThoai,taiKhoan,matKhau,ngaySinh,diaChi,soDuTaiKhoan);
+                String matKhau = c.getString(3);
+                String ngaySinh = c.getString(4);
+                String diaChi = c.getString(5);
+                int soDuTaiKhoan = c.getInt(6);
+                KhachHang ttKhachHang = new KhachHang(taiKhoan,hoTen,soDienThoai,matKhau,ngaySinh,diaChi,soDuTaiKhoan);
                 listABC.add(ttKhachHang);
                 c.moveToNext();
             }
@@ -53,7 +52,7 @@ public class KhachHangDAO {
         ContentValues values = new ContentValues();
         values.put("hoTen",ttcKhachHang.getHoTen());
         values.put("soDienThoai",ttcKhachHang.getSoDienThoai());
-        values.put("taiKhoann",ttcKhachHang.getTaiKhoan());
+        values.put("taiKhoan",ttcKhachHang.getTaiKhoan());
         values.put("matKhau",ttcKhachHang.getMatKhau());
         values.put("ngaySinh",ttcKhachHang.getNgaySinh());
         values.put("diaChi",ttcKhachHang.getDiaChi());
@@ -64,17 +63,46 @@ public class KhachHangDAO {
         ContentValues values=new ContentValues();
         values.put("hoTen",ttcKhachHang.getHoTen());
         values.put("soDienThoai",ttcKhachHang.getSoDienThoai());
-        values.put("taiKhoann",ttcKhachHang.getTaiKhoan());
+        values.put("taiKhoan",ttcKhachHang.getTaiKhoan());
         values.put("matKhau",ttcKhachHang.getMatKhau());
         values.put("ngaySinh",ttcKhachHang.getNgaySinh());
         values.put("diaChi",ttcKhachHang.getDiaChi());
         values.put("soDuTaiKhoan",ttcKhachHang.getSoDuTaiKhoan());
-        String[] so=new String[]{ttcKhachHang.getId_KhachHang()+""};
-        return db.update("KhachHang",values,"id_KhachHang=?",so);
+        return db.update("KhachHang",values,"taiKhoan=?",new String[]{ttcKhachHang.getTaiKhoan()});
     }
     public int deleteKhachHang(KhachHang ttcKhachHang){
-        String[] so=new String[]{ttcKhachHang.getId_KhachHang()+""};
-        return db.delete("KhachHang","id_KhachHang=?",so);
+        return db.delete("KhachHang","taiKhoan=?",new String[]{ttcKhachHang.getTaiKhoan()});
     }
-
+    public boolean checkDangNhap(String taiKhoan,String matKhau){
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
+        Cursor c = sqLiteDatabase.rawQuery("SELECT taiKhoan, matKhau FROM KhachHang WHERE taiKhoan =? AND matKhau =?",new String[]{taiKhoan,matKhau});
+        if (c.getCount()!=0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    @SuppressLint("Range")
+    public  String getHoTen(String taiKhoan){
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        String[] projection = {"hoTen"};
+        String selection = "taiKhoan =?";
+        String[] selectionArgs = { taiKhoan };
+        Cursor cursor = database.query(
+                "KhachHang",   // Bảng
+                projection,  // Các cột cần lấy ra
+                selection,   // Điều kiện lấy dữ liệu
+                selectionArgs, // Điều kiện lấy dữ liệu
+                null,           // Không sắp xếp kết quả
+                null,           // Không giới hạn kết quả
+                null            // Không nhóm kết quả
+        );
+        String ten = null;
+        if (cursor.moveToFirst()) {
+            // Lấy dữ liệu của cột "Avatar"
+            ten = cursor.getString(cursor.getColumnIndex("hoTen"));
+        }
+        cursor.close();
+        return ten;
+    }
 }

@@ -14,7 +14,6 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,12 +79,12 @@ public class HomeFragment extends Fragment {
 
     private List<PhotoSlideShow> getListPhoto() {
         List<PhotoSlideShow> listPhoto = new ArrayList<>();
-        listPhoto.add(new PhotoSlideShow(R.drawable.img_1));
-        listPhoto.add(new PhotoSlideShow(R.drawable.img_2));
-        listPhoto.add(new PhotoSlideShow(R.drawable.img_3));
-        listPhoto.add(new PhotoSlideShow(R.drawable.img_4));
-        listPhoto.add(new PhotoSlideShow(R.drawable.img_5));
-        listPhoto.add(new PhotoSlideShow(R.drawable.img_6));
+        listPhoto.add(new PhotoSlideShow(R.drawable.imgsl_1));
+        listPhoto.add(new PhotoSlideShow(R.drawable.imgsl_2));
+        listPhoto.add(new PhotoSlideShow(R.drawable.imgsl_3));
+        listPhoto.add(new PhotoSlideShow(R.drawable.imgsl_4));
+        listPhoto.add(new PhotoSlideShow(R.drawable.imgsl_5));
+        listPhoto.add(new PhotoSlideShow(R.drawable.imgsl_6));
         return listPhoto;
     }
     private void AutoSildePhoto(){

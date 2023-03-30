@@ -3,31 +3,21 @@ package hieucdph29636.fpoly.tuhubread.DTO;
 import java.util.Date;
 
 public class NhanVien {
-  private int id_NhanVien;
-  private String hoTen,soDienThoai,taiKhoan,matKhau;
-  private String ngaySinh;
-  private Integer quyenNhanVien;
+    private String hoTen,soDienThoai,taiKhoan,matKhau;
+    private String ngaySinh;
+    private Integer quyenNhanVien;
 
 
     public NhanVien() {
     }
 
-    public NhanVien(int id, String hoTen, String soDienThoai, String taiKhoan, String matKhau, String ngaySinh, Integer quyenNhanVien) {
-        this.id_NhanVien = id;
+    public NhanVien(String taiKhoan, String hoTen, String soDienThoai,  String matKhau, String ngaySinh, Integer quyenNhanVien) {
         this.hoTen = hoTen;
         this.soDienThoai = soDienThoai;
         this.taiKhoan = taiKhoan;
         this.matKhau = matKhau;
         this.ngaySinh = ngaySinh;
         this.quyenNhanVien = quyenNhanVien;
-    }
-
-    public int getId() {
-        return id_NhanVien;
-    }
-
-    public void setId(int id) {
-        this.id_NhanVien = id;
     }
 
     public String getHoTen() {

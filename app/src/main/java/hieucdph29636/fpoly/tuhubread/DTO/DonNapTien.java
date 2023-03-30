@@ -1,8 +1,8 @@
 package hieucdph29636.fpoly.tuhubread.DTO;
 
 public class DonNapTien {
-    int id_DonNapTien, id_khachHang;
-    String thoiGianTao;
+    int id_DonNapTien;
+    String thoiGianTao, taiKhoan;
     int trangThai;
     int tienNap;
     byte[] anhHoaDon;
@@ -10,9 +10,9 @@ public class DonNapTien {
     public DonNapTien() {
     }
 
-    public DonNapTien(int id_DonNapTien, int id_khachHang, String thoiGianTao, int trangThai, int tienNap, byte[] anhHoaDon) {
+    public DonNapTien(int id_DonNapTien, String taiKhoan, String thoiGianTao, int trangThai, int tienNap, byte[] anhHoaDon) {
         this.id_DonNapTien = id_DonNapTien;
-        this.id_khachHang = id_khachHang;
+        this.taiKhoan = taiKhoan;
         this.thoiGianTao = thoiGianTao;
         this.trangThai = trangThai;
         this.tienNap = tienNap;
@@ -27,12 +27,12 @@ public class DonNapTien {
         this.id_DonNapTien = id;
     }
 
-    public int getId_khachHang() {
-        return id_khachHang;
+    public String getTaiKhoan() {
+        return taiKhoan;
     }
 
-    public void setId_khachHang(int id_khachHang) {
-        this.id_khachHang = id_khachHang;
+    public void setTaiKhoan(String taiKhoan) {
+        this.taiKhoan = taiKhoan;
     }
 
     public String getThoiGianTao() {

@@ -1,7 +1,6 @@
 package hieucdph29636.fpoly.tuhubread.DTO;
 
 public class KhachHang {
-    private int id_KhachHang;
     private String hoTen;
     private String soDienThoai;
     private String taiKhoan;
@@ -10,11 +9,8 @@ public class KhachHang {
     private String diaChi;
     private int soDuTaiKhoan;
 
-    public KhachHang() {
-    }
 
-    public KhachHang(int id_KhachHang, String hoTen, String soDienThoai, String taiKhoan, String matKhau, String ngaySinh, String diaChi, int soDuTaiKhoan) {
-        this.id_KhachHang = id_KhachHang;
+    public KhachHang(String taiKhoan,String hoTen, String soDienThoai,  String matKhau, String ngaySinh, String diaChi, int soDuTaiKhoan) {
         this.hoTen = hoTen;
         this.soDienThoai = soDienThoai;
         this.taiKhoan = taiKhoan;
@@ -22,14 +18,6 @@ public class KhachHang {
         this.ngaySinh = ngaySinh;
         this.diaChi = diaChi;
         this.soDuTaiKhoan = soDuTaiKhoan;
-    }
-
-    public int getId_KhachHang() {
-        return id_KhachHang;
-    }
-
-    public void setId_KhachHang(int id_KhachHang) {
-        this.id_KhachHang = id_KhachHang;
     }
 
     public String getHoTen() {

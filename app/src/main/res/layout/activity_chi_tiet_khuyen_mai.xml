@@ -62,7 +62,7 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:src="@drawable/img_2" />
+            android:src="@drawable/imgsl_2" />
 
         <TextView
 
@@ -99,7 +99,7 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:src="@drawable/img_3" />
+            android:src="@drawable/imgsl_3" />
 
         <TextView
 

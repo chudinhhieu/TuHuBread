@@ -1,17 +1,17 @@
 package hieucdph29636.fpoly.tuhubread.DTO;
 
 public class DanhGia {
- private int id_DanhGia, id_khachHang,id_monAn;
- private String binhLuan;
- private int diem;
- private byte[] anhDanhGia;
+    private int id_DanhGia,id_monAn;
+    private String binhLuan,taiKhoan;
+    private int diem;
+    private byte[] anhDanhGia;
 
     public DanhGia() {
     }
 
-    public DanhGia(int id_DanhGia, int id_khachHang, int id_monAn, String binhLuan, int diem, byte[] anhDanhGia) {
+    public DanhGia(int id_DanhGia, String taiKhoan, int id_monAn, String binhLuan, int diem, byte[] anhDanhGia) {
         this.id_DanhGia = id_DanhGia;
-        this.id_khachHang = id_khachHang;
+        this.taiKhoan = DanhGia.this.taiKhoan;
         this.id_monAn = id_monAn;
         this.binhLuan = binhLuan;
         this.diem = diem;
@@ -25,14 +25,6 @@ public class DanhGia {
 
     public void setId_danhGia(int id_danhGia) {
         this.id_DanhGia = id_danhGia;
-    }
-
-    public int getId_khachHang() {
-        return id_khachHang;
-    }
-
-    public void setId_khachHang(int id_khachHang) {
-        this.id_khachHang = id_khachHang;
     }
 
     public int getId_monAn() {
@@ -57,6 +49,14 @@ public class DanhGia {
 
     public void setDiem(int diem) {
         this.diem = diem;
+    }
+
+    public String getTaiKhoan() {
+        return taiKhoan;
+    }
+
+    public void setTaiKhoan(String taiKhoan) {
+        this.taiKhoan = taiKhoan;
     }
 
     public byte[] getAnhDanhGia() {

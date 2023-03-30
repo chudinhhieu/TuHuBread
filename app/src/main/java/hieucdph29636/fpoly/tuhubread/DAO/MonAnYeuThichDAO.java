@@ -29,8 +29,8 @@ public class MonAnYeuThichDAO {
         if (c.moveToFirst()){
             while (!c.isAfterLast()){
                 int id = c.getInt(0);
-                int id_khachHang = c.getInt(1);
-                MonAnYeuThich ttKhachHang = new MonAnYeuThich(id,id_khachHang);
+                String taiKhoan = c.getString(1);
+                MonAnYeuThich ttKhachHang = new MonAnYeuThich(id,taiKhoan);
                 listABC.add(ttKhachHang);
                 c.moveToNext();
             }
@@ -40,19 +40,19 @@ public class MonAnYeuThichDAO {
         }
         return listABC;
     }
-    public long insertMonAnYeuThich(MonAnYeuThich ttcKhachHang){
+    public long insertMonAnYeuThich(MonAnYeuThich monAnYeuThich){
         ContentValues values = new ContentValues();
-        values.put("id_khachHang",ttcKhachHang.getId_khachHang());
+        values.put("taiKhoan",monAnYeuThich.getTaiKhoan());
         return db.insert("MonAnYeuThich",null,values);
     }
-    public int updateMonAnYeuThich(MonAnYeuThich ttcKhachHang){
+    public int updateMonAnYeuThich(MonAnYeuThich monAnYeuThich){
         ContentValues values=new ContentValues();
-        values.put("id_khachHang",ttcKhachHang.getId_khachHang());
-        String[] tham_so=new String[]{ttcKhachHang.getId_khachHang()+""};
-        return db.update("MonAnYeuThich",values,"id_MonAnYeuThich=?",tham_so);
+        values.put("taiKhoan",monAnYeuThich.getTaiKhoan());
+        String[] tham_so=new String[]{monAnYeuThich.getTaiKhoan()+""};
+        return db.update("MonAnYeuThich",values,"id_mamonan=?",tham_so);
     }
-    public int MonAnYeuThich(MonAnYeuThich ttcKhachHang){
-        String[] tham_so=new String[]{ttcKhachHang.getId_khachHang()+""};
-        return db.delete("ChiTietDonHang","id_ChiTietDonHang=?",tham_so);
+    public int MonAnYeuThich(MonAnYeuThich monAnYeuThich){
+        String[] tham_so=new String[]{monAnYeuThich.getId_MonAn()+""};
+        return db.delete("MonAnYeuThich","id_mamonan=?",tham_so);
     }
 }

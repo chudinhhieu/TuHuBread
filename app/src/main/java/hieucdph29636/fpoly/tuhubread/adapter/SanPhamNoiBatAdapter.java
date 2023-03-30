@@ -2,6 +2,7 @@ package hieucdph29636.fpoly.tuhubread.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,16 @@ public class SanPhamNoiBatAdapter extends RecyclerView.Adapter<SanPhamNoiBatAdap
         holder.btn_mua_spnb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, DatMonActivity.class));
+                Bundle bundle = new Bundle();
+                bundle.putInt("idMon",monAn.getId_MonAn());
+                bundle.putString("tenMon",monAn.getTenMon());
+                bundle.putString("thanhPhan",monAn.getThanhPhan());
+                bundle.putInt("gia",monAn.getGia());
+                bundle.putInt("trangThai",monAn.getTrangThai());
+                bundle.putInt("id_loai",monAn.getGia());
+                Intent intent = new Intent(context, DatMonActivity.class);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
             }
         });
     }

@@ -101,7 +101,28 @@
                 android:textStyle="bold" />
             />
         </LinearLayout>
-
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rdokhachHang"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="30dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/alata"
+                android:text="Khách hàng"/>
+            <RadioButton
+                android:id="@+id/rdoNhanVien"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="30dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/alata"
+                android:text="Nhân viên"/>
+        </RadioGroup>
         <Button
             android:id="@+id/btn_dangNhap"
             android:layout_marginTop="20dp"

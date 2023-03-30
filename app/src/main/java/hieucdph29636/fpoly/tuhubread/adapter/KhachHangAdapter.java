@@ -36,7 +36,7 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         View view = inflater.inflate(R.layout.item_khachhang,parent,false);
-        return null;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -49,7 +49,6 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.View
             public void onClick(View v) {
                 Intent i=new Intent(context, ChiTiet_KhachHang.class);
                 Bundle bundle=new Bundle();
-                bundle.putInt("tv_maKH",listKH.get(k_hang).getId_KhachHang());
                 bundle.putString("tv_nameKH",listKH.get(k_hang).getHoTen());
                 bundle.putString("tv_sdtKH",listKH.get(k_hang).getSoDienThoai());
                 bundle.putString("tv_taiKhoanKH",listKH.get(k_hang).getTaiKhoan());

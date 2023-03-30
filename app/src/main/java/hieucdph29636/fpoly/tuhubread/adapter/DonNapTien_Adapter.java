@@ -60,7 +60,7 @@ public class DonNapTien_Adapter extends RecyclerView.Adapter<DonNapTien_Adapter.
                 Intent intent = new Intent(context, ChiTiet_Don_nap_tien.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("tv_id_dn",ds_dnt.get(index).getid_DonNapTien());
-                bundle.putInt("tv_id_kh_dn",ds_dnt.get(index).getId_khachHang());
+                bundle.putString("tv_id_kh_dn",ds_dnt.get(index).getTaiKhoan());
                 bundle.putString("tv_tg_dn",ds_dnt.get(index).getThoiGianTao());
                 bundle.putInt("tv_ver_dn",ds_dnt.get(index).getTrangThai());
                 bundle.putInt("tv_money_dn",ds_dnt.get(index).getTienNap());

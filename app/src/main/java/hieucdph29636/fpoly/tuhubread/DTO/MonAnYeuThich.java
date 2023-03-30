@@ -2,14 +2,14 @@ package hieucdph29636.fpoly.tuhubread.DTO;
 
 public class MonAnYeuThich {
     private int id_MonAn;
-    private int id_khachHang;
+    private String taiKhoan;
 
     public MonAnYeuThich() {
     }
 
-    public MonAnYeuThich(int id_MonAn, int id_khachHang) {
+    public MonAnYeuThich(int id_MonAn, String taiKhoan) {
         this.id_MonAn = id_MonAn;
-        this.id_khachHang = id_khachHang;
+        this.taiKhoan = taiKhoan;
     }
 
     public int getId_MonAn() {
@@ -20,11 +20,11 @@ public class MonAnYeuThich {
         this.id_MonAn = id_MonAn;
     }
 
-    public int getId_khachHang() {
-        return id_khachHang;
+    public String getTaiKhoan() {
+        return taiKhoan;
     }
 
-    public void setId_khachHang(int id_khachHang) {
-        this.id_khachHang = id_khachHang;
+    public void setTaiKhoan(String taiKhoan) {
+        this.taiKhoan = taiKhoan;
     }
 }

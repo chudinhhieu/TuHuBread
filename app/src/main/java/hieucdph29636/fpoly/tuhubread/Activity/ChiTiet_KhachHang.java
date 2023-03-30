@@ -31,6 +31,8 @@ public class ChiTiet_KhachHang extends AppCompatActivity {
         tv_dateKH=findViewById(R.id.tv_dateKH);
         tv_passKH=findViewById(R.id.tv_passKH);
         tv_sdtKH=findViewById(R.id.tv_sdtKH);
+        btn_editKH = findViewById(R.id.btn_editKH);
+        btn_deleteKH = findViewById(R.id.btn_deleteKH);
         tv_addressKH=findViewById(R.id.tv_AddressKH);
         tv_soDuTK_KH=findViewById(R.id.tv_soDuTK_KH);
         khachHangDAO=new KhachHangDAO(getApplicationContext());

@@ -11,17 +11,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import hieucdph29636.fpoly.tuhubread.DAO.KhachHangDAO;
+import hieucdph29636.fpoly.tuhubread.DAO.NhanVienDAO;
 import hieucdph29636.fpoly.tuhubread.R;
 
 public class DangNhapActivity extends AppCompatActivity {
     TextInputLayout edL_taiKhoan, edL_matKhau;
     TextInputEditText ed_taiKhoan, ed_matKhau;
     Button btn_dangNhap;
+    TextView btn_dangKy;
     CheckBox chk_nhoTaiKhoan;
+    RadioButton rdokhachHang,rdonhanVien;
+    KhachHangDAO khachHangDAO;
+    NhanVienDAO nhanVienDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +39,27 @@ public class DangNhapActivity extends AppCompatActivity {
         edL_matKhau = findViewById(R.id.edL_matKhau);
         ed_taiKhoan = findViewById(R.id.ed_taiKhoan);
         ed_matKhau = findViewById(R.id.ed_matKhau);
+        rdokhachHang = findViewById(R.id.rdokhachHang);
+        rdonhanVien = findViewById(R.id.rdoNhanVien);
         btn_dangNhap = findViewById(R.id.btn_dangNhap);
+        btn_dangKy = findViewById(R.id.btn_dangKy);
         chk_nhoTaiKhoan = findViewById(R.id.chk_nhoTaiKhoan);
+        khachHangDAO = new KhachHangDAO(this);
+        nhanVienDAO = new NhanVienDAO(this);
+
+        rdonhanVien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_dangKy.setVisibility(View.GONE);
+
+            }
+        });
+        rdokhachHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_dangKy.setVisibility(View.VISIBLE);
+            }
+        });
         SharedPreferences sharedPreferences = getSharedPreferences("nhotaiKhoan", MODE_PRIVATE);
         chk_nhoTaiKhoan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -59,18 +87,39 @@ public class DangNhapActivity extends AppCompatActivity {
         btn_dangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (kiemTraTrong()) {
                     return;
                 }
                 if (kiemTraKyTu()){
                     return;
                 }
-                 if(ed_taiKhoan.getText().toString().equals("admin") || ed_matKhau.getText().toString().equals("admin123")){
-                    Intent intent = new Intent(DangNhapActivity.this,Chu_Activity.class);
-                    startActivity(intent);
+                if (!rdonhanVien.isChecked()&&!rdokhachHang.isChecked()){
+                    Toast.makeText(DangNhapActivity.this, "Vui lòng chọn quyền!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                startActivity(new Intent(DangNhapActivity.this, MainActivity.class));
+                if (rdokhachHang.isChecked()){
+                    if(khachHangDAO.checkDangNhap(ed_taiKhoan.getText().toString().trim(),ed_matKhau.getText().toString().trim())){
+                        SharedPreferences shareQuyen = getSharedPreferences("luuDangNhap",MODE_PRIVATE);
+                        SharedPreferences.Editor edit = shareQuyen.edit();
+                        edit.putString("TK",ed_taiKhoan.getText().toString().trim());
+                        edit.putString("quyen","khachhang");
+                        edit.commit();
+                        Intent intent = new Intent(DangNhapActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    }
+                }
+                if (rdonhanVien.isChecked()){
+                    if(nhanVienDAO.checkDangNhap(ed_taiKhoan.getText().toString().trim(),ed_matKhau.getText().toString().trim())){
+                        SharedPreferences shareQuyen = getSharedPreferences("luuDangNhap",MODE_PRIVATE);
+                        SharedPreferences.Editor edit = shareQuyen.edit();
+                        edit.putString("TK",ed_taiKhoan.getText().toString().trim());
+                        edit.putString("quyen","nhanvien");
+                        edit.commit();
+                        Intent intent = new Intent(DangNhapActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    }
+                }
             }
         });
     }

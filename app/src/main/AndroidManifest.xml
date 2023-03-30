@@ -20,6 +20,27 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".Activity.KhachHang_Activity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Activity.KhuyenMaiActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Activity.Chi_Tiet_Khuyen_Mai"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Activity.DatMonActivity"
             android:exported="false" />
         <activity
@@ -36,9 +57,6 @@
             android:exported="false" />
         <activity
             android:name=".Activity.ChiTiet_Nhan_vien"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.Chu_Activity"
             android:exported="false" />
         <activity
             android:name=".Activity.DangNhapActivity"

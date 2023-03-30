@@ -33,7 +33,7 @@ public class ChiTiet_Don_nap_tien extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         tv_id_dn_ct.setText((bundle.getInt("tv_id_dn" ))+ "");
-        tv_id_kh_dn_ct.setText((bundle.getInt("tv_id_kh_dn" ))+ "");
+        tv_id_kh_dn_ct.setText((bundle.getString("tv_id_kh_dn" ))+ "");
         tv_tg_dn_ct.setText((bundle.getString("tv_tg_dn" + "")));
         int trangthai = bundle.getInt("tv_ver_dn");
         tv_money_dn_ct.setText((bundle.getInt("tv_money_dn" ))+ "");
@@ -47,7 +47,7 @@ public class ChiTiet_Don_nap_tien extends AppCompatActivity {
 
         DonNapTien dnt = new DonNapTien();
         dnt.setid_DonNapTien((bundle.getInt("tv_id_dn")));
-        dnt.setId_khachHang((bundle.getInt("tv_id_kh_dn" )));
+        dnt.setTaiKhoan((bundle.getString("tv_id_kh_dn" )));
         dnt.setThoiGianTao((bundle.getString("tv_tg_dn")));
         dnt.setTienNap((bundle.getInt("tv_money_dn")));
         dnt.setTrangThai(trangthai);

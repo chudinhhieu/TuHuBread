@@ -47,7 +47,6 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
             public void onClick(View view) {
                 Intent intent = new Intent(context, ChiTiet_Nhan_vien.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("tv_id",dsnv.get(index).getId());
                 bundle.putString("tv_ten_nv",dsnv.get(index).getHoTen());
                 bundle.putString("tv_sdt_nv",dsnv.get(index).getSoDienThoai());
                 bundle.putString("tv_user_nv",dsnv.get(index).getTaiKhoan());

@@ -2,19 +2,19 @@ package hieucdph29636.fpoly.tuhubread.DTO;
 
 public class DonHang {
     private int id_DonHang;
-    private int id_khachHang;
+    private String taiKhoan;
     private String soDienThoai;
     private String thoiGianTao;
     private int trangThai;
     private int id_khuyenMai;
     private int tongTien;
 
-    public DonHang(int id, int id_khachHang, String thoiGianTao, int trangThai, int id_khuyenMai, int tongTien) {
+    public DonHang(int id, String taiKhoan, String thoiGianTao, int trangThai, int id_khuyenMai, int tongTien) {
     }
 
-    public DonHang(int id_DonHang, int id_khachHang, String soDienThoai, String thoiGianTao, int trangThai, int id_khuyenMai, int tongTien) {
+    public DonHang(int id_DonHang, String taiKhoan, String soDienThoai, String thoiGianTao, int trangThai, int id_khuyenMai, int tongTien) {
         this.id_DonHang = id_DonHang;
-        this.id_khachHang = id_khachHang;
+        this.taiKhoan = taiKhoan;
         this.soDienThoai = soDienThoai;
         this.thoiGianTao = thoiGianTao;
         this.trangThai = trangThai;
@@ -30,12 +30,12 @@ public class DonHang {
         this.id_DonHang = id_DonHang;
     }
 
-    public int getId_khachHang() {
-        return id_khachHang;
+    public String getTaiKhoan() {
+        return taiKhoan;
     }
 
-    public void setId_khachHang(int id_khachHang) {
-        this.id_khachHang = id_khachHang;
+    public void setTaiKhoan(String taiKhoan) {
+        this.taiKhoan = taiKhoan;
     }
 
     public String getSoDienThoai() {
