@@ -46,7 +46,12 @@ public class DangNhapActivity extends AppCompatActivity {
         chk_nhoTaiKhoan = findViewById(R.id.chk_nhoTaiKhoan);
         khachHangDAO = new KhachHangDAO(this);
         nhanVienDAO = new NhanVienDAO(this);
-
+        btn_dangKy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DangNhapActivity.this,DangKyKhachHangActivity.class));
+            }
+        });
         rdonhanVien.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +112,10 @@ public class DangNhapActivity extends AppCompatActivity {
                         edit.commit();
                         Intent intent = new Intent(DangNhapActivity.this,MainActivity.class);
                         startActivity(intent);
+                    }else {
+                        Toast.makeText(DangNhapActivity.this, "Tài khoản hoặc mật khẩu không đúng!", Toast.LENGTH_SHORT).show();
                     }
+
                 }
                 if (rdonhanVien.isChecked()){
                     if(nhanVienDAO.checkDangNhap(ed_taiKhoan.getText().toString().trim(),ed_matKhau.getText().toString().trim())){
@@ -118,6 +126,8 @@ public class DangNhapActivity extends AppCompatActivity {
                         edit.commit();
                         Intent intent = new Intent(DangNhapActivity.this,MainActivity.class);
                         startActivity(intent);
+                    }else {
+                        Toast.makeText(DangNhapActivity.this, "Tài khoản hoặc mật khẩu không đúng!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -153,13 +163,13 @@ public class DangNhapActivity extends AppCompatActivity {
             edL_taiKhoan.setError("Vui lòng nhập tài khoản!");
             isEmpty = true;
         } else {
-            edL_taiKhoan.setError(null);
+            edL_taiKhoan.setErrorEnabled(false);
         }
         if (ed_matKhau.getText().toString().isEmpty()) {
             edL_matKhau.setError("Vui lòng nhập mật khẩu!");
             isEmpty = true;
         } else {
-            edL_matKhau.setError(null);
+            edL_matKhau.setErrorEnabled(false);
         }
         return isEmpty;
     }
@@ -169,13 +179,13 @@ public class DangNhapActivity extends AppCompatActivity {
             edL_taiKhoan.setError("Tài khoản nhập tối thiểu 4 ký tự!");
             isEmpty = true;
         } else {
-            edL_taiKhoan.setError(null);
+            edL_taiKhoan.setErrorEnabled(false);
         }
         if (ed_matKhau.getText().toString().length()<6) {
             edL_matKhau.setError("Mật khẩu nhập tối thiểu 6 ký tự!");
             isEmpty = true;
         } else {
-            edL_matKhau.setError(null);
+            edL_matKhau.setErrorEnabled(false);
         }
         return isEmpty;
     }

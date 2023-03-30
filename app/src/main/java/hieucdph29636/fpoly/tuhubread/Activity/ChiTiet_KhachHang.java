@@ -25,17 +25,36 @@ public class ChiTiet_KhachHang extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_khach_hang);
-        tv_maKH=findViewById(R.id.tv_maKH);
         tv_nameKH=findViewById(R.id.tv_nameKH);
         tv_taiKhoanKH=findViewById(R.id.tv_taiKhoanKH);
         tv_dateKH=findViewById(R.id.tv_dateKH);
         tv_passKH=findViewById(R.id.tv_passKH);
         tv_sdtKH=findViewById(R.id.tv_sdtKH);
-        btn_editKH = findViewById(R.id.btn_editKH);
-        btn_deleteKH = findViewById(R.id.btn_deleteKH);
         tv_addressKH=findViewById(R.id.tv_AddressKH);
         tv_soDuTK_KH=findViewById(R.id.tv_soDuTK_KH);
-        khachHangDAO=new KhachHangDAO(getApplicationContext());
+        Bundle bundle = getIntent().getExtras();
+        String taiKhoan = bundle.getString("tv_taiKhoanKH");
+        String matKhau = bundle.getString("tv_passKH");
+        String nhaplaimatkahu = bundle.getString("tv_dateKH");
+        String hoten =  bundle.getString("tv_nameKH");
+        String ngaysinh = bundle.getString("tv_dateKH");
+        String sdt = bundle.getString("tv_sdtKH");
+        String diachi = bundle.getString("tv_Address");
+        String sodu =  bundle.getInt("tv_soDuTK_KH")+"";
+
+
+
+
+
+
+        tv_nameKH.setText(hoten);
+        tv_taiKhoanKH.setText(taiKhoan);
+        tv_dateKH.setText(ngaysinh);
+        tv_passKH.setText(matKhau);
+        tv_sdtKH.setText(sdt);
+        tv_addressKH.setText(diachi);
+        tv_soDuTK_KH.setText(sodu);
+        khachHangDAO=new KhachHangDAO(this);
         btn_editKH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
