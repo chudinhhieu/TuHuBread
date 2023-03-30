@@ -4,20 +4,19 @@ public class MonAn {
     private int id_MonAn;
     private String tenMon;
     private int gia;
-    private String MoTa;
     private String thanhPhan;
-    private String trangThai;
+    private Integer trangThai;
     private int id_LoaiDoAn;
     private int anhMonAn;
 
     public MonAn() {
     }
 
-    public MonAn(int id_MonAn, String tenMon, int gia, String moTa, String thanhPhan, String trangThai, int id_LoaiDoAn, int anhMonAn) {
+    public MonAn(int id_MonAn, String tenMon, int gia, String thanhPhan, Integer trangThai, int id_LoaiDoAn, int anhMonAn) {
         this.id_MonAn = id_MonAn;
         this.tenMon = tenMon;
         this.gia = gia;
-        MoTa = moTa;
+
         this.thanhPhan = thanhPhan;
         this.trangThai = trangThai;
         this.id_LoaiDoAn = id_LoaiDoAn;
@@ -48,13 +47,7 @@ public class MonAn {
         this.gia = gia;
     }
 
-    public String getMoTa() {
-        return MoTa;
-    }
 
-    public void setMoTa(String moTa) {
-        MoTa = moTa;
-    }
 
     public String getThanhPhan() {
         return thanhPhan;
@@ -64,11 +57,11 @@ public class MonAn {
         this.thanhPhan = thanhPhan;
     }
 
-    public String getTrangThai() {
+    public Integer getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(String trangThai) {
+    public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
     }
 

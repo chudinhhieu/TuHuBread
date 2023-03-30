@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Ds_MonAn">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bánh mì Tuhu"
+        android:id="@+id/tv_ds_mon"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_bm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_ds_mon"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/flbtn_add_mon"
+        android:layout_marginTop="650dp"
+        android:layout_marginLeft="310dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_add_24" />
+
+</RelativeLayout>

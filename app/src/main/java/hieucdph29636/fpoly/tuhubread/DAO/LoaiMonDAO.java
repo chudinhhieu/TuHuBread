@@ -9,8 +9,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import hieucdph29636.fpoly.tuhubread.DTO.LoaiMon;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
+import hieucdph29636.fpoly.tuhubread.DTO.LoaiMon;
+
 
 public class LoaiMonDAO {
     SQLiteDatabase db;
@@ -58,4 +59,21 @@ DbHelper dbHelper;
         String[] tham_so=new String[]{obj.getId_loai()+""};
         return db.delete("LoaiMon","id_Loai=?",tham_so);
     }
-}
+
+    public int getId(String loai){
+    int id = 0;
+    String query = "SELECT * FROM LoaiMonAn WHERE tenLoai = '" +loai + "'";
+        Cursor c = db.rawQuery(query,null);
+
+        if(c.moveToFirst()){
+            while (!c.isAfterLast()){
+               id = c.getInt(0);
+                c.moveToNext();
+            }
+
+        }else{
+            Log.d("zzz", "selectAll: Không có dữ liệu");
+        }
+        return id ;
+
+}};

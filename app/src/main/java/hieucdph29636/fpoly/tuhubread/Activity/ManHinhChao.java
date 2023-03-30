@@ -1,4 +1,4 @@
-package hieucdph29636.fpoly.tuhubread;
+package hieucdph29636.fpoly.tuhubread.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import hieucdph29636.fpoly.tuhubread.R;
 
 public class ManHinhChao extends AppCompatActivity {
     ImageView logo;
@@ -19,7 +19,7 @@ public class ManHinhChao extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(ManHinhChao.this,DangNhapActivity.class));
+                startActivity(new Intent(ManHinhChao.this, DangNhapActivity.class));
             }
         },2000);
     }
