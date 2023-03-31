@@ -3,19 +3,17 @@ package hieucdph29636.fpoly.tuhubread.DTO;
 public class DonHang {
     private int id_DonHang;
     private String taiKhoan;
-    private String soDienThoai;
     private String thoiGianTao;
     private int trangThai;
     private int id_khuyenMai;
     private int tongTien;
 
-    public DonHang(int id, String taiKhoan, String thoiGianTao, int trangThai, int id_khuyenMai, int tongTien) {
+    public DonHang() {
     }
 
-    public DonHang(int id_DonHang, String taiKhoan, String soDienThoai, String thoiGianTao, int trangThai, int id_khuyenMai, int tongTien) {
+    public DonHang(int id_DonHang, String taiKhoan, String thoiGianTao, int trangThai, int id_khuyenMai, int tongTien) {
         this.id_DonHang = id_DonHang;
         this.taiKhoan = taiKhoan;
-        this.soDienThoai = soDienThoai;
         this.thoiGianTao = thoiGianTao;
         this.trangThai = trangThai;
         this.id_khuyenMai = id_khuyenMai;
@@ -38,13 +36,6 @@ public class DonHang {
         this.taiKhoan = taiKhoan;
     }
 
-    public String getSoDienThoai() {
-        return soDienThoai;
-    }
-
-    public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
-    }
 
     public String getThoiGianTao() {
         return thoiGianTao;

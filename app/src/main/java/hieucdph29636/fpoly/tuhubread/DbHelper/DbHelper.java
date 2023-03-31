@@ -23,7 +23,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 "trangThai integer not null,"+"id_loaiDoAn integer references LoaiMonAn(id_loaiDoAn),"+
                 "anhMonAn blod)";
         db.execSQL(sql_Mon);
-        db.execSQL("INSERT INTO MonAn (id_MonAn, tenMon, gia,thanhPhan,trangThai,id_loaiDoAn,anhMonAn)\n" +
+        db.execSQL("INSERT INTO MonAn\n" +
                 "VALUES (1,'Bánh mì xúc xích bò băm hầm',30000,'Thành phần: Xúc xích bò băm hầm,rau mùi,hành tây',1,0,null)," +
                 "(2,'Bánh mì xá xíu hongkong',35000,'Thành phần: Thịt xá xíu HongKong,rau mùi,dưa chuột,rau mix,sốt xá xíu,sốt hồng Tuhu',1,0,null)," +
                 "(3,'Bánh mì thịt heo nướng phá lấu',35000,'Thành phần: Thịt heo phá lấu,Pate,rau mùi,dưa chuột,rau mix,sốt hồng Tuhu',1,0,null)," +
@@ -50,10 +50,10 @@ public class DbHelper extends SQLiteOpenHelper {
                 "soTienGiam number not null)";
         db.execSQL(sql_KhuyenMai);
         db.execSQL("INSERT INTO KhuyenMai(id_KhuyenMai,code,moTaKM,ngayBatDau,ngayKetThuc,soTienGiam) VALUES(1,'code1','Khuyến mãi 1','11/02/2023','15/02/2023',15000)," +
-                "(2,'code2','Khuyến mãi 2','11/02/2023','15/02/2023',15000)," +
-                "(3,'code3','Khuyến mãi 3','11/02/2023','15/02/2023',15000)," +
-                "(4,'code4','Khuyến mãi 4','11/02/2023','15/02/2023',15000)," +
-                "(5,'code5','Khuyến mãi 5','11/02/2023','15/02/2023',15000)");
+                "(2,'code2','Khuyến mãi 2','11/02/2023','15/02/2023',25000)," +
+                "(3,'code3','Khuyến mãi 3','11/02/2023','15/02/2023',35000)," +
+                "(4,'code4','Khuyến mãi 4','11/02/2023','15/02/2023',45000)," +
+                "(5,'code5','Khuyến mãi 5','11/02/2023','15/02/2023',55000)");
         //Khách hàng
         String sql_KhachHang = "create table KhachHang(" + "taiKhoan text primary key," +
                 "hoTen text not null," + "soDienThoai text not null," +
@@ -74,7 +74,7 @@ public class DbHelper extends SQLiteOpenHelper {
         //Chi tiết đơn hàng
         String sql_ChiTietDonHang = "create table ChiTietDonHang(" + "id_ct integer primary key Autoincrement," +
                 "id_donHang integer references DonHang(id_madonhang)," + "id_monAn integer references MonAn(id_MonAn)," +
-                "soLuong int, " + "giaTien number not null)";
+                "soLuong int, " +  "rau int, " + "ot int, " +"giaTien number not null)";
         db.execSQL(sql_ChiTietDonHang);
         //Món ăn yêu thích
         String sql_MonAnYeuThich = "create table MonAnYeuThich(" + "id_mamonan integer references MonAn(id_MonAn)," + "taiKhoan text references KhachHang(taiKhoan))";

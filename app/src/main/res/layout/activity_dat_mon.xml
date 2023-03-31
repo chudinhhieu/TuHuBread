@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
     tools:context=".Activity.DatMonActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey">
     <ImageView
         android:id="@+id/img_datMon"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:src="@drawable/banh_mi_bo_sot_tieu_den" />
     <ImageView
@@ -30,7 +33,7 @@
         android:layout_marginBottom="3dp">
         <TextView
             android:id="@+id/tv_tenMon_datMon"
-            android:layout_width="260dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textColor="@color/black"
@@ -45,13 +48,13 @@
             android:textSize="18sp"
             android:textColor="@color/black"
             android:fontFamily="@font/mali"
-            android:text="35000 đ"/>
+            android:text="35000"/>
         <TextView
             android:id="@+id/tv_thanhphan_datMon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_tenMon_datMon"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textColor="@color/gray"
             android:fontFamily="@font/alata"
             android:text="Thành phần:Gà Hawaii,rau mùi,hành tây tím,bắp cải tím,dứa,sốt hồng Tuhu"/>
@@ -69,7 +72,7 @@
         <TextView
             android:id="@+id/tv_datmon1"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:textSize="16sp"
             android:textColor="@color/black"
@@ -94,7 +97,7 @@
             <RadioButton
                 android:id="@+id/rdo_coRau"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/alata"
                 android:text="Có rau"/>
             <View
@@ -104,7 +107,7 @@
             <RadioButton
                 android:id="@+id/rdo_khongRau"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/alata"
                 android:text="Không rau"/>
         </RadioGroup>
@@ -122,7 +125,7 @@
         <TextView
             android:id="@+id/tv_datmon3"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:textSize="16sp"
             android:textColor="@color/black"
@@ -147,7 +150,7 @@
             <RadioButton
                 android:id="@+id/rdo_coOt"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/alata"
                 android:text="Có ớt"/>
             <View
@@ -157,97 +160,10 @@
             <RadioButton
                 android:id="@+id/rdo_khongOt"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/alata"
                 android:text="Không ớt"/>
         </RadioGroup>
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/view4"
-        android:paddingEnd="10dp"
-        android:paddingStart="10dp"
-        android:paddingBottom="10dp"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view3"
-        android:layout_marginBottom="3dp">
-        <TextView
-            android:id="@+id/tv_datmon5"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:gravity="center_vertical"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/mali"
-            android:text="Chọn nước"/>
-        <TextView
-            android:id="@+id/tv_datmon6"
-            android:gravity="left"
-            android:layout_marginTop="9dp"
-            android:layout_width="match_parent"
-            android:layout_toRightOf="@id/tv_datmon5"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:layout_marginStart="5dp"
-            android:textColor="@color/gray"
-            android:fontFamily="@font/alata"
-            android:text="Không bắt buộc,tối đa 4"/>
-        <CheckBox
-            android:id="@+id/chk_tckl"
-            android:layout_below="@id/chk_ttkl"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="Trà chanh khổng lồ"
-            android:fontFamily="@font/alata"/>
-        <View
-            android:layout_below="@+id/chk_tckl"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/grey"/>
-        <CheckBox
-            android:id="@+id/chk_tczs"
-            android:layout_below="@id/chk_tckl"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="Trà cozy sữa"
-            android:fontFamily="@font/alata"/>
-        <View
-            android:layout_below="@+id/chk_tczs"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/grey"/>
-        <CheckBox
-            android:id="@+id/chk_soda"
-            android:layout_below="@id/chk_tczs"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="Soda mojito"
-            android:fontFamily="@font/alata"/>
-        <View
-            android:layout_below="@+id/chk_soda"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/grey"/>
-        <CheckBox
-            android:id="@+id/chk_ttkl"
-            android:layout_below="@id/tv_datmon5"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="Trà tắc khổng lồ"
-            android:fontFamily="@font/alata"/>
-        <View
-            android:layout_below="@+id/chk_ttkl"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/grey"/>
-        <CheckBox
-            android:id="@+id/chk_mlcf"
-            android:layout_below="@id/chk_soda"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="Milo cafe"
-            android:fontFamily="@font/alata"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/view5"
@@ -257,12 +173,12 @@
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/view4"
+        android:layout_below="@id/view3"
         android:layout_marginBottom="3dp">
         <TextView
             android:id="@+id/tv_datmon7"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:textSize="16sp"
             android:textColor="@color/black"
@@ -311,7 +227,7 @@
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="5dp"
         android:layout_marginTop="10dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/view6"
         app:cardElevation="5dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -329,8 +245,9 @@
             />
     </androidx.cardview.widget.CardView>
     <RelativeLayout
+        android:id="@+id/view6"
         android:layout_below="@id/view5"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
@@ -358,4 +275,5 @@
             android:layout_toRightOf="@id/tv_soluong_datMon"
             android:src="@drawable/icon_cong"/>
     </RelativeLayout>
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

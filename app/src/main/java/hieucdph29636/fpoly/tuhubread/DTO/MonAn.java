@@ -16,7 +16,6 @@ public class MonAn {
         this.id_MonAn = id_MonAn;
         this.tenMon = tenMon;
         this.gia = gia;
-
         this.thanhPhan = thanhPhan;
         this.trangThai = trangThai;
         this.id_LoaiDoAn = id_LoaiDoAn;

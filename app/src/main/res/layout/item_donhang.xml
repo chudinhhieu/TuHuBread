@@ -1,32 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="5dp">
-    <androidx.cardview.widget.CardView
+    android:layout_marginBottom="5dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp">
-        <RelativeLayout
+        android:padding="5dp">
+        <ImageView
+            android:id="@+id/img_dh"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_item_donhang"/>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:id="@+id/tv_trangThaidh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Đang giao hàng"
+            android:fontFamily="@font/mali"
+            android:textSize="10sp"
+            android:textColor="@color/red"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"/>
+        <LinearLayout
+            android:id="@+id/viewdh1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/img_item_dh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_item_donhang"/>
+            android:layout_height="wrap_content"
+            android:weightSum="7"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_below="@id/tv_trangThaidh"
+            android:layout_toRightOf="@id/img_dh"
+            android:layout_marginStart="5dp">
             <TextView
-                android:id="@+id/tv_item_trangThai_dh"
+                android:id="@+id/tv_tenmondh"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Bánh mì gà Hawaii,Trà tắc khổng lồ +1 sản phẩm khác"
+                android:fontFamily="@font/alata"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                />
+            <TextView
+                android:id="@+id/tv_giadh"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:fontFamily="@font/alata"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="135000đ"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/timedh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="12:34 - 1/4/2023"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/viewdh1"
+            android:layout_toRightOf="@id/img_dh"/>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_danhGiadh"
+            app:cardCornerRadius="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="80dp"
+            app:cardElevation="3dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/main2"
+            android:layout_below="@id/viewdh1">
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:fontFamily="@font/mali"
-                android:textColor="@color/red"
-                android:text="Đang giao hàng"/>
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:text="Đánh giá"/>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
-</RelativeLayout>
+</androidx.cardview.widget.CardView>
