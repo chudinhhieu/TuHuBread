@@ -2,6 +2,7 @@ package hieucdph29636.fpoly.tuhubread.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,30 +44,43 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
+        String quyen = sharedPreferences.getString("quyen","");
+        chiTietDonHangDAO =new ChiTietDonHangDAO(context);
+        int index = position;
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, DonHangChiTietActivity.class));
+                Intent intent =new Intent(context, DonHangChiTietActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("id_dh",list.get(index).getId_DonHang());
+                bundle.putInt("trangThai_dh",list.get(index).getTrangThai());
+                intent.putExtras(bundle);
+                context.startActivity(intent);
             }
         });
         holder.btn_danhgia.setVisibility(View.GONE);
-        chiTietDonHangDAO =new ChiTietDonHangDAO(context);
         int trangThai = list.get(position).getTrangThai();
         switch (trangThai){
             case 0:
                 holder.trangthai.setText("Chờ thanh toán");
                 break;
                 case 1:
-                holder.trangthai.setText("Đang làm");
+                holder.trangthai.setText("Chờ xác nhận");
                 break;
                 case 2:
-                holder.trangthai.setText("Đang giao hàng");
+                holder.trangthai.setText("Đang làm");
                 break;
                 case 3:
-                holder.trangthai.setText("Thành công");
-                    holder.btn_danhgia.setVisibility(View.VISIBLE);
+                holder.trangthai.setText("Đang giao hàng");
                     break;
                 case 4:
+                holder.trangthai.setText("Thành công");
+                    if (quyen.equalsIgnoreCase("khachhang")){
+                        holder.btn_danhgia.setVisibility(View.VISIBLE);
+                    }
+                    break;
+                case 5:
                 holder.trangthai.setText("Hủy");
                 break;
         }

@@ -21,10 +21,10 @@ public class ChiTietDonHangDAO {
         db=dbHelper.getWritableDatabase();
 
     }
-    public List<ChiTietDonHang> selectAll(){
+    public List<ChiTietDonHang> selectAll(int id_dh){
         List<ChiTietDonHang> listABC = new ArrayList<ChiTietDonHang>();
 
-        Cursor c = db.rawQuery("SELECT * From ChiTietDonHang",null);
+        Cursor c = db.rawQuery("SELECT * From ChiTietDonHang where id_donHang=?",new String[]{String.valueOf(id_dh)});
 
         if (c.moveToFirst()){
             while (!c.isAfterLast()){
@@ -89,6 +89,21 @@ public class ChiTietDonHangDAO {
         String[] projection = { "MonAn.tenMon" };
         String selection = "ChiTietDonHang.id_donHang = ?";
         String[] selectionArgs = { String.valueOf(id_donHang) };
+        String joinQuery = "ChiTietDonHang INNER JOIN MonAn ON ChiTietDonHang.id_monAn = MonAn.id_MonAn";
+        Cursor cursor = db.query(joinQuery, projection, selection, selectionArgs, null, null, null);
+        String tenMonAn = null;
+        if (cursor.moveToFirst()) {
+            tenMonAn = cursor.getString(cursor.getColumnIndex("tenMon"));
+        }
+        cursor.close();
+        return tenMonAn;
+    }
+    @SuppressLint("Range")
+    public String getTenMonAnItem(int id) {
+        db = dbHelper.getReadableDatabase();
+        String[] projection = { "MonAn.tenMon" };
+        String selection = "ChiTietDonHang.id_ct = ?";
+        String[] selectionArgs = { String.valueOf(id) };
         String joinQuery = "ChiTietDonHang INNER JOIN MonAn ON ChiTietDonHang.id_monAn = MonAn.id_MonAn";
         Cursor cursor = db.query(joinQuery, projection, selection, selectionArgs, null, null, null);
         String tenMonAn = null;

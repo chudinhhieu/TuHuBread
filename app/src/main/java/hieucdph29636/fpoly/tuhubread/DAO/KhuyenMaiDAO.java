@@ -1,5 +1,6 @@
 package hieucdph29636.fpoly.tuhubread.DAO;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -69,5 +70,36 @@ public class KhuyenMaiDAO {
         String[] so=new String[]{objKM.getId_KhuyenMai()+""};
         return db.delete("KhuyenMai","id_KhuyenMai=?",so);
     }
-
+    public boolean checkCode(String code){
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
+        Cursor c = sqLiteDatabase.rawQuery("SELECT code FROM KhuyenMai WHERE code =? ",new String[]{code});
+        if (c.getCount()!=0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    @SuppressLint("Range")
+    public  int getSoTienGiam(String code){
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        String[] projection = {"soTienGiam"};
+        String selection = "code =?";
+        String[] selectionArgs = { code };
+        Cursor cursor = database.query(
+                "KhuyenMai",   // Bảng
+                projection,  // Các cột cần lấy ra
+                selection,   // Điều kiện lấy dữ liệu
+                selectionArgs, // Điều kiện lấy dữ liệu
+                null,           // Không sắp xếp kết quả
+                null,           // Không giới hạn kết quả
+                null            // Không nhóm kết quả
+        );
+        int soTienGiam = 0;
+        if (cursor.moveToFirst()) {
+            // Lấy dữ liệu của cột "Avatar"
+            soTienGiam = cursor.getInt(cursor.getColumnIndex("soTienGiam"));
+        }
+        cursor.close();
+        return soTienGiam;
+    }
 }

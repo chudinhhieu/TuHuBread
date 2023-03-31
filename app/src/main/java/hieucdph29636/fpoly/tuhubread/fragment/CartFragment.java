@@ -38,4 +38,12 @@ public class CartFragment extends Fragment {
         rcv.setAdapter(adapter);
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        list = (ArrayList<DonHang>) dao.selectAll();
+        adapter = new DonHangAdapter(list,getContext());
+        rcv.setAdapter(adapter);
+    }
 }

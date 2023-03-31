@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
-    android:orientation="vertical"
     tools:context=".Activity.DonHangChiTietActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:orientation="horizontal"
         android:padding="10dp"
@@ -15,6 +18,7 @@
         android:gravity="center_vertical"
         android:layout_height="wrap_content">
         <ImageView
+            android:id="@+id/btn_back_ctdh"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
@@ -29,16 +33,16 @@
             android:gravity="center"/>
     </LinearLayout>
     <RelativeLayout
-        android:layout_marginTop="5dp"
         android:padding="5dp"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:background="@color/white">
         <ImageView
             android:id="@+id/img_ctdh_1"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:src="@drawable/img_time_ctdh"/>
         <TextView
@@ -64,16 +68,16 @@
             android:layout_toRightOf="@id/img_ctdh_1"/>
     </RelativeLayout>
     <RelativeLayout
-        android:layout_marginTop="5dp"
         android:padding="5dp"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:background="@color/white">
         <ImageView
             android:id="@+id/img_ctdh_2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:src="@drawable/img_location_ctdh"/>
         <TextView
@@ -98,4 +102,178 @@
             android:text="Số 46 ngách 57 ngõ 159 Phùng Khoang"
             android:layout_toRightOf="@id/img_ctdh_2"/>
     </RelativeLayout>
-</LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginStart="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mali"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="Tóm tắt đơn hàng"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:id="@+id/rcv_ttdh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        </LinearLayout>
+        <LinearLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:weightSum="10"
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:fontFamily="@font/alata"
+                android:layout_height="wrap_content"
+                android:text="Tổng tạm tính"
+                android:layout_marginStart="5dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/tv_tongTamTinh"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_marginEnd="5dp"
+                android:fontFamily="@font/alata"
+                android:layout_height="wrap_content"
+                android:text="140000"
+                android:gravity="right"
+                android:layout_marginStart="5dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginStart="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mali"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="Thông tin hóa đơn"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="10"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/ed_km_ctdh"
+                    style="@style/LoginTextInputLayoutStyle"
+                    android:layout_width="0dp"
+                    android:fontFamily="@font/mali"
+                    android:hint="Nhập mã khuyến mãi"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"/>
+                <Button
+                    android:id="@+id/btn_km_ctdh"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:fontFamily="@font/alata"
+                    android:text="Áp dụng"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/view_km"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:weightSum="10"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="7"
+                    android:fontFamily="@font/alata"
+                    android:layout_height="wrap_content"
+                    android:text="Khuyến mãi"
+                    android:layout_marginStart="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:id="@+id/tv_giaKM"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/alata"
+                    android:layout_height="wrap_content"
+                    android:text="-20000"
+                    android:gravity="right"
+                    android:layout_marginStart="5dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey"/>
+            <LinearLayout
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:weightSum="10"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="7"
+                    android:fontFamily="@font/alata"
+                    android:layout_height="wrap_content"
+                    android:text="Tổng tiền thanh toán"
+                    android:layout_marginStart="5dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:id="@+id/tv_tongTienCTHD"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/mali"
+                    android:layout_height="wrap_content"
+                    android:text="120000"
+                    android:gravity="right"
+                    android:layout_marginStart="5dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_thanhtoan"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="5dp"
+                android:layout_marginTop="20dp"
+                app:cardElevation="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/main2">
+                <TextView
+                    android:id="@+id/tv_tt_dh"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Thanh toán"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/mali"
+                    android:gravity="center"
+                    />
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

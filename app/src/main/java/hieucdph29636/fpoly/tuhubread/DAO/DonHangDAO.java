@@ -95,5 +95,9 @@ public List<DonHang> checkDonHang() {
     }
     return listABC;
 }
-
+    public int updateTrangThai(int trangThai,int id) {
+        ContentValues values = new ContentValues();
+        values.put("trangThai", trangThai);
+        return db.update("DonHang", values, "id_madonhang=?", new String[]{String.valueOf(id)});
+    }
 }

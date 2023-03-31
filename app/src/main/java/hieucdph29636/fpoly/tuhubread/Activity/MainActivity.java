@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         bottomNavigationView.getMenu().findItem(R.id.action_home).setChecked(true);
                         if (quyen.equalsIgnoreCase("khachhang")){
-                            tv_toolbar.setText(taiKhoan+" ơi,Bánh mì đi!");
+                            tv_toolbar.setText(hoTen+" ơi,Bánh mì đi!");
                         }
                         if (quyen.equalsIgnoreCase("nhanvien")){
                             tv_toolbar.setText("Danh sách");

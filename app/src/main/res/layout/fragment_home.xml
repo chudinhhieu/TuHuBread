@@ -23,23 +23,25 @@
             android:layout_marginTop="5dp"
             />
         <TextView
+            android:id="@+id/tv_home1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mali"
             android:textColor="@color/black"
-            android:textSize="18sp"
-            android:text="Sản phẩm bán chạy cho Hiếu!"/>
+            android:textSize="16sp"
+            android:text="Sản phẩm nổi bật cho Hiếu!"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_spnb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         <TextView
+            android:id="@+id/tv_home2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mali"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:text="Khuyến mãi dành cho Hiếu!"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_kmkh"

@@ -1,5 +1,7 @@
 package hieucdph29636.fpoly.tuhubread.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,12 +16,14 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import hieucdph29636.fpoly.tuhubread.DAO.KhachHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.KhuyenMaiDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.MonAnDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.KhuyenMai;
@@ -45,6 +49,8 @@ public class HomeFragment extends Fragment {
     private KhuyenMaiDAO khuyenMaiDAO;
     private List<KhuyenMai> listKM;
     private KhuyenMaiHomeAdapter adapterKM;
+    private KhachHangDAO khachHangDAO;
+    private TextView tv_home1,tv_home2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
@@ -62,9 +68,12 @@ public class HomeFragment extends Fragment {
         rcv_spnb.setLayoutManager(layoutManager);
         rcv_km.setLayoutManager(layoutManager2);
         monAnDAO = new MonAnDAO(getContext());
+        tv_home1 = view.findViewById(R.id.tv_home1);
+        tv_home2 = view.findViewById(R.id.tv_home2);
         khuyenMaiDAO = new KhuyenMaiDAO(getContext());
         listMonAn = monAnDAO.selectAll();
         listKM = khuyenMaiDAO.selectAll();
+        khachHangDAO = new KhachHangDAO(getContext());
         adapterSPNB = new SanPhamNoiBatAdapter(listMonAn,getContext());
         adapterKM = new KhuyenMaiHomeAdapter(listKM,getContext());
         rcv_spnb.setAdapter(adapterSPNB);
@@ -75,6 +84,11 @@ public class HomeFragment extends Fragment {
         circleIndicator.setViewPager(viewPager);
         adapterSlideShowAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
         AutoSildePhoto();
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
+        String taiKhoan = sharedPreferences.getString("TK","");
+        String hoTen= khachHangDAO.getHoTen(taiKhoan);
+        tv_home1.setText("Sản phẩm nổi bật cho "+hoTen+"!");
+        tv_home2.setText("Khuyến mãi dành cho "+hoTen+"!");
     }
 
     private List<PhotoSlideShow> getListPhoto() {
