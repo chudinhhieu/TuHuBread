@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_khuyenMai"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_add_km"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/ic_baseline_add_24" />
+</RelativeLayout>

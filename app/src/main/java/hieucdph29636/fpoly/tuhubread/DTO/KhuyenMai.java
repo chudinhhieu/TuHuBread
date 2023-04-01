@@ -7,7 +7,14 @@ public class KhuyenMai {
     private String ngayBatDau;
     private String ngayKetThuc;
     private int soTienGiam;
-
+    public KhuyenMai(String code, String moTaKM, String ngayBatDau, String ngayKetThuc, int soTienGiam) {
+        this.id_KhuyenMai = id_KhuyenMai;
+        this.code = code;
+        this.moTaKM = moTaKM;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
+        this.soTienGiam = soTienGiam;
+    }
     public KhuyenMai(int id_KhuyenMai, String code, String moTaKM, String ngayBatDau, String ngayKetThuc, int soTienGiam) {
         this.id_KhuyenMai = id_KhuyenMai;
         this.code = code;
