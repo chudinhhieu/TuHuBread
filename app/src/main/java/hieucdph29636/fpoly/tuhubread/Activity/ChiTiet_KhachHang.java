@@ -42,11 +42,6 @@ public class ChiTiet_KhachHang extends AppCompatActivity {
         String diachi = bundle.getString("tv_Address");
         String sodu =  bundle.getInt("tv_soDuTK_KH")+"";
 
-
-
-
-
-
         tv_nameKH.setText(hoten);
         tv_taiKhoanKH.setText(taiKhoan);
         tv_dateKH.setText(ngaysinh);
@@ -55,34 +50,6 @@ public class ChiTiet_KhachHang extends AppCompatActivity {
         tv_addressKH.setText(diachi);
         tv_soDuTK_KH.setText(sodu);
         khachHangDAO=new KhachHangDAO(this);
-        btn_editKH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
-        btn_deleteKH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(getApplicationContext());
-                builder.setTitle("Bạn có muốn xóa không?");
-                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-//                        khachHangDAO.deleteKhachHang(objKH);
-//                        khachHangDAO.close();
-//                        listKH.remove(objKH);
-//                        dialog.dismiss();
-                    }
-                });
-                builder.create().show();
-            }
-        });
     }
 }

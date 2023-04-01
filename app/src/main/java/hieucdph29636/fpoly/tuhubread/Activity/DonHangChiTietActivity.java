@@ -67,7 +67,7 @@ public class DonHangChiTietActivity extends AppCompatActivity {
         tv_tongTienCTHD.setText(tongTamTinh+"");
         khuyenMaiDAO = new KhuyenMaiDAO(this);
         donHangDAO = new DonHangDAO(this);
-        if (tt_dh!=0){
+        if (tt_dh==0&&quyen.equalsIgnoreCase("nhanvien")){
             btn_thanhtoan.setVisibility(View.GONE);
         }
         if (tt_dh==0&&quyen.equalsIgnoreCase("khachhang")){

@@ -23,17 +23,13 @@
           android:layout_height="13dp"
           android:layout_margin="10dp"
           android:background="@android:color/transparent"
-
           />
-
       <ImageView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="3"
           android:layout_marginTop="4dp"
           android:src="@drawable/baseline_arrow_drop_down_24" />
-
-
    </LinearLayout>
    <View
        android:layout_width="match_parent"
@@ -41,13 +37,10 @@
        android:id="@+id/view2"
        android:background="@color/black"
        />
-
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/rcv_dsm"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_below="@+id/view2"
        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-
 </LinearLayout>

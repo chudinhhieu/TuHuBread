@@ -45,6 +45,7 @@ public class Ds_mon_Adapter extends RecyclerView.Adapter<Ds_mon_Adapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull Ds_mon_Adapter.ViewHolder holder, int position) {
         int index = position;
+        MonAn monAn = dsma.get(position);
         holder.tv_item_tendm.setText(dsma.get(position).getTenMon()+"");
         holder.tv_item_thanhphandm.setText(dsma.get(position).getThanhPhan()+"");
         holder.tv_item_tiendm.setText(dsma.get(position).getGia()+"");
@@ -54,46 +55,17 @@ public class Ds_mon_Adapter extends RecyclerView.Adapter<Ds_mon_Adapter.ViewHold
             public void onClick(View view) {
                 Intent intent = new Intent(context, DatMonActivity.class);
                 Bundle bundle = new Bundle();
-
-                // item here???
-
+                bundle.putInt("idMon",monAn.getId_MonAn());
+                bundle.putString("tenMon",monAn.getTenMon());
+                bundle.putString("thanhPhan",monAn.getThanhPhan());
+                bundle.putInt("gia",monAn.getGia());
+                bundle.putInt("trangThai",monAn.getTrangThai());
+                bundle.putInt("id_loai",monAn.getId_LoaiDoAn());
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }
         });
 
-        holder.linear_dm.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-
-                builder.setMessage("Bạn có đồng ý ẩn món không?");
-
-                builder.setTitle("Thông báo");
-
-                builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        holder.linear_dm.setVisibility(View.GONE);
-
-                    }
-                });
-
-                builder.setNegativeButton("Bỏ qua", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-
-                // khởi tạo thành dialog
-                AlertDialog dialog = builder.create();
-                dialog.show();
-                return false;
-
-            }
-
-        });
 
     }
 

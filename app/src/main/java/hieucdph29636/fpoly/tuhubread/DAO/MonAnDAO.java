@@ -45,6 +45,32 @@ public class MonAnDAO {
 
         return  listPro;
     }
+    public ArrayList<MonAn> selectAllKH(int trangThai){
+        ArrayList<MonAn> listPro = new ArrayList<MonAn>();
+
+        Cursor c = db.rawQuery("SELECT * FROM MonAn where trangThai=?  ",new String[]{String.valueOf(trangThai)});
+
+        if(c.moveToFirst()){
+            while (!c.isAfterLast()){
+                int _id = c.getInt(0);
+                String _name = c.getString(1);
+                int _gia=c.getInt(2);
+
+                String _thanhphan=c.getString(3);
+                int _trangThai=c.getInt(4);
+                int id_LoaiDoAn=c.getInt(5);
+                int _anh=c.getInt(6);
+                MonAn tmpLoai = new MonAn( _id, _name,_gia,_thanhphan,_trangThai,id_LoaiDoAn,_anh);
+                listPro.add( tmpLoai );
+                c.moveToNext();
+            }
+
+        }else{
+            Log.d("zzz", "selectAll: Không có dữ liệu");
+        }
+
+        return  listPro;
+    }
     public long insertMon(MonAn objMon){
         ContentValues values=new ContentValues();
         values.put("tenMon", objMon.getTenMon());
@@ -66,14 +92,19 @@ public class MonAnDAO {
         String[] tham_so=new String[]{objMon.getId_MonAn()+""};
         return db.update("MonAn",values,"id_MonAn=?",tham_so);
     }
+    public int updateTTMon(int tt,int id){
+        ContentValues values=new ContentValues();
+        values.put("trangThai",tt);
+        return db.update("MonAn",values,"id_MonAn=?",new String[]{String.valueOf(id)});
+    }
     public int deleteMon(MonAn objMon){
         String[] tham_so=new String[]{objMon.getId_MonAn()+""};
         return db.delete("MonAn","id_MonAn=?",tham_so);}
 
-    public ArrayList<MonAn> chonTheoLoai(int id_loaiDoAn){
+    public ArrayList<MonAn> chonTheoLoai(int id_loaiDoAn,int tt){
         ArrayList<MonAn> listPro = new ArrayList<MonAn>();
 
-        Cursor c = db.rawQuery("SELECT * FROM MonAn where id_loaiDoAn=? ",new String[]{String.valueOf(id_loaiDoAn)});
+        Cursor c = db.rawQuery("SELECT * FROM MonAn where id_loaiDoAn=? and trangThai=? ",new String[]{String.valueOf(id_loaiDoAn), String.valueOf(tt)});
 
         if(c.moveToFirst()){
             while (!c.isAfterLast()){

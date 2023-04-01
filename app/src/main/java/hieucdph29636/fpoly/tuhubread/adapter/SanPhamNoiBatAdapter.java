@@ -59,7 +59,7 @@ public class SanPhamNoiBatAdapter extends RecyclerView.Adapter<SanPhamNoiBatAdap
                 bundle.putString("thanhPhan",monAn.getThanhPhan());
                 bundle.putInt("gia",monAn.getGia());
                 bundle.putInt("trangThai",monAn.getTrangThai());
-                bundle.putInt("id_loai",monAn.getGia());
+                bundle.putInt("id_loai",monAn.getId_LoaiDoAn());
                 Intent intent = new Intent(context, DatMonActivity.class);
                 intent.putExtras(bundle);
                 context.startActivity(intent);

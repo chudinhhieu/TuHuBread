@@ -63,6 +63,9 @@ public class HomeFragment extends Fragment {
         circleIndicator = view.findViewById(R.id.circle_indicator);
         rcv_spnb = view.findViewById(R.id.rcv_spnb);
         rcv_km = view.findViewById(R.id.rcv_kmkh);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
+        String taiKhoan = sharedPreferences.getString("TK","");
+        String quyen = sharedPreferences.getString("quyen","");
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
         LinearLayoutManager layoutManager2= new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
         rcv_spnb.setLayoutManager(layoutManager);
@@ -71,7 +74,9 @@ public class HomeFragment extends Fragment {
         tv_home1 = view.findViewById(R.id.tv_home1);
         tv_home2 = view.findViewById(R.id.tv_home2);
         khuyenMaiDAO = new KhuyenMaiDAO(getContext());
-        listMonAn = monAnDAO.selectAll();
+        if (quyen.equalsIgnoreCase("khachhang")){
+            listMonAn = monAnDAO.selectAllKH(1);
+        }
         listKM = khuyenMaiDAO.selectAll();
         khachHangDAO = new KhachHangDAO(getContext());
         adapterSPNB = new SanPhamNoiBatAdapter(listMonAn,getContext());
@@ -84,8 +89,6 @@ public class HomeFragment extends Fragment {
         circleIndicator.setViewPager(viewPager);
         adapterSlideShowAdapter.registerDataSetObserver(circleIndicator.getDataSetObserver());
         AutoSildePhoto();
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
-        String taiKhoan = sharedPreferences.getString("TK","");
         String hoTen= khachHangDAO.getHoTen(taiKhoan);
         tv_home1.setText("Sản phẩm nổi bật cho "+hoTen+"!");
         tv_home2.setText("Khuyến mãi dành cho "+hoTen+"!");

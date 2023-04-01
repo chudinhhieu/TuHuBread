@@ -2,6 +2,7 @@ package hieucdph29636.fpoly.tuhubread.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import java.util.Date;
 
 import hieucdph29636.fpoly.tuhubread.DAO.ChiTietDonHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.DonHangDAO;
+import hieucdph29636.fpoly.tuhubread.DAO.MonAnDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
 import hieucdph29636.fpoly.tuhubread.R;
@@ -28,16 +31,23 @@ public class DatMonActivity extends AppCompatActivity {
     DonHangDAO donHangDAO;
     ChiTietDonHangDAO chiTietDonHangDAO;
     RadioButton rdo_coRau,rdo_kRau,rdo_coOt,rdo_kOt;
+    RelativeLayout view6,view2,view3;
+    MonAnDAO monAnDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dat_mon);
         SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
         String taiKhoan = sharedPreferences.getString("TK","");
+        String quyen = sharedPreferences.getString("quyen","");
         donHangDAO = new DonHangDAO(this);
         chiTietDonHangDAO = new ChiTietDonHangDAO(this);
+        monAnDAO = new MonAnDAO(this);
         btn_back = findViewById(R.id.btn_back_monAn);
         rdo_coRau = findViewById(R.id.rdo_coRau);
+        view6 = findViewById(R.id.view6);
+        view2 = findViewById(R.id.view2);
+        view3 = findViewById(R.id.view3);
         rdo_kRau = findViewById(R.id.rdo_khongRau);
         rdo_coOt = findViewById(R.id.rdo_coOt);
         rdo_kOt = findViewById(R.id.rdo_khongOt);
@@ -60,6 +70,18 @@ public class DatMonActivity extends AppCompatActivity {
         tv_tenMon_datMon.setText(ten);
         tv_gia_datMon.setText(gia+"đ");
         tv_thanhphan_datMon.setText(thanhPhan);
+        if (loai!=0){
+            view2.setVisibility(View.GONE);
+            view3.setVisibility(View.GONE);
+        }
+        if (quyen.equalsIgnoreCase("nhanvien")){
+            view6.setVisibility(View.GONE);
+            if (trangThai==1){
+                tv_tongGiaMonAn.setText("Ngừng bán");
+            }else {
+                tv_tongGiaMonAn.setText("Mở bán");
+            }
+        }
         btn_cong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,62 +109,74 @@ public class DatMonActivity extends AppCompatActivity {
         btn_datMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (donHangDAO.checkDonHang().isEmpty()){
-                    Date currentDate = new Date();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
-                    String time = dateFormat.format(currentDate.getTime());
-                    DonHang donHang = new DonHang();
-                    donHang.setTaiKhoan(taiKhoan);
-                    donHang.setThoiGianTao(time);
-                    donHang.setTrangThai(0);
-                    donHangDAO.insertDonHang(donHang);
-                    ChiTietDonHang ctdh = new ChiTietDonHang();
-                    ctdh.setId_donHang(donHangDAO.checkDonHang().get(0).getId_DonHang());
-                    ctdh.setSoLuong(Integer.parseInt(tv_soLuong.getText().toString()));
-                    ctdh.setGiaTien(Integer.parseInt(tv_soLuong.getText().toString())*gia);
-                    ctdh.setId_monAn(id);
-                    if (rdo_coRau.isChecked()){
-                        ctdh.setRau(1);
-                    }
-                    if (rdo_kRau.isChecked()){
-                        ctdh.setRau(0);
-                    }
-                    if (rdo_coOt.isChecked()){
-                        ctdh.setOt(1);
-                    }
-                    if (rdo_kOt.isChecked()){
-                        ctdh.setOt(0);
-                    }
-                    if (chiTietDonHangDAO.insertChiTietDonHang(ctdh)>0){
-                        Toast.makeText(DatMonActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                if (quyen.equalsIgnoreCase("khachhang")){
+                    if (donHangDAO.checkDonHang().isEmpty()){
+                        Date currentDate = new Date();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+                        String time = dateFormat.format(currentDate.getTime());
+                        DonHang donHang = new DonHang();
+                        donHang.setTaiKhoan(taiKhoan);
+                        donHang.setThoiGianTao(time);
+                        donHang.setTrangThai(0);
+                        donHangDAO.insertDonHang(donHang);
+                        ChiTietDonHang ctdh = new ChiTietDonHang();
+                        ctdh.setId_donHang(donHangDAO.checkDonHang().get(0).getId_DonHang());
+                        ctdh.setSoLuong(Integer.parseInt(tv_soLuong.getText().toString()));
+                        ctdh.setGiaTien(Integer.parseInt(tv_soLuong.getText().toString())*gia);
+                        ctdh.setId_monAn(id);
+                       if (loai==0){
+                           if (rdo_coRau.isChecked()){
+                               ctdh.setRau(1);
+                           }
+                           if (rdo_kRau.isChecked()){
+                               ctdh.setRau(0);
+                           }
+                           if (rdo_coOt.isChecked()){
+                               ctdh.setOt(1);
+                           }
+                           if (rdo_kOt.isChecked()){
+                               ctdh.setOt(0);
+                           }
+                       }
+                        if (chiTietDonHangDAO.insertChiTietDonHang(ctdh)>0){
+                            Toast.makeText(DatMonActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                        }else {
+                            Toast.makeText(DatMonActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
+                        }
                     }else {
-                        Toast.makeText(DatMonActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
+                        ChiTietDonHang ctdh = new ChiTietDonHang();
+                        ctdh.setId_donHang(donHangDAO.checkDonHang().get(0).getId_DonHang());
+                        ctdh.setSoLuong(Integer.parseInt(tv_soLuong.getText().toString()));
+                        ctdh.setGiaTien(Integer.parseInt(tv_soLuong.getText().toString())*gia);
+                        ctdh.setId_monAn(id);
+                        if (rdo_coRau.isChecked()){
+                            ctdh.setRau(1);
+                        }
+                        if (rdo_kRau.isChecked()){
+                            ctdh.setRau(0);
+                        }
+                        if (rdo_coOt.isChecked()){
+                            ctdh.setOt(1);
+                        }
+                        if (rdo_kOt.isChecked()){
+                            ctdh.setOt(0);
+                        }
+                        if (chiTietDonHangDAO.insertChiTietDonHang(ctdh)>0){
+                            Toast.makeText(DatMonActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(DatMonActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }else {
-                    ChiTietDonHang ctdh = new ChiTietDonHang();
-                    ctdh.setId_donHang(donHangDAO.checkDonHang().get(0).getId_DonHang());
-                    ctdh.setSoLuong(Integer.parseInt(tv_soLuong.getText().toString()));
-                    ctdh.setGiaTien(Integer.parseInt(tv_soLuong.getText().toString())*gia);
-                    ctdh.setId_monAn(id);
-                    if (rdo_coRau.isChecked()){
-                        ctdh.setRau(1);
-                    }
-                    if (rdo_kRau.isChecked()){
-                        ctdh.setRau(0);
-                    }
-                    if (rdo_coOt.isChecked()){
-                        ctdh.setOt(1);
-                    }
-                    if (rdo_kOt.isChecked()){
-                        ctdh.setOt(0);
-                    }
-                    if (chiTietDonHangDAO.insertChiTietDonHang(ctdh)>0){
-                        Toast.makeText(DatMonActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                    if (trangThai==1){
+                        monAnDAO.updateTTMon(0,id);
+                        onBackPressed();
                     }else {
-                        Toast.makeText(DatMonActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
+                        monAnDAO.updateTTMon(1,id);
+                        onBackPressed();
                     }
                 }
-
             }
         });
     }

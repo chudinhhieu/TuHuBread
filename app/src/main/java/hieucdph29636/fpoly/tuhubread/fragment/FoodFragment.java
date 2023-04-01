@@ -50,10 +50,8 @@ public class FoodFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         rcv_dsm = view.findViewById(R.id.rcv_dsm);
         linear_food = view.findViewById(R.id.linear_dm);
-
         loaiMonDAO = new LoaiMonDAO(getContext());
         monAnDAO = new MonAnDAO(getContext());
         List<String> list = new ArrayList<>();
@@ -63,7 +61,7 @@ public class FoodFragment extends Fragment {
         spn_thucdon = view.findViewById(R.id.spn_thucdon);
         ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, list);
         spn_thucdon.setAdapter(adapter);
-        ArrayList<MonAn> listmon = monAnDAO.chonTheoLoai(1);
+        ArrayList<MonAn> listmon = monAnDAO.chonTheoLoai(0,1);
         ds_mon_adapter = new Ds_mon_Adapter(getContext(), listmon);
         rcv_dsm.setAdapter(ds_mon_adapter);
 
@@ -74,7 +72,7 @@ public class FoodFragment extends Fragment {
 
                         int id = loaiMonDAO.getId(list.get(position));
 
-                        ArrayList<MonAn> list = monAnDAO.chonTheoLoai(id);
+                        ArrayList<MonAn> list = monAnDAO.chonTheoLoai(id,1);
                         ds_mon_adapter = new Ds_mon_Adapter(getContext(), list);
                         rcv_dsm.setAdapter(ds_mon_adapter);
 
@@ -88,4 +86,11 @@ public class FoodFragment extends Fragment {
 
             }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ArrayList<MonAn> listmon = monAnDAO.chonTheoLoai(0,1);
+        ds_mon_adapter = new Ds_mon_Adapter(getContext(), listmon);
+        rcv_dsm.setAdapter(ds_mon_adapter);
+    }
 }
