@@ -9,8 +9,10 @@ public class KhachHang {
     private String diaChi;
     private int soDuTaiKhoan;
 
+    public KhachHang() {
+    }
 
-    public KhachHang(String taiKhoan,String hoTen, String soDienThoai,  String matKhau, String ngaySinh, String diaChi, int soDuTaiKhoan) {
+    public KhachHang(String taiKhoan, String hoTen, String soDienThoai, String matKhau, String ngaySinh, String diaChi, int soDuTaiKhoan) {
         this.hoTen = hoTen;
         this.soDienThoai = soDienThoai;
         this.taiKhoan = taiKhoan;

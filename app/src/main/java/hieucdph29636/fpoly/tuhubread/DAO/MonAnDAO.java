@@ -6,125 +6,222 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
+import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class MonAnDAO {
-    SQLiteDatabase db;
-    DbHelper dbHelper;
-    public MonAnDAO(Context context) {
-        dbHelper=new DbHelper(context);
-        db=dbHelper.getWritableDatabase();
+    Connection connection;
+    ConnectionHelper connectionHelper;
+    public MonAnDAO() {
     }
-    public void close(){dbHelper.close();}
-    public ArrayList<MonAn> selectAll(){
-        ArrayList<MonAn> listPro = new ArrayList<MonAn>();
 
-        Cursor c = db.rawQuery("SELECT * FROM MonAn ",null);
-
-        if(c.moveToFirst()){
-            while (!c.isAfterLast()){
-                int _id = c.getInt(0);
-                String _name = c.getString(1);
-                int _gia=c.getInt(2);
-
-                String _thanhphan=c.getString(3);
-                int _trangThai=c.getInt(4);
-                int id_LoaiDoAn=c.getInt(5);
-                int _anh=c.getInt(6);
-                MonAn tmpLoai = new MonAn( _id, _name,_gia,_thanhphan,_trangThai,id_LoaiDoAn,_anh);
-                listPro.add( tmpLoai );
-                c.moveToNext();
+    public int updateTTMon(int tt, int id) {
+        connectionHelper = new ConnectionHelper();
+        connection = connectionHelper.connectionClass();
+        int rowsAffected = 0;
+        try {
+            if (connection != null) {
+                String query = "UPDATE MonAn SET trangThai = ? WHERE id_MonAn = ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setInt(1, tt);
+                statement.setInt(2, id);
+                rowsAffected = statement.executeUpdate();
             }
-
-        }else{
-            Log.d("zzz", "selectAll: Không có dữ liệu");
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
         }
-
-        return  listPro;
+        return rowsAffected;
     }
-    public ArrayList<MonAn> selectAllKH(int trangThai){
-        ArrayList<MonAn> listPro = new ArrayList<MonAn>();
-
-        Cursor c = db.rawQuery("SELECT * FROM MonAn where trangThai=?  ",new String[]{String.valueOf(trangThai)});
-
-        if(c.moveToFirst()){
-            while (!c.isAfterLast()){
-                int _id = c.getInt(0);
-                String _name = c.getString(1);
-                int _gia=c.getInt(2);
-
-                String _thanhphan=c.getString(3);
-                int _trangThai=c.getInt(4);
-                int id_LoaiDoAn=c.getInt(5);
-                int _anh=c.getInt(6);
-                MonAn tmpLoai = new MonAn( _id, _name,_gia,_thanhphan,_trangThai,id_LoaiDoAn,_anh);
-                listPro.add( tmpLoai );
-                c.moveToNext();
+    public void delete(int id) {
+        connectionHelper = new ConnectionHelper();
+        connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String sql = "DELETE FROM MonAn WHERE id_MonAn = " + id;
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(sql);
             }
-
-        }else{
-            Log.d("zzz", "selectAll: Không có dữ liệu");
+        } catch (Exception ex) {
+            Log.e("DELETE_ERROR", ex.getMessage());
         }
-
-        return  listPro;
     }
-    public long insertMon(MonAn objMon){
-        ContentValues values=new ContentValues();
-        values.put("tenMon", objMon.getTenMon());
-        values.put("gia",objMon.getGia()+"");
-        values.put("thanhPhan",objMon.getThanhPhan());
-        values.put("trangThai",objMon.getTrangThai());
-        values.put("id_LoaiDoAn",objMon.getId_LoaiDoAn()+"");
-        values.put("anhDoAn", objMon.getAnhMonAn()+"");
-        return db.insert("MonAn",null,values);
-    }
-    public int updateMon(MonAn objMon){
-        ContentValues values=new ContentValues();
-        values.put("tenMon", objMon.getTenMon());
-        values.put("gia",objMon.getGia()+"");
-        values.put("thanhPhan",objMon.getThanhPhan());
-        values.put("trangThai",objMon.getTrangThai());
-        values.put("id_LoaiDoAn",objMon.getId_LoaiDoAn()+"");
-        values.put("anhDoAn", objMon.getAnhMonAn()+"");
-        String[] tham_so=new String[]{objMon.getId_MonAn()+""};
-        return db.update("MonAn",values,"id_MonAn=?",tham_so);
-    }
-    public int updateTTMon(int tt,int id){
-        ContentValues values=new ContentValues();
-        values.put("trangThai",tt);
-        return db.update("MonAn",values,"id_MonAn=?",new String[]{String.valueOf(id)});
-    }
-    public int deleteMon(MonAn objMon){
-        String[] tham_so=new String[]{objMon.getId_MonAn()+""};
-        return db.delete("MonAn","id_MonAn=?",tham_so);}
 
-    public ArrayList<MonAn> chonTheoLoai(int id_loaiDoAn,int tt){
-        ArrayList<MonAn> listPro = new ArrayList<MonAn>();
-
-        Cursor c = db.rawQuery("SELECT * FROM MonAn where id_loaiDoAn=? and trangThai=? ",new String[]{String.valueOf(id_loaiDoAn), String.valueOf(tt)});
-
-        if(c.moveToFirst()){
-            while (!c.isAfterLast()){
-                int _id = c.getInt(0);
-                String _name = c.getString(1);
-                int _gia=c.getInt(2);
-                String _thanhphan=c.getString(3);
-                int _trangThai=c.getInt(4);
-                int id_LoaiDoAn=c.getInt(5);
-                int _anh=c.getInt(6);
-                MonAn tmpLoai = new MonAn( _id, _name,_gia,_thanhphan,_trangThai,id_LoaiDoAn,_anh);
-                listPro.add( tmpLoai );
-                c.moveToNext();
+    public ArrayList<MonAn> layTheoLoai(int id_loaiDoAn,int tt) {
+        ArrayList<MonAn> list = new ArrayList<>();
+        connectionHelper = new ConnectionHelper();
+        connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM MonAn where id_loaiDoAn= '"+id_loaiDoAn+"' and trangThai= '"+tt+"'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    MonAn monAn = new MonAn();
+                    monAn.setId_MonAn(resultSet.getInt(1));
+                    monAn.setTenMon(resultSet.getString(2));
+                    monAn.setGia(resultSet.getInt(3));
+                    monAn.setThanhPhan(resultSet.getString(4));
+                    monAn.setTrangThai(resultSet.getInt(5));
+                    monAn.setId_LoaiDoAn(resultSet.getInt(6));
+                    monAn.setAnhMonAn(resultSet.getBytes(7));
+                    list.add(monAn);
+                }
             }
-
-        }else{
-            Log.d("zzz", "selectAll: Không có dữ liệu");
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
         }
-
-        return  listPro;
+        return list;
     }
-
+    public ArrayList<MonAn> layTheoLoaiNV(int id_loaiDoAn) {
+        ArrayList<MonAn> list = new ArrayList<>();
+        connectionHelper = new ConnectionHelper();
+        connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM MonAn where id_loaiDoAn= '"+id_loaiDoAn+"'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    MonAn monAn = new MonAn();
+                    monAn.setId_MonAn(resultSet.getInt(1));
+                    monAn.setTenMon(resultSet.getString(2));
+                    monAn.setGia(resultSet.getInt(3));
+                    monAn.setThanhPhan(resultSet.getString(4));
+                    monAn.setTrangThai(resultSet.getInt(5));
+                    monAn.setId_LoaiDoAn(resultSet.getInt(6));
+                    monAn.setAnhMonAn(resultSet.getBytes(7));
+                    list.add(monAn);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return list;
+    }
+    public ArrayList<MonAn> getAll() {
+        ArrayList<MonAn> list = new ArrayList<>();
+        connectionHelper = new ConnectionHelper();
+        connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM MonAn";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    MonAn monAn = new MonAn();
+                    monAn.setId_MonAn(resultSet.getInt(1));
+                    monAn.setTenMon(resultSet.getString(2));
+                    monAn.setGia(resultSet.getInt(3));
+                    monAn.setThanhPhan(resultSet.getString(4));
+                    monAn.setTrangThai(resultSet.getInt(5));
+                    monAn.setId_LoaiDoAn(resultSet.getInt(6));
+                    monAn.setAnhMonAn(resultSet.getBytes(7));
+                    list.add(monAn);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return list;
+    }
+    public boolean insert(MonAn monAn) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "INSERT INTO MonAn (tenMon, gia, thanhPhan, trangThai, id_loaiDoAn, anhMonAn) VALUES (?, ?, ?, ?, ?, ?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, monAn.getTenMon());
+                preparedStatement.setInt(2, monAn.getGia());
+                preparedStatement.setString(3, monAn.getThanhPhan());
+                preparedStatement.setInt(4, monAn.getTrangThai());
+                preparedStatement.setInt(5, monAn.getId_LoaiDoAn());
+                preparedStatement.setBytes(6, monAn.getAnhMonAn());
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("INSERT_ERROR", ex.getMessage());
+        }
+        return success;
+    }
+    public boolean update(MonAn monAn) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE MonAn SET tenMon = ?, gia = ?, thanhPhan = ?, trangThai = ?, id_loaiDoAn = ?, anhMonAn = ? WHERE id_MonAn = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, monAn.getTenMon());
+                preparedStatement.setInt(2, monAn.getGia());
+                preparedStatement.setString(3, monAn.getThanhPhan());
+                preparedStatement.setInt(4, monAn.getTrangThai());
+                preparedStatement.setInt(5, monAn.getId_LoaiDoAn());
+                preparedStatement.setBytes(6, monAn.getAnhMonAn());
+                preparedStatement.setInt(7, monAn.getId_MonAn());
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
+        }
+        return success;
+    }
+    public byte[] layAnhTheoID(int id_monAn) {
+        byte[] anhMonAn = null;
+        connectionHelper = new ConnectionHelper();
+        connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT anhMonAn FROM MonAn WHERE id_MonAn = '"+id_monAn+"'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                if (resultSet.next()) {
+                    anhMonAn = resultSet.getBytes("anhMonAn");
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return anhMonAn;
+    }
+    public MonAn getById(int id) {
+        MonAn monAn = null;
+        connectionHelper = new ConnectionHelper();
+        connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM MonAn WHERE Id_MonAn = " + id;
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                if (resultSet.next()) {
+                    monAn = new MonAn();
+                    monAn.setId_MonAn(resultSet.getInt(1));
+                    monAn.setTenMon(resultSet.getString(2));
+                    monAn.setGia(resultSet.getInt(3));
+                    monAn.setThanhPhan(resultSet.getString(4));
+                    monAn.setTrangThai(resultSet.getInt(5));
+                    monAn.setId_LoaiDoAn(resultSet.getInt(6));
+                    monAn.setAnhMonAn(resultSet.getBytes(7));
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return monAn;
+    }
 }

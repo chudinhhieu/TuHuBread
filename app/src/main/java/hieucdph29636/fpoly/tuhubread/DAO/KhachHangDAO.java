@@ -8,101 +8,160 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 
+import hieucdph29636.fpoly.tuhubread.DTO.DonNapTien;
 import hieucdph29636.fpoly.tuhubread.DTO.KhachHang;
+import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class KhachHangDAO {
     SQLiteDatabase db;
     DbHelper dbHelper;
+
+    public KhachHangDAO() {
+    }
+
     public KhachHangDAO(Context context){
         dbHelper= new DbHelper(context);
 
         db=dbHelper.getWritableDatabase();
     }
-    public void close(){dbHelper.close();}
-    public List<KhachHang> selectAll(){
-        List<KhachHang> listABC = new ArrayList<KhachHang>();
-
-        Cursor c = db.rawQuery("SELECT * From KhachHang",null);
-
-        if (c.moveToFirst()){
-            while (!c.isAfterLast()){
-                String taiKhoan = c.getString(0);
-                String hoTen = c.getString(1);
-                String soDienThoai = c.getString(2);
-                String matKhau = c.getString(3);
-                String ngaySinh = c.getString(4);
-                String diaChi = c.getString(5);
-                int soDuTaiKhoan = c.getInt(6);
-                KhachHang ttKhachHang = new KhachHang(taiKhoan,hoTen,soDienThoai,matKhau,ngaySinh,diaChi,soDuTaiKhoan);
-                listABC.add(ttKhachHang);
-                c.moveToNext();
+    public ArrayList<KhachHang> getAll() {
+        ArrayList<KhachHang> list = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM KhachHang";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    KhachHang kh = new KhachHang();
+                    kh.setTaiKhoan(resultSet.getString(1));
+                    kh.setHoTen(resultSet.getString(2));
+                    kh.setSoDienThoai(resultSet.getString(3));
+                    kh.setMatKhau(resultSet.getString(4));
+                    kh.setNgaySinh(resultSet.getString(5));
+                    kh.setDiaChi(resultSet.getString(6));
+                    kh.setSoDuTaiKhoan(resultSet.getInt(7));
+                    list.add(kh);
+                }
             }
-
-        }else {
-            Log.d("@@@","selectAll():Không có thông tin");
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
         }
-        return listABC;
+        return list;
     }
-    public long insertKhachHang(KhachHang ttcKhachHang){
-        ContentValues values = new ContentValues();
-        values.put("hoTen",ttcKhachHang.getHoTen());
-        values.put("soDienThoai",ttcKhachHang.getSoDienThoai());
-        values.put("taiKhoan",ttcKhachHang.getTaiKhoan());
-        values.put("matKhau",ttcKhachHang.getMatKhau());
-        values.put("ngaySinh",ttcKhachHang.getNgaySinh());
-        values.put("diaChi",ttcKhachHang.getDiaChi());
-        values.put("soDuTaiKhoan",ttcKhachHang.getSoDuTaiKhoan());
-        return db.insert("KhachHang",null,values);
-    }
-    public int updateKhachHang(KhachHang ttcKhachHang){
-        ContentValues values=new ContentValues();
-        values.put("hoTen",ttcKhachHang.getHoTen());
-        values.put("soDienThoai",ttcKhachHang.getSoDienThoai());
-        values.put("taiKhoan",ttcKhachHang.getTaiKhoan());
-        values.put("matKhau",ttcKhachHang.getMatKhau());
-        values.put("ngaySinh",ttcKhachHang.getNgaySinh());
-        values.put("diaChi",ttcKhachHang.getDiaChi());
-        values.put("soDuTaiKhoan",ttcKhachHang.getSoDuTaiKhoan());
-        return db.update("KhachHang",values,"taiKhoan=?",new String[]{ttcKhachHang.getTaiKhoan()});
-    }
-    public int deleteKhachHang(KhachHang ttcKhachHang){
-        return db.delete("KhachHang","taiKhoan=?",new String[]{ttcKhachHang.getTaiKhoan()});
-    }
-    public boolean checkDangNhap(String taiKhoan,String matKhau){
-        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
-        Cursor c = sqLiteDatabase.rawQuery("SELECT taiKhoan, matKhau FROM KhachHang WHERE taiKhoan =? AND matKhau =?",new String[]{taiKhoan,matKhau});
-        if (c.getCount()!=0){
-            return true;
-        }else {
-            return false;
+    public boolean insert(KhachHang kh) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "INSERT INTO KhachHang (hoTen, soDienThoai, taiKhoan, matKhau, ngaySinh, diaChi,soDuTaiKhoan) VALUES (?, ?, ?, ?, ?, ?,?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, kh.getHoTen());
+                preparedStatement.setString(2, kh.getSoDienThoai());
+                preparedStatement.setString(3, kh.getTaiKhoan());
+                preparedStatement.setString(4, kh.getMatKhau());
+                preparedStatement.setString(5, kh.getNgaySinh());
+                preparedStatement.setString(6, kh.getDiaChi());
+                preparedStatement.setInt(7, kh.getSoDuTaiKhoan());
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("INSERT_ERROR", ex.getMessage());
         }
+        return success;
+    }
+    public boolean updateTien(int tien,String taiKhoan) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE KhachHang SET soDuTaiKhoan = ? WHERE taiKhoan = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, tien);
+                preparedStatement.setString(2, taiKhoan);
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
+        }
+        return success;
+    }
+    public boolean checkDangNhap(String taiKhoan, String matKhau) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT taiKhoan, matKhau FROM KhachHang WHERE taiKhoan = ? AND matKhau = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, taiKhoan);
+                preparedStatement.setString(2, matKhau);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("SELECT_ERROR", ex.getMessage());
+        }
+        return success;
     }
     @SuppressLint("Range")
-    public  String getHoTen(String taiKhoan){
-        SQLiteDatabase database = dbHelper.getReadableDatabase();
-        String[] projection = {"hoTen"};
-        String selection = "taiKhoan =?";
-        String[] selectionArgs = { taiKhoan };
-        Cursor cursor = database.query(
-                "KhachHang",   // Bảng
-                projection,  // Các cột cần lấy ra
-                selection,   // Điều kiện lấy dữ liệu
-                selectionArgs, // Điều kiện lấy dữ liệu
-                null,           // Không sắp xếp kết quả
-                null,           // Không giới hạn kết quả
-                null            // Không nhóm kết quả
-        );
-        String ten = null;
-        if (cursor.moveToFirst()) {
-            // Lấy dữ liệu của cột "Avatar"
-            ten = cursor.getString(cursor.getColumnIndex("hoTen"));
+
+    public String getHoTen(String taiKhoan) {
+        String hoTen = null;
+       ConnectionHelper connectionHelper = new ConnectionHelper();
+       Connection connection = connectionHelper.connectionClass();
+        try {
+
+            if (connection != null) {
+                String query = "SELECT hoTen FROM KhachHang WHERE taiKhoan = '"+taiKhoan+"'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                if (resultSet.next()) {
+                    hoTen = resultSet.getString("hoTen");
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
         }
-        cursor.close();
-        return ten;
+        return hoTen;
+    }
+    public int getSoDuVi(String taiKhoan) {
+        int soDu = 0;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+
+            if (connection != null) {
+                String query = "SELECT soDuTaiKhoan FROM KhachHang WHERE taiKhoan = '"+taiKhoan+"'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                if (resultSet.next()) {
+                    soDu = resultSet.getInt("soDuTaiKhoan");
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return soDu;
     }
 }

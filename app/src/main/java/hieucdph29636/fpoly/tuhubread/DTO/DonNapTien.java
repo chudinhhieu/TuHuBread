@@ -1,8 +1,10 @@
 package hieucdph29636.fpoly.tuhubread.DTO;
 
-public class DonNapTien {
+import java.io.Serializable;
+
+public class DonNapTien implements Serializable {
     int id_DonNapTien;
-    String thoiGianTao, taiKhoan;
+    String thoiGianTao, taiKhoan,mota;
     int trangThai;
     int tienNap;
     byte[] anhHoaDon;
@@ -10,13 +12,23 @@ public class DonNapTien {
     public DonNapTien() {
     }
 
-    public DonNapTien(int id_DonNapTien, String taiKhoan, String thoiGianTao, int trangThai, int tienNap, byte[] anhHoaDon) {
+    public DonNapTien(int id_DonNapTien, String taiKhoan, String thoiGianTao, int trangThai, int tienNap, byte[] anhHoaDon,String mota) {
         this.id_DonNapTien = id_DonNapTien;
         this.taiKhoan = taiKhoan;
         this.thoiGianTao = thoiGianTao;
         this.trangThai = trangThai;
         this.tienNap = tienNap;
         this.anhHoaDon = anhHoaDon;
+        this.mota = mota;
+    }
+
+
+    public String getMota() {
+        return mota;
+    }
+
+    public void setMota(String mota) {
+        this.mota = mota;
     }
 
     public int getid_DonNapTien() {

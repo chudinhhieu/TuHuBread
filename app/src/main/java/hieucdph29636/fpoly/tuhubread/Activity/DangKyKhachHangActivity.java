@@ -29,7 +29,7 @@ public class DangKyKhachHangActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ky_khach_hang);
-        dao = new KhachHangDAO(this);
+        dao = new KhachHangDAO();
         edL_taiKhoan = findViewById(R.id.edL_taiKhoannew);
         edL_matKhau = findViewById(R.id.edL_matKhaunew);
         edL_nhapLaiMatKhau = findViewById(R.id.edL_nhapLaiMatKhau);
@@ -80,7 +80,7 @@ public class DangKyKhachHangActivity extends AppCompatActivity {
                     return;
                 }
                 KhachHang kh = new KhachHang(taiKhoan,hoten,sdt,matKhau,ngaysinh,diachi,0);
-                if (dao.insertKhachHang(kh)>0){
+                if (dao.insert(kh)){
                     Toast.makeText(DangKyKhachHangActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }else {

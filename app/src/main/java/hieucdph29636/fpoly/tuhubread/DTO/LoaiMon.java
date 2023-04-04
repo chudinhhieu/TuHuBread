@@ -9,6 +9,9 @@ public class LoaiMon {
         this.tenLoai = tenLoai;
     }
 
+    public LoaiMon() {
+    }
+
     public int getId_loai() {
         return id_loai;
     }

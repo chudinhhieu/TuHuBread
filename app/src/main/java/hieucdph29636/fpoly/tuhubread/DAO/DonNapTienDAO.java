@@ -4,81 +4,123 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import hieucdph29636.fpoly.tuhubread.DTO.DonNapTien;
+import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
+import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class DonNapTienDAO {
 
-    DbHelper dbHelper;
-
-    public DonNapTienDAO(Context context) {
-        dbHelper = new DbHelper(context);
+    public DonNapTienDAO() {
     }
-    public static ArrayList<DonNapTien> getAll_donNapTien(Context context){
-        DbHelper helper  = new DbHelper(context);
-        ArrayList<DonNapTien> ds_dnt = new ArrayList<>();
-        SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor cs = db.rawQuery("Select * from DonNapTien", null);
 
-        if (cs.getCount() !=0){
-            cs.moveToFirst();
-            do {
-                ds_dnt.add(new DonNapTien(cs.getInt(0),cs.getString(1),cs.getString(2), cs.getInt(3),cs.getInt(4),cs.getBlob(5)));
-            }while (cs.moveToNext());
-
+    public ArrayList<DonNapTien> getAll() {
+        ArrayList<DonNapTien> list = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+       Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM DonNapTien";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    DonNapTien dnt = new DonNapTien();
+                    dnt.setid_DonNapTien(resultSet.getInt(1));
+                    dnt.setTaiKhoan(resultSet.getString(2));
+                    dnt.setThoiGianTao(resultSet.getString(3));
+                    dnt.setTrangThai(resultSet.getInt(4));
+                    dnt.setTienNap(resultSet.getInt(5));
+                    dnt.setAnhHoaDon(resultSet.getBytes(6));
+                    dnt.setMota(resultSet.getString(7));
+                    list.add(dnt);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
         }
-        cs.close();
-        db.close();
-        return ds_dnt;
+        return list;
     }
-
-    public static boolean insert_donNapTien(Context context, DonNapTien ttdonnaptien){
+    public boolean insert(DonNapTien dnt) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "INSERT INTO DonNapTien (taiKhoan, thoiGianTao, trangThai, tienNap, anhHoaDon, mota) VALUES (?, ?, ?, ?, ?, ?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, dnt.getTaiKhoan());
+                preparedStatement.setString(2, dnt.getThoiGianTao());
+                preparedStatement.setInt(3, dnt.getTrangThai());
+                preparedStatement.setInt(4, dnt.getTienNap());
+                preparedStatement.setBytes(5, dnt.getAnhHoaDon());
+                preparedStatement.setString(6, dnt.getMota());
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("INSERT_ERROR", ex.getMessage());
+        }
+        return success;
+    }
+    public boolean update(DonNapTien dnt) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE DonNapTien SET taiKhoan = ?, thoiGianTao = ?, trangThai = ?, tienNap = ?, anhHoaDon = ?, mota = ? WHERE id_DonNapTien = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, dnt.getTaiKhoan());
+                preparedStatement.setString(2, dnt.getThoiGianTao());
+                preparedStatement.setInt(3, dnt.getTrangThai());
+                preparedStatement.setInt(4, dnt.getTienNap());
+                preparedStatement.setBytes(5, dnt.getAnhHoaDon());
+                preparedStatement.setString(6, dnt.getMota());
+                preparedStatement.setInt(7, dnt.getid_DonNapTien());
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
+        }
+        return success;
+    }
+    public boolean updateTT(int tt,int id) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE DonNapTien SET trangThai = ? WHERE id_DonNapTien = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, tt);
+                preparedStatement.setInt(2, id);
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
+        }
+        return success;
+    }
+    public  int delete_donNapTien(Context context, int id){
         DbHelper helper = new DbHelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("id_DonNapTien",ttdonnaptien.getid_DonNapTien());
-        values.put("taiKhoan",ttdonnaptien.getTaiKhoan());
-        values.put("thoiGianTao",ttdonnaptien.getThoiGianTao());
-        values.put("trangThai",ttdonnaptien.getTrangThai());
-        values.put("tienNap",ttdonnaptien.getTienNap());
-        values.put("anhHoaDon",ttdonnaptien.getAnhHoaDon());
-        long row = db.insert("DonNapTien",null,values);
-        return (row>0);
+        return db.delete("DonNapTien","id_DonNapTien=?",new String[]{String.valueOf(id)});
     }
 
-    public static boolean update_donNapTien(Context context, DonNapTien ttdonnaptien){
-        DbHelper helper = new DbHelper(context);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put("id_DonNapTien",ttdonnaptien.getid_DonNapTien());
-        values.put("taiKhoan",ttdonnaptien.getTaiKhoan());
-
-        values.put("thoiGianTao",ttdonnaptien.getThoiGianTao());
-        values.put("trangThai",ttdonnaptien.getTrangThai());
-        values.put("tienNap",ttdonnaptien.getTienNap());
-        values.put("anhHoaDon",ttdonnaptien.getAnhHoaDon());
-        int row = db.update("DonNapTien", values,"id_DonNapTien=?",new String[]{ttdonnaptien.getid_DonNapTien()+" "});
-        return (row>0);
-    }
-
-    public static boolean delete_donNapTien(Context context, int id){
-        DbHelper helper = new DbHelper(context);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        int row = db.delete("DonNapTien","id_DonNapTien=?",new String[]{id+" "});
-        return (row>0);
-    }
-
-//    while ((!cs.isAfterLast())){
-//            int id_DonNapTien = cs.getInt(0);
-//            int id_khachHang = cs.getInt(1);
-//            String thoiGianTao = cs.getString(2);
-//            int trangThai = cs.getInt(3);
-//            int tienNap = cs.getInt(4);
-//            byte[] anhHoaDon = cs.getBlob(5);
-//            DonNapTien dnt = new DonNapTien(id_DonNapTien,id_khachHang,thoiGianTao,trangThai,tienNap,anhHoaDon);
-//            ds_dnt.add(dnt);
 }

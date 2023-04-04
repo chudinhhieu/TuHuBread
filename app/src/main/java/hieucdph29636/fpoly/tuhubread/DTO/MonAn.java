@@ -1,18 +1,20 @@
 package hieucdph29636.fpoly.tuhubread.DTO;
 
-public class MonAn {
+import java.io.Serializable;
+
+public class MonAn implements Serializable {
     private int id_MonAn;
     private String tenMon;
     private int gia;
     private String thanhPhan;
     private Integer trangThai;
     private int id_LoaiDoAn;
-    private int anhMonAn;
+    private byte[] anhMonAn;
 
     public MonAn() {
     }
 
-    public MonAn(int id_MonAn, String tenMon, int gia, String thanhPhan, Integer trangThai, int id_LoaiDoAn, int anhMonAn) {
+    public MonAn(int id_MonAn, String tenMon, int gia, String thanhPhan, Integer trangThai, int id_LoaiDoAn, byte[] anhMonAn) {
         this.id_MonAn = id_MonAn;
         this.tenMon = tenMon;
         this.gia = gia;
@@ -72,11 +74,11 @@ public class MonAn {
         this.id_LoaiDoAn = id_LoaiDoAn;
     }
 
-    public int getAnhMonAn() {
+    public byte[] getAnhMonAn() {
         return anhMonAn;
     }
 
-    public void setAnhMonAn(int anhMonAn) {
+    public void setAnhMonAn(byte[] anhMonAn) {
         this.anhMonAn = anhMonAn;
     }
 }

@@ -49,7 +49,7 @@ public class ChiTiet_KhachHang extends AppCompatActivity {
         tv_sdtKH.setText(sdt);
         tv_addressKH.setText(diachi);
         tv_soDuTK_KH.setText(sodu);
-        khachHangDAO=new KhachHangDAO(this);
+        khachHangDAO=new KhachHangDAO();
 
     }
 }

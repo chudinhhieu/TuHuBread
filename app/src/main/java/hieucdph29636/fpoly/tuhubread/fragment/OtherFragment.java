@@ -20,6 +20,7 @@ import hieucdph29636.fpoly.tuhubread.Activity.Ds_DonNapTien_Activity;
 import hieucdph29636.fpoly.tuhubread.Activity.Ds_nv_Activity;
 import hieucdph29636.fpoly.tuhubread.Activity.KhachHang_Activity;
 import hieucdph29636.fpoly.tuhubread.Activity.KhuyenMaiActivity;
+import hieucdph29636.fpoly.tuhubread.Activity.ViTienActivity;
 import hieucdph29636.fpoly.tuhubread.R;
 
 public class OtherFragment extends Fragment {
@@ -53,7 +54,7 @@ public class OtherFragment extends Fragment {
             tk_other.setVisibility(View.GONE);
         }
         if (quyen.equalsIgnoreCase("nhanvien")){
-            tv_other_3.setText("Đơn nạp tiền");
+            vitien_other.setVisibility(View.GONE);
         }
         dangXuat_other.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +65,7 @@ public class OtherFragment extends Fragment {
         vitien_other.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), Ds_DonNapTien_Activity.class));
+                startActivity(new Intent(getContext(), ViTienActivity.class));
             }
         });
         qlnv_other.setOnClickListener(new View.OnClickListener() {

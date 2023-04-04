@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         tv_toolbar = findViewById(R.id.tv_toolbar);
         bottomNavigationView = findViewById(R.id.bottom_nav);
-        khachHangDAO = new KhachHangDAO(this);
+        khachHangDAO = new KhachHangDAO();
         SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
         String taiKhoan = sharedPreferences.getString("TK","");
         String quyen = sharedPreferences.getString("quyen","");
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                         if (quyen.equalsIgnoreCase("nhanvien")){
-                            tv_toolbar.setText("Lịch sử đơn hàng");
+                            tv_toolbar.setText("Đơn nạp tiền");
                             bottomNavigationView.getMenu().findItem(R.id.action_cart).setTitle("Lịch sử");
                             bottomNavigationView.getMenu().findItem(R.id.action_cart).setIcon(R.drawable.icon_cart_nav);
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import hieucdph29636.fpoly.tuhubread.Activity.DatMonActivity;
 import hieucdph29636.fpoly.tuhubread.Activity.DonHangChiTietActivity;
 import hieucdph29636.fpoly.tuhubread.DAO.ChiTietDonHangDAO;
+import hieucdph29636.fpoly.tuhubread.DAO.DonHangDAO;
+import hieucdph29636.fpoly.tuhubread.DAO.KhuyenMaiDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
 import hieucdph29636.fpoly.tuhubread.R;
@@ -27,8 +30,12 @@ import hieucdph29636.fpoly.tuhubread.R;
 public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHolder> {
     View view;
     private ArrayList<DonHang> list;
+    Integer km;
+
     private Context context;
     private ChiTietDonHangDAO chiTietDonHangDAO;
+    private DonHangDAO donHangDAO;
+    private KhuyenMaiDAO khuyenMaiDAO;
     public DonHangAdapter(ArrayList<DonHang> list, Context context) {
         this.list = list;
         this.context = context;
@@ -46,7 +53,9 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
         String quyen = sharedPreferences.getString("quyen","");
-        chiTietDonHangDAO =new ChiTietDonHangDAO(context);
+        chiTietDonHangDAO =new ChiTietDonHangDAO();
+        donHangDAO = new DonHangDAO();
+        khuyenMaiDAO = new KhuyenMaiDAO(context);
         int index = position;
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,11 +94,23 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
                 break;
         }
         if (chiTietDonHangDAO.getSoLuongChiTiet(list.get(position).getId_DonHang())>1){
-            holder.tenMon.setText(chiTietDonHangDAO.getTenMonAn(list.get(position).getId_DonHang())+" + "+(chiTietDonHangDAO.getSoLuongChiTiet(list.get(position).getId_DonHang())-1)+" món ăn khác");
+            holder.tenMon.setText(chiTietDonHangDAO.layTenMonAn(list.get(position).getId_DonHang())+" + "+(chiTietDonHangDAO.getSoLuongChiTiet(list.get(position).getId_DonHang())-1)+" món ăn khác");
         }else {
-            holder.tenMon.setText(chiTietDonHangDAO.getTenMonAn(list.get(position).getId_DonHang()));
+            holder.tenMon.setText(chiTietDonHangDAO.layTenMonAn(list.get(position).getId_DonHang()));
         }
-        holder.gia.setText(chiTietDonHangDAO.tinhTongGiaTienTheoIdDonHang(list.get(position).getId_DonHang())+"");
+        Log.d("zzzzzzz", position+"");
+        Integer tong = chiTietDonHangDAO.tinhTongGiaTien(list.get(position).getId_DonHang());
+        Integer idkm = list.get(position).getId_khuyenMai();
+        if (idkm!=0){
+             km = khuyenMaiDAO.getKhuyenMaiById(idkm).get(0).getSoTienGiam();
+        }
+        if (trangThai==0){
+            holder.gia.setText(tong+"");
+        }else if (km!=null){
+            holder.gia.setText(tong-km+"");
+        }else {
+            holder.gia.setText(tong+"");
+        }
         holder.thoigian.setText(list.get(position).getThoiGianTao());
     }
 

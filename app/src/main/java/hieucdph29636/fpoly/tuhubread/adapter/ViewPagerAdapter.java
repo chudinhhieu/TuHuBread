@@ -1,8 +1,5 @@
 package hieucdph29636.fpoly.tuhubread.adapter;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,7 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import hieucdph29636.fpoly.tuhubread.fragment.CartFragment;
 import hieucdph29636.fpoly.tuhubread.fragment.FoodFragment;
 import hieucdph29636.fpoly.tuhubread.fragment.HomeFragment;
-import hieucdph29636.fpoly.tuhubread.fragment.LichSuDonHangFragment;
+import hieucdph29636.fpoly.tuhubread.fragment.QuanLyNapTienFragment;
 import hieucdph29636.fpoly.tuhubread.fragment.OtherFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -42,7 +39,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                     return new CartFragment();
                 }
                 if (quyen.equalsIgnoreCase("nhanvien")) {
-                    return new LichSuDonHangFragment();
+                    return new QuanLyNapTienFragment();
                 }
             default:
                 return new OtherFragment();

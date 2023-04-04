@@ -44,7 +44,6 @@ public class HomeFragment extends Fragment {
     private RecyclerView rcv_spnb,rcv_km;
     private Timer timer;
     private MonAnDAO monAnDAO;
-    private ArrayList<MonAn> listMonAn;
     private SanPhamNoiBatAdapter adapterSPNB;
     private KhuyenMaiDAO khuyenMaiDAO;
     private List<KhuyenMai> listKM;
@@ -70,16 +69,13 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManager2= new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
         rcv_spnb.setLayoutManager(layoutManager);
         rcv_km.setLayoutManager(layoutManager2);
-        monAnDAO = new MonAnDAO(getContext());
+        monAnDAO = new MonAnDAO();
         tv_home1 = view.findViewById(R.id.tv_home1);
         tv_home2 = view.findViewById(R.id.tv_home2);
         khuyenMaiDAO = new KhuyenMaiDAO(getContext());
-        if (quyen.equalsIgnoreCase("khachhang")){
-            listMonAn = monAnDAO.selectAllKH(1);
-        }
         listKM = khuyenMaiDAO.selectAll();
-        khachHangDAO = new KhachHangDAO(getContext());
-        adapterSPNB = new SanPhamNoiBatAdapter(listMonAn,getContext());
+        khachHangDAO = new KhachHangDAO();
+        adapterSPNB = new SanPhamNoiBatAdapter(monAnDAO.getAll(),getContext());
         adapterKM = new KhuyenMaiHomeAdapter(listKM,getContext());
         rcv_spnb.setAdapter(adapterSPNB);
         rcv_km.setAdapter(adapterKM);

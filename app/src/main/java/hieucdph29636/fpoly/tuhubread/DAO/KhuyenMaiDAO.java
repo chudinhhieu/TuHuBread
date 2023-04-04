@@ -7,9 +7,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
+import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 import hieucdph29636.fpoly.tuhubread.DTO.KhuyenMai;
 
@@ -70,36 +76,60 @@ public class KhuyenMaiDAO {
         String[] so=new String[]{objKM.getId_KhuyenMai()+""};
         return db.delete("KhuyenMai","id_KhuyenMai=?",so);
     }
-    public boolean checkCode(String code){
-        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
-        Cursor c = sqLiteDatabase.rawQuery("SELECT code FROM KhuyenMai WHERE code =? ",new String[]{code});
-        if (c.getCount()!=0){
-            return true;
-        }else {
-            return false;
+    public List<KhuyenMai> checkCode(String code) {
+        List<KhuyenMai> list = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM KhuyenMai WHERE code = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, code);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    KhuyenMai km = new KhuyenMai();
+                    km.setId_KhuyenMai(resultSet.getInt("id_KhuyenMai"));
+                    km.setCode(resultSet.getString("code"));
+                    km.setMoTaKM(resultSet.getString("moTaKM"));
+                    km.setNgayBatDau(resultSet.getString("ngayBatDau"));
+                    km.setNgayKetThuc(resultSet.getString("ngayKetThuc"));
+                    km.setSoTienGiam(resultSet.getInt("soTienGiam"));
+                    list.add(km);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("SELECT_ERROR", ex.getMessage());
         }
+        return list;
     }
-    @SuppressLint("Range")
-    public  int getSoTienGiam(String code){
-        SQLiteDatabase database = dbHelper.getReadableDatabase();
-        String[] projection = {"soTienGiam"};
-        String selection = "code =?";
-        String[] selectionArgs = { code };
-        Cursor cursor = database.query(
-                "KhuyenMai",   // Bảng
-                projection,  // Các cột cần lấy ra
-                selection,   // Điều kiện lấy dữ liệu
-                selectionArgs, // Điều kiện lấy dữ liệu
-                null,           // Không sắp xếp kết quả
-                null,           // Không giới hạn kết quả
-                null            // Không nhóm kết quả
-        );
-        int soTienGiam = 0;
-        if (cursor.moveToFirst()) {
-            // Lấy dữ liệu của cột "Avatar"
-            soTienGiam = cursor.getInt(cursor.getColumnIndex("soTienGiam"));
+    public List<KhuyenMai> getKhuyenMaiById(int id_KhuyenMai) {
+        List<KhuyenMai> list = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT soTienGiam FROM KhuyenMai WHERE id_KhuyenMai = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, id_KhuyenMai);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    int soTienGiam = resultSet.getInt("soTienGiam");
+                    KhuyenMai km = new KhuyenMai();
+                    km.setId_KhuyenMai(id_KhuyenMai);
+                    km.setSoTienGiam(soTienGiam);
+                    list.add(km);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("SELECT_ERROR", ex.getMessage());
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Log.e("CONNECTION_ERROR", ex.getMessage());
+            }
         }
-        cursor.close();
-        return soTienGiam;
+        return list;
     }
+
 }

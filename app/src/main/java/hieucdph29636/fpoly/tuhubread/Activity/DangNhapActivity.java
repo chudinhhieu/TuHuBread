@@ -18,8 +18,11 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+
 import hieucdph29636.fpoly.tuhubread.DAO.KhachHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.NhanVienDAO;
+import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
 import hieucdph29636.fpoly.tuhubread.R;
 
 public class DangNhapActivity extends AppCompatActivity {
@@ -44,7 +47,7 @@ public class DangNhapActivity extends AppCompatActivity {
         btn_dangNhap = findViewById(R.id.btn_dangNhap);
         btn_dangKy = findViewById(R.id.btn_dangKy);
         chk_nhoTaiKhoan = findViewById(R.id.chk_nhoTaiKhoan);
-        khachHangDAO = new KhachHangDAO(this);
+        khachHangDAO = new KhachHangDAO();
         nhanVienDAO = new NhanVienDAO(this);
         btn_dangKy.setOnClickListener(new View.OnClickListener() {
             @Override

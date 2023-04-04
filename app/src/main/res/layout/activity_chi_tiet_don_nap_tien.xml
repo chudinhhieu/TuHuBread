@@ -2,278 +2,223 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".Activity.ChiTiet_Don_nap_tien">
-
-
-    <TextView
-        android:id="@+id/tv_ctls"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/avatar_chitiet_ls"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="THÔNG TIN ĐƠN NẠP TIỀN"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
-
     <LinearLayout
         android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/btn_back_ctdn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_baseline_arrow_back_24_black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chi tiết đơn nạp tiền"
+            android:textSize="24sp"
+            android:fontFamily="@font/alata"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_ctls"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp">
-
-        <ImageView
-
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/id" />
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img1"
-            android:text="Mã đơn nạp: "
-            android:textColor="@color/black"
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/tv_id_dn_ct"
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv1"
-            android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
-            android:textSize="16dp" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="61dp"
-        android:layout_below="@id/tv_ctls"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:orientation="horizontal">
-
         <ImageView
-
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/id" />
-
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_id_ctdnt"/>
         <TextView
-
+            android:layout_marginStart="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img1"
-            android:text="Mã khách hàng: "
-            android:textColor="@color/black"
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/tv_id_kh_dn_ct"
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv1"
-            android:layout_toRightOf="@id/img1"
             android:fontFamily="@font/mali"
-            android:textSize="16dp" />
-
-
-    </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:layout_below="@id/tv_ctls"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal">
-
-        <ImageView
-
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/calendar" />
-
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="Mã đơn nạp tiền:"/>
         <TextView
-
+            android:layout_marginStart="5dp"
+            android:id="@+id/tv_id_ctdnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img1"
-            android:text="Thời gian tạo: "
-            android:textColor="@color/black"
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/tv_tg_dn_ct"
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv1"
-            android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
-            android:textSize="16dp" />
-
-
+            android:fontFamily="@font/alata"
+            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:text=""/>
     </LinearLayout>
-
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_ctls"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp">
-
-            <ImageView
-
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/verify" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/img1"
-                android:text="Trạng thái: "
-                android:textColor="@color/black"
-                android:textSize="17dp" />
-
-            <TextView
-                android:id="@+id/tv_verify_dn_ct"
-                android:layout_width="195dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv1"
-                android:layout_toRightOf="@id/img1"
-                android:fontFamily="@font/mali"
-                android:textSize="16dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_ctls"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp">
-
-            <ImageView
-
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/money" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/img1"
-                android:text="Tiền nạp: "
-                android:textColor="@color/black"
-                android:textSize="17dp" />
-
-            <TextView
-                android:id="@+id/tv_money_dn_ct"
-                android:layout_width="195dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv1"
-                android:layout_toRightOf="@id/img1"
-                android:fontFamily="@font/mali"
-                android:textSize="16dp" />
-
-
-        </LinearLayout>
-
     <LinearLayout
-
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_ctls"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp">
-
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:orientation="horizontal">
         <ImageView
-
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/img_icon" />
-
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_hoten_ctdnt"/>
         <TextView
-            android:layout_width="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" Ảnh nạp tiền:"
-            android:layout_marginTop="15dp"
+            android:fontFamily="@font/mali"
+            android:textSize="16sp"
             android:textColor="@color/black"
-            android:textSize="17dp"
-
-            />
-
-
-
-    </LinearLayout>
-
-
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="8dp"
-        android:id="@+id/imgAnhHoaDon"
-        />
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:text="Họ và tên:"/>
+        <TextView
+            android:layout_marginStart="5dp"
+            android:id="@+id/tv_hoTen_ctdnt"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_sua_dnt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:backgroundTint="@color/main"
-
-                android:text="Sửa"
-                android:textColor="@color/white" />
-
-            <Button
-                android:id="@+id/btn_xoa_ndnt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:backgroundTint="@color/xam"
-                android:text="Xóa"
-                android:textColor="@color/white" />
-        </LinearLayout>
-
-
+            android:fontFamily="@font/alata"
+            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:text=""/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_nap_tien"/>
+        <TextView
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mali"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="Số tiền nạp:"/>
+        <TextView
+            android:layout_marginStart="5dp"
+            android:id="@+id/tv_soTien_ctdnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/alata"
+            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:text=""/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_time_ctdnt"/>
+        <TextView
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mali"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="Thời gian tạo:"/>
+        <TextView
+            android:layout_marginStart="5dp"
+            android:id="@+id/tv_time_ctdnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/alata"
+            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:text=""/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon_trangthai_ctdnt"/>
+        <TextView
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mali"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="Trạng thái:"/>
+        <TextView
+            android:layout_marginStart="5dp"
+            android:id="@+id/tv_trangThai_ctdnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/alata"
+            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:text="Chờ xác nhận"/>
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/mali"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="Ảnh hóa đơn:"/>
+    <ImageView
+        android:id="@+id/img_anhHD_ctdnt"
+        android:layout_marginTop="5dp"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center_horizontal"/>
+    <LinearLayout
+        android:weightSum="2"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_xacNhan_ctdnt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_height="wrap_content"
+            android:text="Xác nhận"
+            android:backgroundTint="@color/main"
+            android:fontFamily="@font/mali" />
+        <Button
+            android:id="@+id/btn_huy_ctdnt"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:backgroundTint="@color/main2"
+            android:fontFamily="@font/mali" />
+    </LinearLayout>
+
+</LinearLayout>

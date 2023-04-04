@@ -1,5 +1,8 @@
 package hieucdph29636.fpoly.tuhubread.fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,11 +19,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import hieucdph29636.fpoly.tuhubread.Activity.ThemMonAnActivity;
 import hieucdph29636.fpoly.tuhubread.DAO.LoaiMonDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.MonAnDAO;
+import hieucdph29636.fpoly.tuhubread.DTO.LoaiMon;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
 import hieucdph29636.fpoly.tuhubread.DTO.Thuc_don;
 import hieucdph29636.fpoly.tuhubread.R;
@@ -34,8 +41,10 @@ public class FoodFragment extends Fragment {
     private Ds_thucDon_Spinner_Adapter thucDon_adapter;
     LoaiMonDAO loaiMonDAO;
     MonAnDAO monAnDAO;
+    FloatingActionButton btn_themMon;
     private Ds_mon_Adapter ds_mon_adapter;
-
+    private ArrayList<LoaiMon> list;
+    ArrayList<MonAn> listmon;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,16 +61,32 @@ public class FoodFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rcv_dsm = view.findViewById(R.id.rcv_dsm);
         linear_food = view.findViewById(R.id.linear_dm);
-        loaiMonDAO = new LoaiMonDAO(getContext());
-        monAnDAO = new MonAnDAO(getContext());
-        List<String> list = new ArrayList<>();
-        list.add("Bánh mì");
-        list.add("Sandwich");
-        list.add("Nước");
+        loaiMonDAO = new LoaiMonDAO();
+        monAnDAO = new MonAnDAO();
         spn_thucdon = view.findViewById(R.id.spn_thucdon);
-        ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, list);
-        spn_thucdon.setAdapter(adapter);
-        ArrayList<MonAn> listmon = monAnDAO.chonTheoLoai(0,1);
+        btn_themMon = view.findViewById(R.id.btn_themMon);
+        list = (ArrayList<LoaiMon>) loaiMonDAO.getAll();
+        thucDon_adapter = new Ds_thucDon_Spinner_Adapter(getContext(),list);
+        spn_thucdon.setAdapter(thucDon_adapter);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
+        String taiKhoan = sharedPreferences.getString("TK","");
+        String quyen = sharedPreferences.getString("quyen","");
+        if (quyen.equalsIgnoreCase("khachhang")){
+            btn_themMon.setVisibility(View.GONE);
+        }else {
+            btn_themMon.setVisibility(View.VISIBLE);
+        }
+        btn_themMon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ThemMonAnActivity.class));
+            }
+        });
+        if (quyen.equalsIgnoreCase("khachhang")){
+            listmon = monAnDAO.layTheoLoai(0,1);
+        }else {
+            listmon = monAnDAO.layTheoLoaiNV(0);
+        }
         ds_mon_adapter = new Ds_mon_Adapter(getContext(), listmon);
         rcv_dsm.setAdapter(ds_mon_adapter);
 
@@ -69,11 +94,13 @@ public class FoodFragment extends Fragment {
                 spn_thucdon.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-
-                        int id = loaiMonDAO.getId(list.get(position));
-
-                        ArrayList<MonAn> list = monAnDAO.chonTheoLoai(id,1);
-                        ds_mon_adapter = new Ds_mon_Adapter(getContext(), list);
+                        ArrayList<MonAn> listMon;
+                        if (quyen.equalsIgnoreCase("khachhang")){
+                             listMon = monAnDAO.layTheoLoai(position,1);
+                        }else {
+                             listMon = monAnDAO.layTheoLoaiNV(position);
+                        }
+                        ds_mon_adapter = new Ds_mon_Adapter(getContext(), listMon);
                         rcv_dsm.setAdapter(ds_mon_adapter);
 
                     }
@@ -89,7 +116,7 @@ public class FoodFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ArrayList<MonAn> listmon = monAnDAO.chonTheoLoai(0,1);
+        ArrayList<MonAn> listmon = monAnDAO.layTheoLoai(0,1);
         ds_mon_adapter = new Ds_mon_Adapter(getContext(), listmon);
         rcv_dsm.setAdapter(ds_mon_adapter);
     }

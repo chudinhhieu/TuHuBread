@@ -167,6 +167,7 @@
                 android:textSize="16sp"
                 android:text="Thông tin hóa đơn"/>
             <LinearLayout
+                android:id="@+id/ln_km"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="10"

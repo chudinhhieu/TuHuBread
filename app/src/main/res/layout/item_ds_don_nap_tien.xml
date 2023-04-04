@@ -65,12 +65,12 @@
 
                 <TextView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
                     android:fontFamily="@font/mali"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Tổng đơn: "
                     android:textSize="25dp"
+                    android:layout_marginLeft="10dp"
 
                     />
                 <TextView

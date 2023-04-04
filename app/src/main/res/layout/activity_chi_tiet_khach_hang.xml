@@ -17,10 +17,7 @@
         android:text="THÔNG TIN CHI TIẾT KHÁCH HÀNG"
         android:textColor="@color/black"
         android:textSize="20sp" />
-
-
-
-    <LinearLayout
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="61dp"
         android:layout_marginLeft="20dp"

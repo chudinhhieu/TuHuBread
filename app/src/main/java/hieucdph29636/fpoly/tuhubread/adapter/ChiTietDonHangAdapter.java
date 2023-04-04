@@ -39,8 +39,8 @@ public class ChiTietDonHangAdapter extends RecyclerView.Adapter<ChiTietDonHangAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        dao = new ChiTietDonHangDAO(context);
-        String tenMon = dao.getTenMonAnItem(list.get(position).getId_id());
+        dao = new ChiTietDonHangDAO();
+        String tenMon = dao.getTenMonFromChiTietDonHang(list.get(position).getId_id());
         holder.ten.setText(tenMon);
         holder.gia.setText(list.get(position).getGiaTien()+"");
         int Rau = list.get(position).getRau();

@@ -19,8 +19,10 @@ import java.util.ArrayList;
 
 import hieucdph29636.fpoly.tuhubread.DAO.ChiTietDonHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.DonHangDAO;
+import hieucdph29636.fpoly.tuhubread.DAO.KhachHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.KhuyenMaiDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
+import hieucdph29636.fpoly.tuhubread.DTO.KhuyenMai;
 import hieucdph29636.fpoly.tuhubread.R;
 import hieucdph29636.fpoly.tuhubread.adapter.ChiTietDonHangAdapter;
 
@@ -30,7 +32,7 @@ public class DonHangChiTietActivity extends AppCompatActivity {
     ArrayList<ChiTietDonHang> list;
     ChiTietDonHangDAO dao;
     TextView tv_tongTamTinh;
-    LinearLayout view_km;
+    LinearLayout view_km,ln_km;
     Button btn_km_ctdh;
     DonHangDAO donHangDAO;
     KhuyenMaiDAO khuyenMaiDAO;
@@ -38,6 +40,9 @@ public class DonHangChiTietActivity extends AppCompatActivity {
     TextView tv_giaKM,tv_tongTienCTHD,tv_tt_dh;
     CardView btn_thanhtoan;
     ImageView btn_back_ctdh;
+    KhachHangDAO khachHangDAO;
+    KhuyenMai km;
+    int giaSauKM;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,8 @@ public class DonHangChiTietActivity extends AppCompatActivity {
         view_km = findViewById(R.id.view_km);
         btn_thanhtoan = findViewById(R.id.btn_thanhtoan);
         tv_giaKM = findViewById(R.id.tv_giaKM);
+        ln_km = findViewById(R.id.ln_km);
+        khachHangDAO = new KhachHangDAO();
         btn_back_ctdh = findViewById(R.id.btn_back_ctdh);
         ed_km_ctdh = findViewById(R.id.ed_km_ctdh);
         tv_tongTienCTHD = findViewById(R.id.tv_tongTienCTHD);
@@ -53,41 +60,69 @@ public class DonHangChiTietActivity extends AppCompatActivity {
         view_km.setVisibility(View.GONE);
         btn_km_ctdh = findViewById(R.id.btn_km_ctdh);
         SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
+        String taiKhoan = sharedPreferences.getString("TK","");
         String quyen = sharedPreferences.getString("quyen","");
         Bundle bundle = getIntent().getExtras();
         int id_donHang = bundle.getInt("id_dh");
         int tt_dh = bundle.getInt("trangThai_dh");
         rcv_ttdh = findViewById(R.id.rcv_ttdh);
-        dao = new ChiTietDonHangDAO(this);
-        list = (ArrayList<ChiTietDonHang>) dao.selectAll(id_donHang);
+        dao = new ChiTietDonHangDAO();
+        list = (ArrayList<ChiTietDonHang>) dao.getAll(id_donHang);
         adapter = new ChiTietDonHangAdapter(list,this);
         rcv_ttdh.setAdapter(adapter);
-        int tongTamTinh = dao.tinhTongGiaTienTheoIdDonHang(id_donHang);
-        tv_tongTamTinh.setText(tongTamTinh+"");
-        tv_tongTienCTHD.setText(tongTamTinh+"");
-        khuyenMaiDAO = new KhuyenMaiDAO(this);
+        int tongTamTinh = dao.tinhTongGiaTien(id_donHang);
         donHangDAO = new DonHangDAO(this);
-        if (tt_dh==0&&quyen.equalsIgnoreCase("nhanvien")){
+        tv_tongTamTinh.setText(tongTamTinh+"");
+        tv_tongTienCTHD.setText(donHangDAO.getByID(id_donHang).get(0).getTongTien()+"");
+        khuyenMaiDAO = new KhuyenMaiDAO(this);
+        if (tt_dh!=0){
+            ln_km.setVisibility(View.GONE);
+        }
+        if ((tt_dh!=0&&tt_dh!=3&&tt_dh!=1)&&quyen.equalsIgnoreCase("khachhang")){
             btn_thanhtoan.setVisibility(View.GONE);
+        }else if(tt_dh==1){
+            tv_tt_dh.setText("Hủy");
+            btn_thanhtoan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    donHangDAO.updateTrangThai(id_donHang,5);
+                    khachHangDAO.updateTien(donHangDAO.getByID(id_donHang).get(0).getTongTien()+khachHangDAO.getSoDuVi(taiKhoan),taiKhoan);
+                    onBackPressed();
+                }
+            });
         }
         if (tt_dh==0&&quyen.equalsIgnoreCase("khachhang")){
             btn_thanhtoan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if( donHangDAO.updateTrangThai(1,id_donHang)>0){
-                        Toast.makeText(DonHangChiTietActivity.this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
-                        onBackPressed();
+                    if (khachHangDAO.getSoDuVi(taiKhoan)<Integer.parseInt(tv_tongTienCTHD.getText().toString())){
+                        Toast.makeText(DonHangChiTietActivity.this, "Số dư ví không đủ,vui lòng nạp thêm tiền!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (km==null){
+                        if (donHangDAO.updateDonHangKKM(id_donHang, 1, tongTamTinh)) {
+                            khachHangDAO.updateTien(khachHangDAO.getSoDuVi(taiKhoan) - Integer.parseInt(tv_tongTienCTHD.getText().toString()), taiKhoan);
+                            Toast.makeText(DonHangChiTietActivity.this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                        }
+                    }else {
+                        if (donHangDAO.updateDonHang(id_donHang, 1, km.getId_KhuyenMai(), giaSauKM)) {
+                            khachHangDAO.updateTien(khachHangDAO.getSoDuVi(taiKhoan) - Integer.parseInt(tv_tongTienCTHD.getText().toString()), taiKhoan);
+                            Toast.makeText(DonHangChiTietActivity.this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                        }
                     }
                 }
             });
-        }
-        if (tt_dh==3&&quyen.equalsIgnoreCase("khachhang")){
+        }else if (tt_dh==2&&quyen.equalsIgnoreCase("khachhang")){
+            btn_thanhtoan.setVisibility(View.GONE);
+        } else if (tt_dh==3&&quyen.equalsIgnoreCase("khachhang")){
             btn_thanhtoan.setVisibility(View.VISIBLE);
             tv_tt_dh.setText("Đã nhận hàng");
             btn_thanhtoan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if( donHangDAO.updateTrangThai(4,id_donHang)>0){
+                    if( donHangDAO.updateTrangThai(id_donHang,4)){
                         onBackPressed();
                     }
                 }
@@ -95,14 +130,14 @@ public class DonHangChiTietActivity extends AppCompatActivity {
 
         }
         if (tt_dh!=0&&quyen.equalsIgnoreCase("nhanvien")){
-            btn_thanhtoan.setVisibility(View.VISIBLE);
+            ln_km.setVisibility(View.GONE);
             switch (tt_dh){
                 case 1:
                     tv_tt_dh.setText("Đang làm");
                     btn_thanhtoan.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if( donHangDAO.updateTrangThai(2,id_donHang)>0){
+                            if( donHangDAO.updateTrangThai(id_donHang,2)){
                                 onBackPressed();
                             }
                         }
@@ -113,7 +148,7 @@ public class DonHangChiTietActivity extends AppCompatActivity {
                     btn_thanhtoan.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if( donHangDAO.updateTrangThai(3,id_donHang)>0){
+                            if( donHangDAO.updateTrangThai(id_donHang,3)){
                                 onBackPressed();
                             }
                         }
@@ -129,6 +164,9 @@ public class DonHangChiTietActivity extends AppCompatActivity {
                     btn_thanhtoan.setVisibility(View.GONE);
                     break;
             }
+        }else if (tt_dh==0&&quyen.equalsIgnoreCase("nhanvien")){
+            btn_thanhtoan.setVisibility(View.GONE);
+            ln_km.setVisibility(View.GONE);
         }
 
         btn_back_ctdh.setOnClickListener(new View.OnClickListener() {
@@ -140,13 +178,22 @@ public class DonHangChiTietActivity extends AppCompatActivity {
         btn_km_ctdh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (khuyenMaiDAO.checkCode(ed_km_ctdh.getText().toString().trim())){
+                if (!khuyenMaiDAO.checkCode(ed_km_ctdh.getText().toString().trim()).isEmpty()){
+                    km = khuyenMaiDAO.checkCode(ed_km_ctdh.getText().toString()).get(0);
                     view_km.setVisibility(View.VISIBLE);
-                    int khuyenMai = khuyenMaiDAO.getSoTienGiam(ed_km_ctdh.getText().toString().trim());
+                    int khuyenMai = khuyenMaiDAO.checkCode(ed_km_ctdh.getText().toString().trim()).get(0).getSoTienGiam();
                     tv_giaKM.setText(khuyenMai+"");
-                    tv_tongTienCTHD.setText(tongTamTinh-khuyenMai+"");
+                    giaSauKM = tongTamTinh-khuyenMai;
+                    if (giaSauKM<0){
+                        tv_tongTienCTHD.setText(0+"");
+
+                    }else {
+                    tv_tongTienCTHD.setText(giaSauKM+"");
+                    }
                 }else {
+                    view_km.setVisibility(View.GONE);
                     Toast.makeText(DonHangChiTietActivity.this, "Mã khuyến mãi không tồn tại!", Toast.LENGTH_SHORT).show();
+                    tv_tongTienCTHD.setText(tongTamTinh+"");
                 }
             }
         });

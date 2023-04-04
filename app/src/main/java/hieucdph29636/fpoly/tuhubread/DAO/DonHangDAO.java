@@ -3,101 +3,214 @@ package hieucdph29636.fpoly.tuhubread.DAO;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 
+import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
+import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
+import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
 
 
 public class DonHangDAO {
     SQLiteDatabase db;
     hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper dbHelper;
 
+    public DonHangDAO() {
+    }
 
     public DonHangDAO(Context context) {
         dbHelper = new hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper(context);
         db = dbHelper.getWritableDatabase();
     }
+    public ArrayList<DonHang> selectAll() {
+        ArrayList<DonHang> list = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+       Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM DonHang";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    DonHang dh = new DonHang();
+                    dh.setId_DonHang(resultSet.getInt(1));
+                    dh.setTaiKhoan(resultSet.getString(2));
+                    dh.setThoiGianTao(resultSet.getString(3));
+                    dh.setTrangThai(resultSet.getInt(4));
+                    dh.setId_khuyenMai(resultSet.getInt(5));
+                    dh.setTongTien(resultSet.getInt(6));
+                    list.add(dh);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return list;
+    }
+    public boolean insert(DonHang dh) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "INSERT INTO DonHang (taiKhoan, thoiGianTao, trangThai,tongTien) VALUES (?, ?, ?,?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, dh.getTaiKhoan());
+                preparedStatement.setString(2, dh.getThoiGianTao());
+                preparedStatement.setInt(3, dh.getTrangThai());
+//                preparedStatement.setInt(4, dh.getId_khuyenMai());
+                preparedStatement.setInt(4, dh.getTongTien());
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("INSERT_ERROR", ex.getMessage());
+        }
+        return success;
+    }
 
-    public List<DonHang> selectAll() {
-        List<DonHang> listABC = new ArrayList<DonHang>();
-
-        Cursor c = db.rawQuery("SELECT * From DonHang", null);
-
-        if (c.moveToFirst()) {
-            while (!c.isAfterLast()) {
-                int id = c.getInt(0);
-                String taiKhoan = c.getString(1);
-                String thoiGianTao = c.getString(2);
-                int trangThai = c.getInt(3);
-                int id_khuyenMai = c.getInt(4);
-                int tongTien = c.getInt(5);
+    public List<DonHang> checkDonHang(){
+        List<DonHang> listABC = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT TOP 1 * FROM DonHang WHERE trangThai = 0 ORDER BY id_madonhang DESC");
+            while (rs.next()) {
+                int id = rs.getInt("id_madonhang");
+                String taiKhoan = rs.getString("taiKhoan");
+                String thoiGianTao = rs.getString("thoiGianTao");
+                int trangThai = rs.getInt("trangThai");
+                int id_khuyenMai = rs.getInt("id_khuyenMai");
+                int tongTien = rs.getInt("tongTien");
                 DonHang ttKhachHang = new DonHang(id, taiKhoan, thoiGianTao, trangThai, id_khuyenMai, tongTien);
                 listABC.add(ttKhachHang);
-                c.moveToNext();
             }
-
-        } else {
-            Log.d("@@@", "selectAll():Không có thông tin");
+            rs.close();
+            stmt.close();
+            connection.close();
+        }catch (Exception e){
         }
         return listABC;
     }
 
-    public long insertDonHang(DonHang ttcKhachHang) {
-        ContentValues values = new ContentValues();
-        values.put("taiKhoan", ttcKhachHang.getTaiKhoan());
-        values.put("thoiGianTao", ttcKhachHang.getThoiGianTao());
-        values.put("trangThai", ttcKhachHang.getTrangThai());
-        values.put("id_khuyenMai", ttcKhachHang.getId_khuyenMai());
-        values.put("tongTien", ttcKhachHang.getTongTien());
-        return db.insert("DonHang", null, values);
-    }
-
-    public int updateDonHang(DonHang ttcKhachHang) {
-        ContentValues values = new ContentValues();
-        values.put("taiKhoan", ttcKhachHang.getTaiKhoan());
-        values.put("thoiGianTao", ttcKhachHang.getThoiGianTao());
-        values.put("trangThai", ttcKhachHang.getTrangThai());
-        values.put("id_khuyenMai", ttcKhachHang.getId_khuyenMai());
-        values.put("tongTien", ttcKhachHang.getTongTien());
-        String[] tham_so = new String[]{ttcKhachHang.getId_DonHang() + ""};
-        return db.update("DonHang", values, "id_madonhang=?", tham_so);
-    }
-
-    public int DonHang(DonHang ttcKhachHang) {
-        String[] tham_so = new String[]{ttcKhachHang.getId_DonHang() + ""};
-        return db.delete("DonHang", "id_madonhang=?", tham_so);
-    }
-public List<DonHang> checkDonHang() {
-    List<DonHang> listABC = new ArrayList<DonHang>();
-
-    Cursor c = db.rawQuery("SELECT * FROM DonHang WHERE trangThai = 0 ORDER BY id_madonhang DESC LIMIT 1", null);
-
-    if (c.moveToFirst()) {
-        while (!c.isAfterLast()) {
-            int id = c.getInt(0);
-            String taiKhoan = c.getString(1);
-            String thoiGianTao = c.getString(2);
-            int trangThai = c.getInt(3);
-            int id_khuyenMai = c.getInt(4);
-            int tongTien = c.getInt(5);
-            DonHang ttKhachHang = new DonHang(id, taiKhoan, thoiGianTao, trangThai, id_khuyenMai, tongTien);
-            listABC.add(ttKhachHang);
-            c.moveToNext();
+    public boolean updateDonHang(int idDonHang, int trangThai, int idKhuyenMai,int tongTien) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE DonHang SET trangThai=?, id_khuyenMai=?,tongTien=? WHERE id_madonhang=?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, trangThai);
+                preparedStatement.setInt(2, idKhuyenMai);
+                preparedStatement.setInt(3, tongTien);
+                preparedStatement.setInt(4, idDonHang);
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
         }
-
-    } else {
-        Log.d("@@@", "selectAll():Không có thông tin");
+        return success;
     }
-    return listABC;
-}
-    public int updateTrangThai(int trangThai,int id) {
-        ContentValues values = new ContentValues();
-        values.put("trangThai", trangThai);
-        return db.update("DonHang", values, "id_madonhang=?", new String[]{String.valueOf(id)});
+    public boolean updateDonHangKKM(int idDonHang, int trangThai,int tongTien) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE DonHang SET trangThai=?,tongTien=? WHERE id_madonhang=?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, trangThai);
+                preparedStatement.setInt(2, tongTien);
+                preparedStatement.setInt(3, idDonHang);
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
+        }
+        return success;
+    }
+    public boolean updateTrangThai(int idDonHang, int trangThai) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE DonHang SET trangThai=? WHERE id_madonhang=?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, trangThai);
+                preparedStatement.setInt(2, idDonHang);
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
+        }
+        return success;
+    }
+    public boolean updateGia(int idDonHang, int gia) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE DonHang SET tongTien=? WHERE id_madonhang=?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, gia);
+                preparedStatement.setInt(2, idDonHang);
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
+        }
+        return success;
+    }
+    public List<DonHang> getByID(int iddh){
+        List<DonHang> listABC = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM DonHang WHERE id_madonhang = "+iddh);
+            while (rs.next()) {
+                int id = rs.getInt("id_madonhang");
+                String taiKhoan = rs.getString("taiKhoan");
+                String thoiGianTao = rs.getString("thoiGianTao");
+                int trangThai = rs.getInt("trangThai");
+                int id_khuyenMai = rs.getInt("id_khuyenMai");
+                int tongTien = rs.getInt("tongTien");
+                DonHang ttKhachHang = new DonHang(id, taiKhoan, thoiGianTao, trangThai, id_khuyenMai, tongTien);
+                listABC.add(ttKhachHang);
+            }
+            rs.close();
+            stmt.close();
+            connection.close();
+        }catch (Exception e){
+        }
+        return listABC;
     }
 }

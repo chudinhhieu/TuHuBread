@@ -105,15 +105,9 @@ public class DbHelper extends SQLiteOpenHelper {
                 "thoiGianTao date not null,"+
                 "trangThai integer not null,"+
                 "tienNap number not null,"+
-                "anhHoaDon blob )";
+                "anhHoaDon blob," +
+                "mota text not null)";
         db.execSQL(sql_DonNapTien);
-        db.execSQL("insert into DonNapTien(id_DonNapTien,taiKhoan,thoiGianTao,trangThai,tienNap,anhHoaDon)values(1,'chuhieu','25/3/2023',1,35000,null)");
-        db.execSQL("insert into DonNapTien(id_DonNapTien,taiKhoan,thoiGianTao,trangThai,tienNap,anhHoaDon)values(2,'nguyentruong','20/3/2023',0,30000,null)");
-        db.execSQL("insert into DonNapTien(id_DonNapTien,taiKhoan,thoiGianTao,trangThai,tienNap,anhHoaDon)values(3,'tanlinh','15/3/2023',1,70000,null)");
-        db.execSQL("insert into DonNapTien(id_DonNapTien,taiKhoan,thoiGianTao,trangThai,tienNap,anhHoaDon)values(4,'hahai','20/3/2023',0,15000,null)");
-
-
-
     }
 
     @Override

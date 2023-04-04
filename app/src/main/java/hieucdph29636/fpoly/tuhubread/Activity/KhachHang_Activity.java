@@ -22,8 +22,8 @@ public class KhachHang_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_khach_hang);
         rcv_kh=findViewById(R.id.rcv_Khang);
-        khachHangDAO=new KhachHangDAO(this);
-        listKh= (ArrayList<KhachHang>) khachHangDAO.selectAll();
+        khachHangDAO=new KhachHangDAO();
+        listKh= (ArrayList<KhachHang>) khachHangDAO.getAll();
         khachHangAdapter=new KhachHangAdapter(this,listKh);
         rcv_kh.setAdapter(khachHangAdapter);
 

@@ -2,6 +2,8 @@ package hieucdph29636.fpoly.tuhubread.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +52,8 @@ public class SanPhamNoiBatAdapter extends RecyclerView.Adapter<SanPhamNoiBatAdap
         holder.tv_ten_spnb.setText(monAn.getTenMon());
         holder.tv_gia_spnb.setText(monAn.getGia()+"");
         holder.btn_mua_spnb.setCardBackgroundColor(ContextCompat.getColor(context, R.color.main2));
+        Bitmap bitmap = BitmapFactory.decodeByteArray(monAn.getAnhMonAn(), 0, monAn.getAnhMonAn().length);
+        holder.img_spnb.setImageBitmap(bitmap);
         holder.btn_mua_spnb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

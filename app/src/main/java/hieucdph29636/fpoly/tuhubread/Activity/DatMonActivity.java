@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,7 +27,7 @@ import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
 import hieucdph29636.fpoly.tuhubread.R;
 
 public class DatMonActivity extends AppCompatActivity {
-    ImageView btn_back,btn_tru,btn_cong;
+    ImageView btn_back,btn_tru,btn_cong,img_datMon;
     TextView tv_tenMon_datMon,tv_gia_datMon,tv_thanhphan_datMon,tv_tongGiaMonAn,tv_soLuong;
     CardView btn_datMon;
     DonHangDAO donHangDAO;
@@ -33,17 +35,25 @@ public class DatMonActivity extends AppCompatActivity {
     RadioButton rdo_coRau,rdo_kRau,rdo_coOt,rdo_kOt;
     RelativeLayout view6,view2,view3;
     MonAnDAO monAnDAO;
+    int soluong;
+    int idDH;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dat_mon);
+        donHangDAO = new DonHangDAO(this);
         SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
         String taiKhoan = sharedPreferences.getString("TK","");
         String quyen = sharedPreferences.getString("quyen","");
-        donHangDAO = new DonHangDAO(this);
-        chiTietDonHangDAO = new ChiTietDonHangDAO(this);
-        monAnDAO = new MonAnDAO(this);
+        try {
+            idDH = donHangDAO.checkDonHang().get(0).getId_DonHang();
+        }catch (Exception e){
+
+        }
+        chiTietDonHangDAO = new ChiTietDonHangDAO();
+        monAnDAO = new MonAnDAO();
         btn_back = findViewById(R.id.btn_back_monAn);
+        img_datMon = findViewById(R.id.img_datMon);
         rdo_coRau = findViewById(R.id.rdo_coRau);
         view6 = findViewById(R.id.view6);
         view2 = findViewById(R.id.view2);
@@ -66,6 +76,8 @@ public class DatMonActivity extends AppCompatActivity {
         int gia = bundle.getInt("gia");
         int trangThai = bundle.getInt("trangThai");
         int loai =bundle.getInt("id_loai");
+        Bitmap bitmap = BitmapFactory.decodeByteArray(monAnDAO.layAnhTheoID(id), 0, monAnDAO.layAnhTheoID(id).length);
+        img_datMon.setImageBitmap(bitmap);
         tv_tongGiaMonAn.setText("Thêm vào giỏ hàng - "+gia+"");
         tv_tenMon_datMon.setText(ten);
         tv_gia_datMon.setText(gia+"đ");
@@ -74,6 +86,7 @@ public class DatMonActivity extends AppCompatActivity {
             view2.setVisibility(View.GONE);
             view3.setVisibility(View.GONE);
         }
+
         if (quyen.equalsIgnoreCase("nhanvien")){
             view6.setVisibility(View.GONE);
             if (trangThai==1){
@@ -85,7 +98,7 @@ public class DatMonActivity extends AppCompatActivity {
         btn_cong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int soluong = Integer.parseInt(tv_soLuong.getText().toString());
+                soluong = Integer.parseInt(tv_soLuong.getText().toString());
                 soluong++;
                 tv_soLuong.setText(soluong+"");
                 tv_tongGiaMonAn.setText("Thêm vào giỏ hàng - "+soluong*gia+"");
@@ -94,7 +107,7 @@ public class DatMonActivity extends AppCompatActivity {
         btn_tru.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int soluong = Integer.parseInt(tv_soLuong.getText().toString());
+                soluong = Integer.parseInt(tv_soLuong.getText().toString());
                 soluong--;
                 tv_soLuong.setText(soluong+"");
                 tv_tongGiaMonAn.setText("Thêm vào giỏ hàng - "+soluong*gia+"");
@@ -118,9 +131,11 @@ public class DatMonActivity extends AppCompatActivity {
                         donHang.setTaiKhoan(taiKhoan);
                         donHang.setThoiGianTao(time);
                         donHang.setTrangThai(0);
-                        donHangDAO.insertDonHang(donHang);
+                        donHang.setTongTien(soluong*gia);
+                        donHangDAO.insert(donHang);
+                        idDH = donHangDAO.checkDonHang().get(0).getId_DonHang();
                         ChiTietDonHang ctdh = new ChiTietDonHang();
-                        ctdh.setId_donHang(donHangDAO.checkDonHang().get(0).getId_DonHang());
+                        ctdh.setId_donHang(idDH);
                         ctdh.setSoLuong(Integer.parseInt(tv_soLuong.getText().toString()));
                         ctdh.setGiaTien(Integer.parseInt(tv_soLuong.getText().toString())*gia);
                         ctdh.setId_monAn(id);
@@ -138,7 +153,7 @@ public class DatMonActivity extends AppCompatActivity {
                                ctdh.setOt(0);
                            }
                        }
-                        if (chiTietDonHangDAO.insertChiTietDonHang(ctdh)>0){
+                        if (chiTietDonHangDAO.insert(ctdh)){
                             Toast.makeText(DatMonActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
                             onBackPressed();
                         }else {
@@ -162,7 +177,8 @@ public class DatMonActivity extends AppCompatActivity {
                         if (rdo_kOt.isChecked()){
                             ctdh.setOt(0);
                         }
-                        if (chiTietDonHangDAO.insertChiTietDonHang(ctdh)>0){
+                        if (chiTietDonHangDAO.insert(ctdh)){
+                            donHangDAO.updateGia(idDH,donHangDAO.getByID(idDH).get(0).getTongTien()+ctdh.getGiaTien());
                             Toast.makeText(DatMonActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(DatMonActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();

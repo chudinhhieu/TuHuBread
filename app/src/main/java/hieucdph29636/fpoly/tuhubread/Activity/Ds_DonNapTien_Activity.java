@@ -24,17 +24,11 @@ public class Ds_DonNapTien_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ds_don_nap_tien);
-
         rcv_dnt = findViewById(R.id.rcv_dnt);
-
-        donNapTienDAO = new DonNapTienDAO(this);
-        dsdnt = donNapTienDAO.getAll_donNapTien(this);
+        donNapTienDAO = new DonNapTienDAO();
+        dsdnt = donNapTienDAO.getAll();
         donNapTien_adapter = new DonNapTien_Adapter(this,dsdnt);
         rcv_dnt.setAdapter(donNapTien_adapter);
-
-
-
-
     }
 
 
@@ -42,7 +36,7 @@ public class Ds_DonNapTien_Activity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
 
-        dsdnt = donNapTienDAO.getAll_donNapTien(this);
+        dsdnt = donNapTienDAO.getAll();
         donNapTien_adapter = new DonNapTien_Adapter(this,dsdnt);
         rcv_dnt.setAdapter(donNapTien_adapter);
 
