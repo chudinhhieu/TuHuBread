@@ -41,7 +41,7 @@ public class DatMonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dat_mon);
-        donHangDAO = new DonHangDAO(this);
+        donHangDAO = new DonHangDAO();
         SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
         String taiKhoan = sharedPreferences.getString("TK","");
         String quyen = sharedPreferences.getString("quyen","");

@@ -139,11 +139,11 @@ public class Ds_nv_Activity extends AppCompatActivity {
                        nhanVien.setSoDienThoai(sdt_nv.getText().toString());
                        nhanVien.setTaiKhoan(user_nv.getText().toString());
                        nhanVien.setMatKhau(pass_nv.getText().toString());
-                       nhanVien.setNgaySinh(ngaysinh_nv.getText().toString());
+                       nhanVien.setNgaySinh(ngaysinh_nv.getText().toString().trim());
                        nhanVien.setQuenNhanVien(Integer.valueOf(quyen_nv.getText().toString()));
 
                        //if (nhanVienDAO.insert_nv(Ds_nv_Activity.this, nhanVien)>0){
-                       if (nhanVienDAO.insert_nv(Ds_nv_Activity.this, nhanVien)){
+                       if (nhanVienDAO.insert( nhanVien)){
                            Toast.makeText(Ds_nv_Activity.this, "Đã thêm thành công", Toast.LENGTH_SHORT).show();
                            loadData();
                            dialog.dismiss();
@@ -159,16 +159,16 @@ public class Ds_nv_Activity extends AppCompatActivity {
         });
 
 
-        nhanVienDAO = new NhanVienDAO(this);
-        dsnv = nhanVienDAO.getAll_nv(this);
+        nhanVienDAO = new NhanVienDAO();
+        dsnv = nhanVienDAO.getAll();
         nhanVienAdapter = new NhanVienAdapter(this,dsnv);
         rcv_nv.setAdapter(nhanVienAdapter);
 
 
     }
     private void loadData(){
-        nhanVienDAO = new NhanVienDAO(Ds_nv_Activity.this);
-        dsnv = nhanVienDAO.getAll_nv(this);
+        nhanVienDAO = new NhanVienDAO();
+        dsnv = nhanVienDAO.getAll();
         nhanVienAdapter = new NhanVienAdapter(this,dsnv);
         rcv_nv.setAdapter(nhanVienAdapter);
     }
@@ -176,7 +176,7 @@ public class Ds_nv_Activity extends AppCompatActivity {
         protected void onRestart() {
             super.onRestart();
 
-            dsnv = nhanVienDAO.getAll_nv(this);
+            dsnv = nhanVienDAO.getAll();
             nhanVienAdapter = new NhanVienAdapter(this,dsnv);
             rcv_nv.setAdapter(nhanVienAdapter);
         }

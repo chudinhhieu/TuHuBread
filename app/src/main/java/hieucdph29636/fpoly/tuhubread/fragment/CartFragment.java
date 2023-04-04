@@ -32,7 +32,7 @@ public class CartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rcv = view.findViewById(R.id.rcv_cart);
-        dao = new DonHangDAO(getContext());
+        dao = new DonHangDAO();
         list = (ArrayList<DonHang>) dao.selectAll();
         adapter = new DonHangAdapter(list,getContext());
         rcv.setAdapter(adapter);

@@ -71,7 +71,7 @@ public class DonHangChiTietActivity extends AppCompatActivity {
         adapter = new ChiTietDonHangAdapter(list,this);
         rcv_ttdh.setAdapter(adapter);
         int tongTamTinh = dao.tinhTongGiaTien(id_donHang);
-        donHangDAO = new DonHangDAO(this);
+        donHangDAO = new DonHangDAO();
         tv_tongTamTinh.setText(tongTamTinh+"");
         tv_tongTienCTHD.setText(donHangDAO.getByID(id_donHang).get(0).getTongTien()+"");
         khuyenMaiDAO = new KhuyenMaiDAO(this);

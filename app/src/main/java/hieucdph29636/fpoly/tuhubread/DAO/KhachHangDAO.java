@@ -22,16 +22,7 @@ import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
 import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class KhachHangDAO {
-    SQLiteDatabase db;
-    DbHelper dbHelper;
-
     public KhachHangDAO() {
-    }
-
-    public KhachHangDAO(Context context){
-        dbHelper= new DbHelper(context);
-
-        db=dbHelper.getWritableDatabase();
     }
     public ArrayList<KhachHang> getAll() {
         ArrayList<KhachHang> list = new ArrayList<>();
@@ -124,7 +115,6 @@ public class KhachHangDAO {
         }
         return success;
     }
-    @SuppressLint("Range")
 
     public String getHoTen(String taiKhoan) {
         String hoTen = null;

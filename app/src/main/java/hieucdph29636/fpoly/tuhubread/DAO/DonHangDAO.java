@@ -22,15 +22,7 @@ import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
 
 
 public class DonHangDAO {
-    SQLiteDatabase db;
-    hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper dbHelper;
-
     public DonHangDAO() {
-    }
-
-    public DonHangDAO(Context context) {
-        dbHelper = new hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper(context);
-        db = dbHelper.getWritableDatabase();
     }
     public ArrayList<DonHang> selectAll() {
         ArrayList<DonHang> list = new ArrayList<>();

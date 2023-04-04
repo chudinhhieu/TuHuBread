@@ -64,6 +64,7 @@ public class ViTienActivity extends AppCompatActivity {
                 Button btn_xacNhan = dialog.findViewById(R.id.btn_xacNhanNapTien);
                 ImageView anhHD = dialog.findViewById(R.id.img_anhHD);
                 anhHD.setVisibility(View.GONE);
+
                 btn_xacNhan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

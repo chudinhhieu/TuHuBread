@@ -38,7 +38,7 @@ public class ChiTiet_Nhan_vien extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_nv);
-        nhanVienDAO = new NhanVienDAO(this);
+        nhanVienDAO = new NhanVienDAO();
         tv_id_nv_ct = findViewById(R.id.tv_id_nv_ct);
         tv_ten_nv_ct = findViewById(R.id.tv_ten_nv_ct);
         tv_sdt_nv_ct = findViewById(R.id.tv_sdt_nv_ct);
@@ -176,8 +176,7 @@ public class ChiTiet_Nhan_vien extends AppCompatActivity {
                         nhanVien.setNgaySinh(ngaysinh_nv.getText().toString());
                         nhanVien.setQuenNhanVien(Integer.valueOf(quyen_nv.getText().toString()));
 
-                        //if (nhanVienDAO.insert_nv(Ds_nv_Activity.this, nhanVien)>0){
-                        if (NhanVienDAO.update_nv(ChiTiet_Nhan_vien.this, nhanVien)) {
+                        if (nhanVienDAO.update(nhanVien)) {
                             Toast.makeText(ChiTiet_Nhan_vien.this, "Đã sửa thành công", Toast.LENGTH_SHORT).show();
                             // loadData();
                             tv_ten_nv_ct.setText(ten_nv.getText().toString());
@@ -202,7 +201,7 @@ public class ChiTiet_Nhan_vien extends AppCompatActivity {
         btn_xoa_nv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nhanVienDAO.delete_nv(ChiTiet_Nhan_vien.this, (bundle.getString("tv_user_nv")));
+                nhanVienDAO.delete((bundle.getString("tv_user_nv")));
                 Toast.makeText(ChiTiet_Nhan_vien.this, "Đã xóa thành công", Toast.LENGTH_SHORT).show();
                 onBackPressed();
             }

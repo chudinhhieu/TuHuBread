@@ -48,7 +48,7 @@ public class DangNhapActivity extends AppCompatActivity {
         btn_dangKy = findViewById(R.id.btn_dangKy);
         chk_nhoTaiKhoan = findViewById(R.id.chk_nhoTaiKhoan);
         khachHangDAO = new KhachHangDAO();
-        nhanVienDAO = new NhanVienDAO(this);
+        nhanVienDAO = new NhanVienDAO();
         btn_dangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
