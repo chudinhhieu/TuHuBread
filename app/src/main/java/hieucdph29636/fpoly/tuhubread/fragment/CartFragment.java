@@ -36,7 +36,6 @@ public class CartFragment extends Fragment {
         list = (ArrayList<DonHang>) dao.selectAll();
         adapter = new DonHangAdapter(list,getContext());
         rcv.setAdapter(adapter);
-
     }
 
     @Override
