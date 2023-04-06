@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import hieucdph29636.fpoly.tuhubread.Activity.ActivityThongKe;
 import hieucdph29636.fpoly.tuhubread.Activity.DangNhapActivity;
 import hieucdph29636.fpoly.tuhubread.Activity.Ds_DonNapTien_Activity;
 import hieucdph29636.fpoly.tuhubread.Activity.Ds_nv_Activity;
@@ -56,6 +57,12 @@ public class OtherFragment extends Fragment {
         if (quyen.equalsIgnoreCase("nhanvien")){
             vitien_other.setVisibility(View.GONE);
         }
+        tk_other.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ActivityThongKe.class));
+            }
+        });
         dangXuat_other.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

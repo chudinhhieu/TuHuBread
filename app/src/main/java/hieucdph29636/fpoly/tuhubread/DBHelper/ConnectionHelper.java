@@ -13,10 +13,10 @@ public class ConnectionHelper {
     @SuppressLint("NewApi")
     public Connection connectionClass(){
         {
-            ip ="192.168.43.16";
+            ip ="192.168.100.30";
             database = "TuhuBread";
-            user ="sa";
-            pass="123";
+            user ="tuhubread";
+            pass="123456";
             port="1433";
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

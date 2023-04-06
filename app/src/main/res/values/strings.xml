@@ -4,4 +4,12 @@
     <string name="menu_food">Đặt hàng</string>
     <string name="menu_cart">Đơn hàng</string>
     <string name="menu_other">Khác</string>
+
+    <string-array name="fragmentTK">
+        <item>Thống kê doanh thu</item>
+        <item>Thống kê doanh thu theo ngày</item>
+        <item>Thống kê món ăn bán chạy</item>
+        <item>Thống kê doanh thu món ăn</item>
+        <item>Thống kê doanh thu món ăn theo ngày</item>
+    </string-array>
 </resources>

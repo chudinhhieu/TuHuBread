@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hieucdph29636.fpoly.tuhubread.DTO.LoaiMon;
-import hieucdph29636.fpoly.tuhubread.DTO.Thuc_don;
 import hieucdph29636.fpoly.tuhubread.R;
 
 public class Ds_thucDon_Spinner_Adapter extends BaseAdapter {
