@@ -55,7 +55,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
         String quyen = sharedPreferences.getString("quyen","");
         chiTietDonHangDAO =new ChiTietDonHangDAO();
         donHangDAO = new DonHangDAO();
-        khuyenMaiDAO = new KhuyenMaiDAO(context);
+        khuyenMaiDAO = new KhuyenMaiDAO();
         int index = position;
         view.setOnClickListener(new View.OnClickListener() {
             @Override

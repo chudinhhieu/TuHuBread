@@ -8,11 +8,13 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,6 +26,7 @@ import hieucdph29636.fpoly.tuhubread.fragment.OtherFragment;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
+    ImageView btn_ds_mayt;
     BottomNavigationView bottomNavigationView;
     private TextView tv_toolbar;
     KhachHangDAO khachHangDAO;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewPager = findViewById(R.id.view_pager);
         tv_toolbar = findViewById(R.id.tv_toolbar);
+        btn_ds_mayt = findViewById(R.id.btn_ds_mayt);
         bottomNavigationView = findViewById(R.id.bottom_nav);
         khachHangDAO = new KhachHangDAO();
         SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
@@ -40,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
         String quyen = sharedPreferences.getString("quyen","");
         String hoTen= khachHangDAO.getHoTen(taiKhoan);
         tv_toolbar.setText(hoTen+" ơi,Bánh mì đi!");
+        btn_ds_mayt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,MonAnYeuThichActivity.class));
+            }
+        });
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         adapter.getQuyen(quyen);
         viewPager.setAdapter(adapter);

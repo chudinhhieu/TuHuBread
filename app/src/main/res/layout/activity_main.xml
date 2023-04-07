@@ -36,6 +36,13 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
             android:src="@drawable/co_thong_bao" />
+        <ImageView
+            android:id="@+id/btn_ds_mayt"
+            android:layout_toLeftOf="@id/img_thongbao"
+            android:layout_marginEnd="10dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_baseline_favorite_24_red"/>
     </RelativeLayout>
 
     <androidx.viewpager.widget.ViewPager

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import hieucdph29636.fpoly.tuhubread.DTO.DonNapTien;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
 import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
-import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class DonNapTienDAO {
 
@@ -116,11 +115,6 @@ public class DonNapTienDAO {
             Log.e("UPDATE_ERROR", ex.getMessage());
         }
         return success;
-    }
-    public  int delete_donNapTien(Context context, int id){
-        DbHelper helper = new DbHelper(context);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete("DonNapTien","id_DonNapTien=?",new String[]{String.valueOf(id)});
     }
 
 }

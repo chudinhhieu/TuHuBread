@@ -74,7 +74,7 @@ public class DonHangChiTietActivity extends AppCompatActivity {
         donHangDAO = new DonHangDAO();
         tv_tongTamTinh.setText(tongTamTinh+"");
         tv_tongTienCTHD.setText(donHangDAO.getByID(id_donHang).get(0).getTongTien()+"");
-        khuyenMaiDAO = new KhuyenMaiDAO(this);
+        khuyenMaiDAO = new KhuyenMaiDAO();
         if (tt_dh!=0){
             ln_km.setVisibility(View.GONE);
         }

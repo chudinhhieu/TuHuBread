@@ -22,12 +22,15 @@ import java.util.Date;
 import hieucdph29636.fpoly.tuhubread.DAO.ChiTietDonHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.DonHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.MonAnDAO;
+import hieucdph29636.fpoly.tuhubread.DAO.MonAnYeuThichDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
+import hieucdph29636.fpoly.tuhubread.DTO.MonAnYeuThich;
 import hieucdph29636.fpoly.tuhubread.R;
 
 public class DatMonActivity extends AppCompatActivity {
-    ImageView btn_back,btn_tru,btn_cong,img_datMon;
+    MonAnYeuThichDAO monAnYeuThichDAO;
+    ImageView btn_back,btn_tru,btn_cong,img_datMon , btnMonAnyt;
     TextView tv_tenMon_datMon,tv_gia_datMon,tv_thanhphan_datMon,tv_tongGiaMonAn,tv_soLuong;
     CardView btn_datMon;
     DonHangDAO donHangDAO;
@@ -41,6 +44,7 @@ public class DatMonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dat_mon);
+        btnMonAnyt = findViewById(R.id.btn_monAnYT);
         donHangDAO = new DonHangDAO();
         SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
         String taiKhoan = sharedPreferences.getString("TK","");
@@ -50,7 +54,9 @@ public class DatMonActivity extends AppCompatActivity {
         }catch (Exception e){
 
         }
+
         chiTietDonHangDAO = new ChiTietDonHangDAO();
+        monAnYeuThichDAO = new MonAnYeuThichDAO();
         monAnDAO = new MonAnDAO();
         btn_back = findViewById(R.id.btn_back_monAn);
         img_datMon = findViewById(R.id.img_datMon);
@@ -81,6 +87,18 @@ public class DatMonActivity extends AppCompatActivity {
         tv_tongGiaMonAn.setText("Thêm vào giỏ hàng - "+gia+"");
         tv_tenMon_datMon.setText(ten);
         tv_gia_datMon.setText(gia+"đ");
+        btnMonAnyt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MonAnYeuThich monAnYeuThich = new MonAnYeuThich();
+                monAnYeuThich.setId_MonAn(id);
+                monAnYeuThich.setTaiKhoan(taiKhoan);
+                if(monAnYeuThichDAO.insert(monAnYeuThich)){
+                    Toast.makeText(DatMonActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
         tv_thanhphan_datMon.setText(thanhPhan);
         if (loai!=0){
             view2.setVisibility(View.GONE);

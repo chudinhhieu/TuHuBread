@@ -18,7 +18,6 @@ import hieucdph29636.fpoly.tuhubread.DTO.KhachHang;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
 import hieucdph29636.fpoly.tuhubread.DTO.NhanVien;
 import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
-import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
 
 public class NhanVienDAO {
     public NhanVienDAO() {

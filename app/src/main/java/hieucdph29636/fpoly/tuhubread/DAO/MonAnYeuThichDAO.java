@@ -6,53 +6,73 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAnYeuThich;
-import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
+import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
 
 public class MonAnYeuThichDAO {
-    SQLiteDatabase db;
-    DbHelper dbHelper;
-    public MonAnYeuThichDAO (Context context){
-        dbHelper= new DbHelper(context);
-        db=dbHelper.getWritableDatabase();
+    Connection connection;
+    ConnectionHelper connectionHelper;
 
-    }
-    public void close(){dbHelper.close();}
-    public List<MonAnYeuThich> selectAll(){
-        List<MonAnYeuThich> listABC = new ArrayList<MonAnYeuThich>();
-
-        Cursor c = db.rawQuery("SELECT * From MonAnYeuThich",null);
-
-        if (c.moveToFirst()){
-            while (!c.isAfterLast()){
-                int id = c.getInt(0);
-                String taiKhoan = c.getString(1);
-                MonAnYeuThich ttKhachHang = new MonAnYeuThich(id,taiKhoan);
-                listABC.add(ttKhachHang);
-                c.moveToNext();
+    public boolean insert(MonAnYeuThich monAnyt) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "INSERT INTO MonAnYeuThich (id_MonAn, taiKhoan) VALUES (?,?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, monAnyt.getId_MonAn());
+                preparedStatement.setString(2, monAnyt.getTaiKhoan());
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
             }
-
-        }else {
-            Log.d("@@@","selectAll():Không có thông tin");
+        } catch (Exception ex) {
+            Log.e("INSERT_ERROR", ex.getMessage());
         }
-        return listABC;
+        return success;
     }
-    public long insertMonAnYeuThich(MonAnYeuThich monAnYeuThich){
-        ContentValues values = new ContentValues();
-        values.put("taiKhoan",monAnYeuThich.getTaiKhoan());
-        return db.insert("MonAnYeuThich",null,values);
+    public void delete(int id) {
+        connectionHelper = new ConnectionHelper();
+        connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String sql = "DELETE FROM MonAnYeuThich WHERE id_MonAN = " + id;
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(sql);
+            }
+        } catch (Exception ex) {
+            Log.e("DELETE_ERROR", ex.getMessage());
+        }
     }
-    public int updateMonAnYeuThich(MonAnYeuThich monAnYeuThich){
-        ContentValues values=new ContentValues();
-        values.put("taiKhoan",monAnYeuThich.getTaiKhoan());
-        String[] tham_so=new String[]{monAnYeuThich.getTaiKhoan()+""};
-        return db.update("MonAnYeuThich",values,"id_mamonan=?",tham_so);
-    }
-    public int MonAnYeuThich(MonAnYeuThich monAnYeuThich){
-        String[] tham_so=new String[]{monAnYeuThich.getId_MonAn()+""};
-        return db.delete("MonAnYeuThich","id_mamonan=?",tham_so);
+    public ArrayList<MonAnYeuThich> layTheoLoaiTK(String tk) {
+        ArrayList<MonAnYeuThich> list = new ArrayList<>();
+        connectionHelper = new ConnectionHelper();
+        connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM MonAnYeuThich where taiKhoan= '"+tk+"'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    MonAnYeuThich monAnyt = new MonAnYeuThich();
+                    monAnyt.setId_MonAn(resultSet.getInt(1));
+                    monAnyt.setTaiKhoan(resultSet.getString(2));
+                    list.add(monAnyt);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return list;
     }
 }

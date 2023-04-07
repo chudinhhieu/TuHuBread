@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_marginStart="10dp"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:src="@drawable/banh_mi_bo_sot_pho_mai_trung_muoi"
+        android:layout_marginTop="10dp"
+        android:id="@+id/img_item_mayt"
+        />
+    <LinearLayout
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="5dp"
+        >
+        <TextView
+            android:id="@+id/tv_item_ten_mayt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tên bánh"
+            android:textSize="20dp"
+            android:fontFamily="@font/mali"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/tv_item_Thanhphan_mayt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/alata"
+            android:text="Thành phần: "
+            android:textSize="14dp"
+
+            />
+        <TextView
+            android:id="@+id/tv_item_tien_mayt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="35000đ"
+            android:textSize="20dp"
+            android:fontFamily="@font/mali"
+            android:textColor="@color/red"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
