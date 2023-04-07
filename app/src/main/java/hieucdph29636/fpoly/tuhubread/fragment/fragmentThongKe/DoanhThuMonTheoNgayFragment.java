@@ -31,9 +31,9 @@ public class DoanhThuMonTheoNgayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         dao= new ThongKeDAO();
-        ArrayList<TopDoanhThuMonAn> list =dao.topDoanhThuMonAnTheoNgay("2023-04-01","2023-04-07");
+        ArrayList<TopDoanhThuMonAn> list =dao.topDoanhThuMonAnTheoNgay("2023-04-05 00:00:00","2023-04-07 00:00:00");
         if (list.isEmpty()){
-            Log.d("tttttt", "null");
+            Log.d("tttttt", "Rỗng ");
         }
         for (int i = 0; i < list.size(); i++) {
             Log.d("tttttt", "Tên: "+list.get(i).getTen());

@@ -90,5 +90,42 @@ public class ThongKeDAO {
             Log.e("READ_ERROR", ex.getMessage());
         }
         return list;
+    } public int tongDoanhThu() {
+        int tong = 0;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT SUM(tongTien) AS TongDoanhThu FROM DonHang;";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                if (resultSet.next()) {
+                    tong = resultSet.getInt("TongDoanhThu");
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return tong;
     }
+    public int tongDoanhThuTheoNgay(String tuNgay, String denNgay) {
+        int tongDoanhThu = 0;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT SUM(tongTien) AS TongDoanhThu FROM DonHang " +
+                        "WHERE thoiGianTao >= '" + tuNgay + "' AND thoiGianTao <= '" + denNgay + "'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    tongDoanhThu = resultSet.getInt("TongDoanhThu");
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return tongDoanhThu;
+    }
+
 }

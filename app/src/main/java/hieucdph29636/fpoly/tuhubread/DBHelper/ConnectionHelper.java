@@ -13,7 +13,9 @@ public class ConnectionHelper {
     @SuppressLint("NewApi")
     public Connection connectionClass(){
         {
-            ip ="192.168.100.30";
+            //192.168.43.16
+            //192.168.100.30
+            ip ="192.168.43.16";
             database = "TuhuBread";
             user ="tuhubread";
             pass="123456";

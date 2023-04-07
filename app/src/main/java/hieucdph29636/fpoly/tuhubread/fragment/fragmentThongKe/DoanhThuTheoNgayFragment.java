@@ -31,6 +31,8 @@ public class DoanhThuTheoNgayFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        dao = new ThongKeDAO();
+        int tong = dao.tongDoanhThuTheoNgay("2023-04-03","2023-04-06");
+        Log.d("tttttt", tong+"");
     }
 }
