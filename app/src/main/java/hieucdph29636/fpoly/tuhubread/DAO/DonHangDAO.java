@@ -18,11 +18,38 @@ import java.util.List;
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
-import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
+import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
 
 
 public class DonHangDAO {
     public DonHangDAO() {
+    }
+    public ArrayList<MonAn> getMonAnInDonHang(int idDonHang) {
+        ArrayList<MonAn> monAnList = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM MonAn WHERE id_MonAn IN (SELECT id_monAn FROM ChiTietDonHang WHERE id_donHang=?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idDonHang);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    MonAn monAn = new MonAn();
+                    monAn.setId_MonAn(resultSet.getInt("id_MonAn"));
+                    monAn.setTenMon(resultSet.getString("tenMon"));
+                    monAn.setGia(resultSet.getInt("gia"));
+                    monAn.setThanhPhan(resultSet.getString("thanhPhan"));
+                    monAn.setTrangThai(resultSet.getInt("trangThai"));
+                    monAn.setId_LoaiDoAn(resultSet.getInt("id_loaiDoAn"));
+                    monAn.setAnhMonAn(resultSet.getBytes("anhMonAn"));
+                    monAnList.add(monAn);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("DONHANG_ERROR", ex.getMessage());
+        }
+        return monAnList;
     }
     public ArrayList<DonHang> selectAll() {
         ArrayList<DonHang> list = new ArrayList<>();

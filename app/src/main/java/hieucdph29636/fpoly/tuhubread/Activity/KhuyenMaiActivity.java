@@ -46,13 +46,13 @@ public class KhuyenMaiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_khuyen_mai);
         rcv_khuyenMai = findViewById(R.id.rcv_khuyenMai);
         btn_add_km = findViewById(R.id.btn_add_km);
-        khuyenMaiDAO = new KhuyenMaiDAO(this);
+        khuyenMaiDAO = new KhuyenMaiDAO();
         tv_mota_km = findViewById(R.id.tv_mota_km);
         tv_sotiengiam_km = findViewById(R.id.tv_sotiengiam_km);
         btn_chinhsua_km = findViewById(R.id.btn_chinhsua_km);
 
 
-        list = khuyenMaiDAO.selectAll();
+        list = khuyenMaiDAO.getAll();
         khuyenMaiAdapter = new KhuyenMaiAdapter(this,list);
         rcv_khuyenMai.setAdapter(khuyenMaiAdapter);
 
@@ -78,7 +78,7 @@ public class KhuyenMaiActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         KhuyenMai objkm = new KhuyenMai(edCode.getText().toString(),edMota.getText().toString(),edNgayBD.getText().toString(),edNgayKT.getText().toString(),Integer.parseInt(edSTgiam.getText().toString()));
 
-                        if(khuyenMaiDAO.insertKMai(objkm)>0){
+                        if(khuyenMaiDAO.insert(objkm)){
                             Toast.makeText(KhuyenMaiActivity.this, "Thành công!", Toast.LENGTH_SHORT).show();
                             mdDialog.dismiss();
                         }else{

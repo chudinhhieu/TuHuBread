@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -30,7 +31,7 @@ import hieucdph29636.fpoly.tuhubread.R;
 
 public class DatMonActivity extends AppCompatActivity {
     MonAnYeuThichDAO monAnYeuThichDAO;
-    ImageView btn_back,btn_tru,btn_cong,img_datMon , btnMonAnyt;
+    ImageView btn_back,btn_tru,btn_cong,img_datMon , btnMonAnyt,img_star;
     TextView tv_tenMon_datMon,tv_gia_datMon,tv_thanhphan_datMon,tv_tongGiaMonAn,tv_soLuong;
     CardView btn_datMon;
     DonHangDAO donHangDAO;
@@ -72,6 +73,7 @@ public class DatMonActivity extends AppCompatActivity {
         btn_tru = findViewById(R.id.btn_truSL);
         btn_cong = findViewById(R.id.btn_congSL);
         tv_gia_datMon = findViewById(R.id.tv_gia_datMon);
+        img_star=findViewById(R.id.star);
         tv_thanhphan_datMon = findViewById(R.id.tv_thanhphan_datMon);
         tv_soLuong = findViewById(R.id.tv_soluong_datMon);
         tv_tongGiaMonAn = findViewById(R.id.tv_tongGia_monAn);
@@ -87,6 +89,12 @@ public class DatMonActivity extends AppCompatActivity {
         tv_tongGiaMonAn.setText("Thêm vào giỏ hàng - "+gia+"");
         tv_tenMon_datMon.setText(ten);
         tv_gia_datMon.setText(gia+"đ");
+        img_star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DatMonActivity.this,DanhGia_BinhLuan_Hien.class));
+            }
+        });
         btnMonAnyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

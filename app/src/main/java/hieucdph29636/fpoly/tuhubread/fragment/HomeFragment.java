@@ -72,8 +72,8 @@ public class HomeFragment extends Fragment {
         monAnDAO = new MonAnDAO();
         tv_home1 = view.findViewById(R.id.tv_home1);
         tv_home2 = view.findViewById(R.id.tv_home2);
-        khuyenMaiDAO = new KhuyenMaiDAO(getContext());
-        listKM = khuyenMaiDAO.selectAll();
+        khuyenMaiDAO = new KhuyenMaiDAO();
+        listKM = khuyenMaiDAO.getAll();
         khachHangDAO = new KhachHangDAO();
         adapterSPNB = new SanPhamNoiBatAdapter(monAnDAO.getAll(),getContext());
         adapterKM = new KhuyenMaiHomeAdapter(listKM,getContext());

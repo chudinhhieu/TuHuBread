@@ -17,8 +17,7 @@ import java.util.List;
 
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
-import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
-import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
+import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
 
 public class ChiTietDonHangDAO {
     public boolean insert(ChiTietDonHang ctdh) {

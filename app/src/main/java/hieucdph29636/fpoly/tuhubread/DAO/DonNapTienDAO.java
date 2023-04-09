@@ -12,9 +12,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
 import hieucdph29636.fpoly.tuhubread.DTO.DonNapTien;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
-import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
 
 public class DonNapTienDAO {
 
@@ -27,7 +27,33 @@ public class DonNapTienDAO {
        Connection connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
-                String query = "SELECT * FROM DonNapTien";
+                String query = "SELECT * FROM DonNapTien ORDER BY id_DonNapTien DESC";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    DonNapTien dnt = new DonNapTien();
+                    dnt.setid_DonNapTien(resultSet.getInt(1));
+                    dnt.setTaiKhoan(resultSet.getString(2));
+                    dnt.setThoiGianTao(resultSet.getString(3));
+                    dnt.setTrangThai(resultSet.getInt(4));
+                    dnt.setTienNap(resultSet.getInt(5));
+                    dnt.setAnhHoaDon(resultSet.getBytes(6));
+                    dnt.setMota(resultSet.getString(7));
+                    list.add(dnt);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return list;
+    }
+    public ArrayList<DonNapTien> getAllKH(String tk) {
+        ArrayList<DonNapTien> list = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM DonNapTien where taiKhoan ='"+tk+"' ORDER BY id_DonNapTien DESC";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
                 while (resultSet.next()) {
@@ -116,5 +142,38 @@ public class DonNapTienDAO {
         }
         return success;
     }
-
+    public boolean delete(int id) {
+        boolean success = false;
+        ConnectionHelper  connectionHelper = new ConnectionHelper();
+       Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String sql = "DELETE FROM DonNapTien WHERE id_DonNapTien = " + id;
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(sql);
+                success = true;
+            }
+        } catch (Exception ex) {
+            Log.e("DELETE_ERROR", ex.getMessage());
+        }
+        return success;
+    }
+    public byte[] layAnhTheoID(int id_DonNapTien) {
+        byte[] anhHoaDon = null;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+       Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT anhHoaDon FROM DonNapTien WHERE id_DonNapTien = '"+id_DonNapTien+"'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                if (resultSet.next()) {
+                    anhHoaDon = resultSet.getBytes("anhHoaDon");
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return anhHoaDon;
+    }
 }

@@ -18,7 +18,7 @@ import java.util.List;
 
 import hieucdph29636.fpoly.tuhubread.DTO.DonNapTien;
 import hieucdph29636.fpoly.tuhubread.DTO.KhachHang;
-import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
+import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
 
 public class KhachHangDAO {
     public KhachHangDAO() {

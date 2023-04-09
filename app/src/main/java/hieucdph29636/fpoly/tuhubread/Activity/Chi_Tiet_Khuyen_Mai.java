@@ -30,7 +30,7 @@ public class Chi_Tiet_Khuyen_Mai extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_khuyen_mai);
 
-        khuyenMaiDAO = new KhuyenMaiDAO(this);
+        khuyenMaiDAO = new KhuyenMaiDAO();
         tv_id_km = findViewById(R.id.tv_id_km);
         tv_code_km = findViewById(R.id.tv_code_km);
         tv_mota_km = findViewById(R.id.tv_mota_km);
@@ -61,14 +61,11 @@ public class Chi_Tiet_Khuyen_Mai extends AppCompatActivity {
         btn_xoa_km.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(khuyenMaiDAO.deleteKMai(objkm)>0){
+                khuyenMaiDAO.delete(objkm.getId_KhuyenMai());
                     Toast.makeText(Chi_Tiet_Khuyen_Mai.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                    khuyenMaiDAO.selectAll();
+                    khuyenMaiDAO.getAll();
                     onBackPressed();
-
                 }
-
-            }
         });
         btn_chinhsua_km.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +92,7 @@ public class Chi_Tiet_Khuyen_Mai extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        if(khuyenMaiDAO.updateKMai(objkm)>0){
+                        if(khuyenMaiDAO.update(objkm)){
                             tv_id_km.setText(id+"");
                             tv_code_km.setText(edCode.getText().toString());
                             tv_mota_km.setText(edMota.getText().toString());

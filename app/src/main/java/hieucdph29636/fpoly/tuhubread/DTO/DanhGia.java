@@ -4,18 +4,16 @@ public class DanhGia {
     private int id_DanhGia,id_monAn;
     private String binhLuan,taiKhoan;
     private int diem;
-    private byte[] anhDanhGia;
 
     public DanhGia() {
     }
 
-    public DanhGia(int id_DanhGia, String taiKhoan, int id_monAn, String binhLuan, int diem, byte[] anhDanhGia) {
+    public DanhGia(int id_DanhGia, String taiKhoan, int id_monAn, String binhLuan, int diem) {
         this.id_DanhGia = id_DanhGia;
         this.taiKhoan = DanhGia.this.taiKhoan;
         this.id_monAn = id_monAn;
         this.binhLuan = binhLuan;
         this.diem = diem;
-        this.anhDanhGia = anhDanhGia;
     }
 
 
@@ -59,11 +57,5 @@ public class DanhGia {
         this.taiKhoan = taiKhoan;
     }
 
-    public byte[] getAnhDanhGia() {
-        return anhDanhGia;
-    }
 
-    public void setAnhDanhGia(byte[] anhDanhGia) {
-        this.anhDanhGia = anhDanhGia;
-    }
 }

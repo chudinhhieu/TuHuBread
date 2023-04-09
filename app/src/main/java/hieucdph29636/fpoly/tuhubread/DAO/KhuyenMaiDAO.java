@@ -11,70 +11,103 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
-import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
-import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
+import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
 import hieucdph29636.fpoly.tuhubread.DTO.KhuyenMai;
 
 
 public class KhuyenMaiDAO {
-    SQLiteDatabase db;
-    DbHelper dbHelper;
-
-    public KhuyenMaiDAO(Context context) {
-    dbHelper=new DbHelper(context);
-    db=dbHelper.getWritableDatabase();
+    public KhuyenMaiDAO() {
     }
-
-    public void close(){dbHelper.close();}
-    public List<KhuyenMai> selectAll(){
-        List<KhuyenMai> listPro = new ArrayList<KhuyenMai>();
-
-        Cursor c = db.rawQuery("SELECT * FROM KhuyenMai",null);
-
-        if(c.moveToFirst()){
-            while (!c.isAfterLast()){
-                int _id = c.getInt(0);
-                String _name = c.getString(1);
-                String moTa=c.getString(2);
-                String ngayBatDau=c.getString(3);
-                String ngayKT=c.getString(4);
-                int soTiengiam=c.getInt(5);
-                KhuyenMai tmpLoai = new KhuyenMai( _id, _name,moTa,ngayBatDau,ngayKT,soTiengiam);
-                listPro.add( tmpLoai );
-                c.moveToNext();
+    public boolean insert(KhuyenMai km) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "INSERT INTO KhuyenMai (code, moTaKM, ngayBatDau, ngayKetThuc, soTienGiam) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, km.getCode());
+                preparedStatement.setString(2, km.getMoTaKM());
+                preparedStatement.setString(3, km.getNgayBatDau());
+                preparedStatement.setString(4, km.getNgayKetThuc());
+                preparedStatement.setInt(5, km.getSoTienGiam());
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
             }
-
-        }else{
-            Log.d("zzz", "selectAll: Không có dữ liệu");
+        } catch (Exception ex) {
+            Log.e("INSERT_ERROR", ex.getMessage());
         }
+        return success;
+    }
+    public boolean update(KhuyenMai km) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE KhuyenMai SET code = ?, moTaKM = ?, ngayBatDau = ?, ngayKetThuc = ?, soTienGiam = ? WHERE id_KhuyenMai = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, km.getCode());
+                preparedStatement.setString(2, km.getMoTaKM());
+                preparedStatement.setString(3, km.getNgayBatDau());
+                preparedStatement.setString(4, km.getNgayKetThuc());
+                preparedStatement.setInt(5, km.getSoTienGiam());
+                preparedStatement.setInt(6, km.getId_KhuyenMai());
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
 
-        return  listPro;
+            Log.e("UPDATE_ERROR", ex.getMessage());
+        }
+        return success;
     }
-    public long insertKMai(KhuyenMai objKM){
-        ContentValues values=new ContentValues();
-        values.put("code",objKM.getCode());
-        values.put("moTaKM", objKM.getMoTaKM());
-        values.put("ngayBatDau",objKM.getNgayBatDau());
-        values.put("ngayKetThuc", objKM.getNgayKetThuc());
-        values.put("soTienGiam",objKM.getSoTienGiam()+"");
-        return db.insert("KhuyenMai",null,values);
+    public ArrayList<KhuyenMai> getAll() {
+        ArrayList<KhuyenMai> list = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection  connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM KhuyenMai";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    KhuyenMai km = new KhuyenMai();
+                    km.setId_KhuyenMai(resultSet.getInt(1));
+                    km.setCode(resultSet.getString(2));
+                    km.setMoTaKM(resultSet.getString(3));
+                    km.setNgayBatDau(resultSet.getString(4));
+                    km.setNgayKetThuc(resultSet.getString(5));
+                    km.setSoTienGiam(resultSet.getInt(6));
+                    list.add(km);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return list;
     }
-    public long updateKMai(KhuyenMai objKM){
-        ContentValues values=new ContentValues();
-        values.put("code",objKM.getCode());
-        values.put("moTaKM", objKM.getMoTaKM());
-        values.put("ngayBatDau",objKM.getNgayBatDau());
-        values.put("ngayKetThuc", objKM.getNgayKetThuc());
-        values.put("soTienGiam",objKM.getSoTienGiam());
-        return db.update("KhuyenMai",values,"id_KhuyenMai=?",new String[]{String.valueOf(objKM.getId_KhuyenMai())});
-    }
-    public int deleteKMai(KhuyenMai objKM){
-        String[] so=new String[]{objKM.getId_KhuyenMai()+""};
-        return db.delete("KhuyenMai","id_KhuyenMai=?",so);
+    public void delete(int id) {
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String sql = "DELETE FROM KhuyenMai WHERE id_KhuyenMai = " + id;
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(sql);
+            }
+        } catch (Exception ex) {
+            Log.e("DELETE_ERROR", ex.getMessage());
+        }
     }
     public List<KhuyenMai> checkCode(String code) {
         List<KhuyenMai> list = new ArrayList<>();

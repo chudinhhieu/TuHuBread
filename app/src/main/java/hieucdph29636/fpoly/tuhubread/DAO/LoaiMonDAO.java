@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import hieucdph29636.fpoly.tuhubread.DTO.LoaiMon;
-import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
+import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
 
 public class LoaiMonDAO {
     Connection connection;

@@ -15,7 +15,7 @@ import java.util.List;
 
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAnYeuThich;
-import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
+import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
 
 public class MonAnYeuThichDAO {
     Connection connection;

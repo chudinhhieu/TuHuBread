@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import hieucdph29636.fpoly.tuhubread.Activity.DanhSach_DanhGia_Mon;
 import hieucdph29636.fpoly.tuhubread.Activity.DatMonActivity;
 import hieucdph29636.fpoly.tuhubread.Activity.DonHangChiTietActivity;
 import hieucdph29636.fpoly.tuhubread.DAO.ChiTietDonHangDAO;
@@ -112,6 +113,17 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
             holder.gia.setText(tong+"");
         }
         holder.thoigian.setText(list.get(position).getThoiGianTao());
+        holder.btn_danhgia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(context, DanhSach_DanhGia_Mon.class);
+                Bundle bundle=new Bundle();
+                bundle.putInt("id dh",list.get(index).getId_DonHang());
+                i.putExtras(bundle);
+                context.startActivity(i);
+
+            }
+        });
     }
 
     @Override

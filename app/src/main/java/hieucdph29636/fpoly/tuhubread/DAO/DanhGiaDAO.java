@@ -1,84 +1,61 @@
 package hieucdph29636.fpoly.tuhubread.DAO;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import hieucdph29636.fpoly.tuhubread.DTO.DanhGia;
-import hieucdph29636.fpoly.tuhubread.DbHelper.DbHelper;
+import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
 
 public class DanhGiaDAO {
-    DbHelper dbHelper;
-
-    public DanhGiaDAO(Context context) {
-        dbHelper = new DbHelper(context);
-    }
-
-    public static ArrayList<DanhGia> getAll_danhGia(Context context){
-        DbHelper helper  = new DbHelper(context);
-        ArrayList<DanhGia> dsdg = new ArrayList<>();
-        SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor cs = db.rawQuery("Select * from DanhGia", null);
-
-        if (cs.getCount() !=0){
-            cs.moveToFirst();
-            do {
-                dsdg.add(new DanhGia( cs.getInt(0), cs.getString(1), cs.getInt(2), cs.getString(3),cs.getInt(4), cs.getBlob(5)));
-            }while (cs.moveToNext());
-
+    public boolean insert_danhgia(DanhGia danhGia) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "INSERT INTO DanhGia ( taiKhoan, id_monAn, binhLuan, diem) VALUES ( ?, ?, ?, ?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, danhGia.getTaiKhoan());
+                preparedStatement.setInt(2, danhGia.getId_monAn());
+                preparedStatement.setString(3, danhGia.getBinhLuan());
+                preparedStatement.setFloat(4, danhGia.getDiem());
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("INSERT_ERROR", ex.getMessage());
         }
-        cs.close();
-        db.close();
-        return dsdg;
-
+        return success;
     }
-
-    public static boolean insert_danhgia(Context context, DanhGia ttdanhgia){
-        DbHelper helper = new DbHelper(context);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("id_DanhGia",ttdanhgia.getId_danhGia());
-        values.put("taiKhoan",ttdanhgia.getTaiKhoan());
-        values.put("id_monAn",ttdanhgia.getId_monAn());
-        values.put("binhLuan",ttdanhgia.getBinhLuan());
-        values.put("diem",ttdanhgia.getDiem());
-        values.put("anhDanhGia",ttdanhgia.getAnhDanhGia());
-        long row = db.insert("DanhGia",null,values);
-        return (row>0);
+    public ArrayList<DanhGia> getAll() {
+        ArrayList<DanhGia> list = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM DanhGia";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    DanhGia dg = new DanhGia();
+                    dg.setId_danhGia(resultSet.getInt(1));
+                    dg.setTaiKhoan(resultSet.getString(2));
+                    dg.setId_monAn(resultSet.getInt(3));
+                    dg.setBinhLuan(resultSet.getString(4));
+                    dg.setDiem(resultSet.getInt(5));
+                    list.add(dg);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return list;
     }
-
-    public static boolean update_danhgia(Context context, DanhGia ttdanhgia){
-        DbHelper helper = new DbHelper(context);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("id_DanhGia",ttdanhgia.getId_danhGia());
-        values.put("taiKhoan",ttdanhgia.getTaiKhoan());
-        values.put("id_monAn",ttdanhgia.getId_monAn());
-        values.put("binhLuan",ttdanhgia.getBinhLuan());
-        values.put("diem",ttdanhgia.getDiem());
-        values.put("anhDanhGia",ttdanhgia.getAnhDanhGia());
-        int row = db.update("DanhGia", values,"id_DanhGia=?",new String[]{ttdanhgia.getId_danhGia()+" "});
-        return (row>0);
-    }
-    public static boolean delete_danhgia(Context context, DanhGia ttdanhgia){
-        DbHelper helper = new DbHelper(context);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        int row = db.delete("DanhGia", "id_DanhGia=?",new String[]{ttdanhgia.getId_danhGia()+" "});
-        return (row>0);
-    }
-//
-//        while ((!cs.isAfterLast())){
-//        int id_DanhGia = cs.getInt(0);
-//        int id_khachHang = cs.getInt(1);
-//        int id_monAn = cs.getInt(2);
-//        String binhluan = cs.getString(3);
-//        int diem = cs.getInt(4);
-//        byte[] anhDanhGia = cs.getBlob(5);
-//
-//        DanhGia dg = new DanhGia(id_DanhGia,id_khachHang,id_monAn,binhluan,diem,anhDanhGia);
-//        dsdg.add(dg);
-
 }

@@ -17,7 +17,7 @@ import java.util.Date;
 import hieucdph29636.fpoly.tuhubread.DTO.KhachHang;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
 import hieucdph29636.fpoly.tuhubread.DTO.NhanVien;
-import hieucdph29636.fpoly.tuhubread.DbHelper.ConnectionHelper;
+import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
 
 public class NhanVienDAO {
     public NhanVienDAO() {

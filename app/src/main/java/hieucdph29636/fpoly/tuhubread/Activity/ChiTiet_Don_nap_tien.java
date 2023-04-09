@@ -153,7 +153,7 @@ public class ChiTiet_Don_nap_tien extends AppCompatActivity {
                     builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if(donNapTienDAO.delete_donNapTien(ChiTiet_Don_nap_tien.this, donNapTien.getid_DonNapTien())>0){
+                            if(donNapTienDAO.delete( donNapTien.getid_DonNapTien())){
                                 Toast.makeText(ChiTiet_Don_nap_tien.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
                                 dialog.cancel();
                                 onBackPressed();

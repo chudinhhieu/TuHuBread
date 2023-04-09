@@ -17,6 +17,20 @@
         android:theme="@style/Theme.TuHuBread"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.DanhGia_BinhLuan_Hien"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Activity.DanhSach_DanhGia_Mon"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Activity.MonAnYeuThichActivity"
             android:exported="false">
             <meta-data
