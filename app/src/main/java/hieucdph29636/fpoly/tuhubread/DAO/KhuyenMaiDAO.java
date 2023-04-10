@@ -15,13 +15,40 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
+import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
+import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
 import hieucdph29636.fpoly.tuhubread.DTO.KhuyenMai;
+import hieucdph29636.fpoly.tuhubread.MyDate;
 
 
 public class KhuyenMaiDAO {
     public KhuyenMaiDAO() {
+    }
+    public ArrayList<KhuyenMai> getAll() {
+        ArrayList<KhuyenMai> list = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection  connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM KhuyenMai";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    KhuyenMai km = new KhuyenMai();
+                    km.setId_KhuyenMai(resultSet.getInt(1));
+                    km.setCode(resultSet.getString(2));
+                    km.setMoTaKM(resultSet.getString(3));
+                    km.setNgayBatDau(resultSet.getString(4));
+                    km.setNgayKetThuc(resultSet.getString(5));
+                    km.setSoTienGiam(resultSet.getInt(6));
+                    list.add(km);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return list;
     }
     public boolean insert(KhuyenMai km) {
         boolean success = false;
@@ -70,31 +97,6 @@ public class KhuyenMaiDAO {
             Log.e("UPDATE_ERROR", ex.getMessage());
         }
         return success;
-    }
-    public ArrayList<KhuyenMai> getAll() {
-        ArrayList<KhuyenMai> list = new ArrayList<>();
-        ConnectionHelper connectionHelper = new ConnectionHelper();
-        Connection  connection = connectionHelper.connectionClass();
-        try {
-            if (connection != null) {
-                String query = "SELECT * FROM KhuyenMai";
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-                while (resultSet.next()) {
-                    KhuyenMai km = new KhuyenMai();
-                    km.setId_KhuyenMai(resultSet.getInt(1));
-                    km.setCode(resultSet.getString(2));
-                    km.setMoTaKM(resultSet.getString(3));
-                    km.setNgayBatDau(resultSet.getString(4));
-                    km.setNgayKetThuc(resultSet.getString(5));
-                    km.setSoTienGiam(resultSet.getInt(6));
-                    list.add(km);
-                }
-            }
-        } catch (Exception ex) {
-            Log.e("READ_ERROR", ex.getMessage());
-        }
-        return list;
     }
     public void delete(int id) {
         ConnectionHelper connectionHelper = new ConnectionHelper();

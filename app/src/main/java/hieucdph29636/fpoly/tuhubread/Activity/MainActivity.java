@@ -27,6 +27,7 @@ import hieucdph29636.fpoly.tuhubread.fragment.OtherFragment;
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     ImageView btn_ds_mayt;
+    ImageView btn_search_ma;
     BottomNavigationView bottomNavigationView;
     private TextView tv_toolbar;
     KhachHangDAO khachHangDAO;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewPager = findViewById(R.id.view_pager);
         tv_toolbar = findViewById(R.id.tv_toolbar);
+        btn_search_ma = findViewById(R.id.btn_search_ma);
         btn_ds_mayt = findViewById(R.id.btn_ds_mayt);
         bottomNavigationView = findViewById(R.id.bottom_nav);
         khachHangDAO = new KhachHangDAO();
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position){
                     case 0:
+                        btn_search_ma.setVisibility(View.GONE);
                         bottomNavigationView.getMenu().findItem(R.id.action_home).setChecked(true);
                         if (quyen.equalsIgnoreCase("khachhang")){
                             tv_toolbar.setText(hoTen+" ơi,Bánh mì đi!");
@@ -74,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case 1:
+                        btn_search_ma.setVisibility(View.VISIBLE);
                         bottomNavigationView.getMenu().findItem(R.id.action_food).setChecked(true);
                         if (quyen.equalsIgnoreCase("khachhang")){
                             tv_toolbar.setText("Danh sách");
@@ -86,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case 2:
+                        btn_search_ma.setVisibility(View.GONE);
+
                         bottomNavigationView.getMenu().findItem(R.id.action_cart).setChecked(true);
                         if (quyen.equalsIgnoreCase("khachhang")){
                             tv_toolbar.setText("Đơn hàng");
@@ -99,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case 3:
+                        btn_search_ma.setVisibility(View.GONE);
+
                         bottomNavigationView.getMenu().findItem(R.id.action_other).setChecked(true);
                         tv_toolbar.setText("Khác");
                         break;

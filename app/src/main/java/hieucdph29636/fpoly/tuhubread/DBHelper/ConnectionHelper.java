@@ -15,9 +15,9 @@ public class ConnectionHelper {
         {
             //192.168.43.16
             //192.168.100.30
-            ip ="192.168.1.101";
+            ip ="192.168.1.206";
             database = "TuhuBread";
-            user ="xuantruong";
+            user ="linh2k3";
             pass="123";
             port="1433";
 

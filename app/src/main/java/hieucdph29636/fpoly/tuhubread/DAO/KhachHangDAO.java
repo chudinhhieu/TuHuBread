@@ -23,6 +23,32 @@ import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
 public class KhachHangDAO {
     public KhachHangDAO() {
     }
+    public ArrayList<KhachHang> getBySoDienThoai(String soDienThoai) {
+        ArrayList<KhachHang> list = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM KhachHang WHERE SoDienThoai = '" + soDienThoai + "'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    KhachHang kh = new KhachHang();
+                    kh.setTaiKhoan(resultSet.getString(1));
+                    kh.setHoTen(resultSet.getString(2));
+                    kh.setSoDienThoai(resultSet.getString(3));
+                    kh.setMatKhau(resultSet.getString(4));
+                    kh.setNgaySinh(resultSet.getString(5));
+                    kh.setDiaChi(resultSet.getString(6));
+                    kh.setSoDuTaiKhoan(resultSet.getInt(7));
+                    list.add(kh);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return list;
+    }
     public ArrayList<KhachHang> getAll() {
         ArrayList<KhachHang> list = new ArrayList<>();
         ConnectionHelper connectionHelper = new ConnectionHelper();
