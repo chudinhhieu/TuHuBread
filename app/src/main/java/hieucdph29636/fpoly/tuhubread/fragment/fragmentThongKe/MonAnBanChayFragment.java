@@ -1,24 +1,27 @@
 package hieucdph29636.fpoly.tuhubread.fragment.fragmentThongKe;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import hieucdph29636.fpoly.tuhubread.DAO.ThongKeDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.TopMonBanChay;
 import hieucdph29636.fpoly.tuhubread.R;
+import hieucdph29636.fpoly.tuhubread.adapter.ThongkeAdapter;
 
 public class MonAnBanChayFragment extends Fragment {
     ThongKeDAO dao;
+    ThongkeAdapter adapter;
+    ArrayList<TopMonBanChay> list;
+    RecyclerView rcv_Top;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -28,11 +31,14 @@ public class MonAnBanChayFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rcv_Top=view.findViewById(R.id.rcv_MonTop);
         dao= new ThongKeDAO();
-        ArrayList<TopMonBanChay> list =dao.topMonBanChay();
-        for (int i = 0; i < list.size(); i++) {
-            Log.d("tttttt", "Tên: "+list.get(i).getTen());
-            Log.d("tttttt", "Số lượng: "+list.get(i).getSoLuong()+"");
-        }
+         list =dao.topMonBanChay();
+         adapter=new ThongkeAdapter(getActivity(),list);
+         rcv_Top.setAdapter(adapter);
+//        for (int i = 0; i < list.size(); i++) {
+//            Log.d("tttttt", "Tên: "+list.get(i).getTen());
+//            Log.d("tttttt", "Số lượng: "+list.get(i).getSoLuong()+"");
+//        }
     }
 }

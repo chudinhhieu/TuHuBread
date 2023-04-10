@@ -3,10 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.fragmentThongKe.DoanhThuMonTheoNgayFragment">
-    <TextView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.fragmentThongKe.DoanhThuMonTheoNgayFragment"
+    android:padding="10dp">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_DThu_mon_theoNgay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="4"/>
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"/>
 
 </FrameLayout>
