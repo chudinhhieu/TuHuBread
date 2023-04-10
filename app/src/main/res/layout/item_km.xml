@@ -1,47 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/linear_km"
-    android:background="#CD8512"
-    >
-        <LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="5dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp">
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:padding="5dp">
                 <ImageView
-                    android:layout_width="129dp"
-                    android:layout_height="119dp"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/img"
-                    android:layout_marginTop="15dp"
-                    />
+                    android:id="@+id/img_km"
+                    android:layout_width="80dp"
+                    android:layout_centerVertical="true"
+                    android:layout_height="80dp"
+                    android:src="@drawable/sale_icon"/>
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
                     android:orientation="vertical"
-                    >
+                    android:layout_toRightOf="@id/img_km"
+                    android:layout_alignParentTop="true">
                         <TextView
-                            android:layout_marginTop="30dp"
+                            android:id="@+id/tv_tenKM"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Mô tả"
-                            android:textSize="25dp"
-                            android:id="@+id/tv_mota_km"
+                            android:gravity="left"
+                            android:text="Thanh toán"
+                            android:fontFamily="@font/mali"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
                             />
                         <TextView
+                            android:id="@+id/tv_codeKM"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Số tiền giảm"
-                            android:textSize="25dp"
-                            android:layout_marginTop="10dp"
-                            android:id="@+id/tv_sotiengiam_km"
-                            />
-
+                            android:gravity="left"
+                            android:text="Thanh toán"
+                            android:fontFamily="@font/alata"
+                            android:textSize="12sp"
+                            android:textColor="@color/gray"
+                            android:layout_below="@id/tv_motadnt"/>
                 </LinearLayout>
-        </LinearLayout>
-
-</LinearLayout>
+                <TextView
+                    android:layout_marginEnd="5dp"
+                    android:id="@+id/tv_tienGiamKM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="500000"
+                    android:fontFamily="@font/mali"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"/>
+        </RelativeLayout>
+</androidx.cardview.widget.CardView>

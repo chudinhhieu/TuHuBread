@@ -22,6 +22,25 @@ import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
 public class NhanVienDAO {
     public NhanVienDAO() {
     }
+    public int getQuyen(String taiKhoan) {
+        int quyen = 0;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+
+            if (connection != null) {
+                String query = "SELECT quyenNhanVien FROM NhanVien WHERE taiKhoan = '"+taiKhoan+"'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                if (resultSet.next()) {
+                    quyen = resultSet.getInt("quyenNhanVien");
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return quyen;
+    }
     public ArrayList<NhanVien> getByHoTen(String hoTen) {
         ArrayList<NhanVien> list = new ArrayList<>();
         ConnectionHelper connectionHelper = new ConnectionHelper();

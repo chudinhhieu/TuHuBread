@@ -21,16 +21,18 @@ public class ThongKeDAO {
         Connection connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
-                String query = "SELECT MonAn.tenMon, SUM(ChiTietDonHang.soLuong) as TongSoLuong\n" +
+                String query = "SELECT MonAn.id_MonAn, MonAn.tenMon, SUM(ChiTietDonHang.soLuong) as TongSoLuong\n" +
                         "FROM MonAn\n" +
                         "JOIN ChiTietDonHang ON MonAn.id_MonAn = ChiTietDonHang.id_monAn\n" +
-                        "GROUP BY MonAn.tenMon;";
+                        "GROUP BY MonAn.id_MonAn, MonAn.tenMon\n" +
+                        "ORDER BY TongSoLuong DESC;";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
                 while (resultSet.next()) {
                     TopMonBanChay top = new TopMonBanChay();
-                    top.setTen(resultSet.getString(1));
-                    top.setSoLuong(resultSet.getInt(2));
+                    top.setId_monAn(resultSet.getInt(1));
+                    top.setTen(resultSet.getString(2));
+                    top.setSoLuong(resultSet.getInt(3));
                     list.add(top);
                 }
             }
@@ -45,7 +47,7 @@ public class ThongKeDAO {
         Connection connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
-                String query = "SELECT MonAn.tenMon, SUM(ChiTietDonHang.soLuong * MonAn.gia) as DoanhThu\n" +
+                String query = "SELECT MonAn.id_MonAn,MonAn.tenMon, SUM(ChiTietDonHang.soLuong * MonAn.gia) as DoanhThu\n" +
                         "FROM MonAn\n" +
                         "INNER JOIN ChiTietDonHang ON MonAn.id_MonAn = ChiTietDonHang.id_monAn\n" +
                         "GROUP BY MonAn.id_MonAn, MonAn.tenMon\n" +
@@ -54,8 +56,9 @@ public class ThongKeDAO {
                 ResultSet resultSet = statement.executeQuery(query);
                 while (resultSet.next()) {
                     TopDoanhThuMonAn top = new TopDoanhThuMonAn();
-                    top.setTen(resultSet.getString(1));
-                    top.setDoanhThu(resultSet.getInt(2));
+                    top.setId(resultSet.getInt(1));
+                    top.setTen(resultSet.getString(2));
+                    top.setDoanhThu(resultSet.getInt(3));
                     list.add(top);
                 }
             }

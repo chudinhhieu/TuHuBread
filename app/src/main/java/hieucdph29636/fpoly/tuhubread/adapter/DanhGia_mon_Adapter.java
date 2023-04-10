@@ -27,6 +27,7 @@ import hieucdph29636.fpoly.tuhubread.DAO.DanhGiaDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.MonAnDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.DanhGia;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
+import hieucdph29636.fpoly.tuhubread.Dialog_custom;
 import hieucdph29636.fpoly.tuhubread.R;
 
 public class DanhGia_mon_Adapter extends RecyclerView.Adapter<DanhGia_mon_Adapter.ViewHolder> {
@@ -36,9 +37,11 @@ public class DanhGia_mon_Adapter extends RecyclerView.Adapter<DanhGia_mon_Adapte
     MonAnDAO dao;
     DanhGiaDAO danhGiaDAO;
     int Diem=0;
-    public DanhGia_mon_Adapter(Context context, ArrayList<MonAn> dsma) {
+    int id_dh;
+    public DanhGia_mon_Adapter(Context context, ArrayList<MonAn> dsma,int id_dh) {
         this.context = context;
         this.dsma = dsma;
+        this.id_dh = id_dh;
     }
 
     @NonNull
@@ -80,30 +83,55 @@ public class DanhGia_mon_Adapter extends RecyclerView.Adapter<DanhGia_mon_Adapte
                      @Override
                      public void onClick(View v) {
                          Diem=1;
+                         img_star1.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star2.setImageResource(R.drawable.ic_baseline_star_border_24);
+                         img_star3.setImageResource(R.drawable.ic_baseline_star_border_24);
+                         img_star4.setImageResource(R.drawable.ic_baseline_star_border_24);
+                         img_star5.setImageResource(R.drawable.ic_baseline_star_border_24);
                      }
                  });
                  img_star2.setOnClickListener(new View.OnClickListener() {
                      @Override
                      public void onClick(View v) {
                          Diem=2;
+                         img_star1.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star2.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star3.setImageResource(R.drawable.ic_baseline_star_border_24);
+                         img_star4.setImageResource(R.drawable.ic_baseline_star_border_24);
+                         img_star5.setImageResource(R.drawable.ic_baseline_star_border_24);
                      }
                  });
                  img_star3.setOnClickListener(new View.OnClickListener() {
                      @Override
                      public void onClick(View v) {
                          Diem=3;
+                         img_star1.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star2.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star3.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star4.setImageResource(R.drawable.ic_baseline_star_border_24);
+                         img_star5.setImageResource(R.drawable.ic_baseline_star_border_24);
                      }
                  });
                  img_star4.setOnClickListener(new View.OnClickListener() {
                      @Override
                      public void onClick(View v) {
                          Diem=4;
+                         img_star1.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star2.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star3.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star4.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star5.setImageResource(R.drawable.ic_baseline_star_border_24);
                      }
                  });
                  img_star5.setOnClickListener(new View.OnClickListener() {
                      @Override
                      public void onClick(View v) {
                          Diem=5;
+                         img_star1.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star2.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star3.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star4.setImageResource(R.drawable.ic_baseline_star_24);
+                         img_star5.setImageResource(R.drawable.ic_baseline_star_24);
                      }
                  });
                  btn_xacNhan.setOnClickListener(new View.OnClickListener() {
@@ -114,13 +142,11 @@ public class DanhGia_mon_Adapter extends RecyclerView.Adapter<DanhGia_mon_Adapte
                          danhGia.setTaiKhoan(taiKhoan);
                          danhGia.setBinhLuan(ed_binhLuan.getText().toString());
                          danhGia.setDiem(Diem);
+                         danhGia.setId_donHang(id_dh);
                          if (danhGiaDAO.insert_danhgia(danhGia)){
-                             Toast.makeText(context, "Thanh cong", Toast.LENGTH_SHORT).show();
-                         }else{
-                             Toast.makeText(context, "That bai", Toast.LENGTH_SHORT).show();
+                             new Dialog_custom(context).sendDialog();
+                             dialog.dismiss();
                          }
-
-
                      }
                  });
                  dialog.show();

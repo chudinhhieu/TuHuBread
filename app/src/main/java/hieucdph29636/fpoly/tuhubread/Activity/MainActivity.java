@@ -19,6 +19,10 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import hieucdph29636.fpoly.tuhubread.DAO.DonHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.KhachHangDAO;
 import hieucdph29636.fpoly.tuhubread.R;
 import hieucdph29636.fpoly.tuhubread.adapter.ViewPagerAdapter;
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private TextView tv_toolbar;
     KhachHangDAO khachHangDAO;
+    DonHangDAO donHangDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +46,22 @@ public class MainActivity extends AppCompatActivity {
         btn_ds_mayt = findViewById(R.id.btn_ds_mayt);
         bottomNavigationView = findViewById(R.id.bottom_nav);
         khachHangDAO = new KhachHangDAO();
+        donHangDAO = new DonHangDAO();
         SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
         String taiKhoan = sharedPreferences.getString("TK","");
         String quyen = sharedPreferences.getString("quyen","");
         String hoTen= khachHangDAO.getHoTen(taiKhoan);
-        tv_toolbar.setText(hoTen+" ơi,Bánh mì đi!");
+        if (quyen.equalsIgnoreCase("khachhang")){
+            tv_toolbar.setText(hoTen+" ơi,Bánh mì đi!");
+            btn_search_ma.setVisibility(View.GONE);
+            btn_ds_mayt.setVisibility(View.VISIBLE);
+        }
+        if (quyen.equalsIgnoreCase("nhanvien")){
+            tv_toolbar.setText("Danh sách");
+            btn_search_ma.setVisibility(View.VISIBLE);
+            btn_ds_mayt.setVisibility(View.GONE);
+        }
+
         btn_ds_mayt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,39 +81,45 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position){
                     case 0:
-                        btn_search_ma.setVisibility(View.GONE);
                         bottomNavigationView.getMenu().findItem(R.id.action_home).setChecked(true);
                         if (quyen.equalsIgnoreCase("khachhang")){
                             tv_toolbar.setText(hoTen+" ơi,Bánh mì đi!");
+                            btn_search_ma.setVisibility(View.GONE);
+                            btn_ds_mayt.setVisibility(View.VISIBLE);
                         }
                         if (quyen.equalsIgnoreCase("nhanvien")){
                             tv_toolbar.setText("Danh sách");
+                            btn_search_ma.setVisibility(View.VISIBLE);
+                            btn_ds_mayt.setVisibility(View.GONE);
                             bottomNavigationView.getMenu().findItem(R.id.action_home).setTitle("Danh sách");
                             bottomNavigationView.getMenu().findItem(R.id.action_home).setIcon(R.drawable.icon_food_nav);
                         }
                         break;
                     case 1:
-                        btn_search_ma.setVisibility(View.VISIBLE);
                         bottomNavigationView.getMenu().findItem(R.id.action_food).setChecked(true);
                         if (quyen.equalsIgnoreCase("khachhang")){
                             tv_toolbar.setText("Danh sách");
-
+                            btn_search_ma.setVisibility(View.VISIBLE);
+                            btn_ds_mayt.setVisibility(View.VISIBLE);
                         }
                         if (quyen.equalsIgnoreCase("nhanvien")){
+                            btn_search_ma.setVisibility(View.GONE);
+                            btn_ds_mayt.setVisibility(View.GONE);
                             tv_toolbar.setText("Đơn hàng hiện tại");
                             bottomNavigationView.getMenu().findItem(R.id.action_food).setTitle("Đơn hàng");
                             bottomNavigationView.getMenu().findItem(R.id.action_food).setIcon(R.drawable.icon_cart_nav);
                         }
                         break;
                     case 2:
-                        btn_search_ma.setVisibility(View.GONE);
-
                         bottomNavigationView.getMenu().findItem(R.id.action_cart).setChecked(true);
                         if (quyen.equalsIgnoreCase("khachhang")){
                             tv_toolbar.setText("Đơn hàng");
-
+                            btn_search_ma.setVisibility(View.GONE);
+                            btn_ds_mayt.setVisibility(View.VISIBLE);
                         }
                         if (quyen.equalsIgnoreCase("nhanvien")){
+                            btn_search_ma.setVisibility(View.GONE);
+                            btn_ds_mayt.setVisibility(View.GONE);
                             tv_toolbar.setText("Đơn nạp tiền");
                             bottomNavigationView.getMenu().findItem(R.id.action_cart).setTitle("Lịch sử");
                             bottomNavigationView.getMenu().findItem(R.id.action_cart).setIcon(R.drawable.icon_cart_nav);
@@ -105,10 +127,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     case 3:
-                        btn_search_ma.setVisibility(View.GONE);
-
                         bottomNavigationView.getMenu().findItem(R.id.action_other).setChecked(true);
                         tv_toolbar.setText("Khác");
+                        btn_search_ma.setVisibility(View.GONE);
+                        btn_ds_mayt.setVisibility(View.GONE);
                         break;
                 }
             }
@@ -138,10 +160,5 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-    }
-    public String putQuyen(){
-        SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
-        String quyen = sharedPreferences.getString("quyen","");
-        return quyen;
     }
 }

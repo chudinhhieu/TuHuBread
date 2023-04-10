@@ -14,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.Calendar;
 
 import hieucdph29636.fpoly.tuhubread.DAO.ThongKeDAO;
@@ -33,8 +36,10 @@ public class DoanhThuTheoNgayFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        EditText edtStart = view.findViewById(R.id.ed_ngayBD);
-        EditText edtEnd = view.findViewById(R.id.ed_ngayEnd);
+        TextInputEditText edtStart = view.findViewById(R.id.ed_ngayBD);
+        TextInputEditText edtEnd = view.findViewById(R.id.ed_ngayKT);
+        TextInputLayout edtLStart = view.findViewById(R.id.edL_ngayBD);
+        TextInputLayout edtLEnd = view.findViewById(R.id.edL_ngayKT);
         Button btnThongKe = view.findViewById(R.id.btn_tongDThu);
         TextView txtKetQua = view.findViewById(R.id.txtKetQua);
 
@@ -92,7 +97,7 @@ public class DoanhThuTheoNgayFragment extends Fragment {
                 dao=new ThongKeDAO();
                 String tungay = edtStart.getText().toString();
                 String denngay = edtEnd.getText().toString();
-                txtKetQua.setText("Doanh Thu theo ngày: "+dao.tongDoanhThuTheoNgay(tungay,denngay) + " VND");
+                txtKetQua.setText(dao.tongDoanhThuTheoNgay(tungay,denngay) + " VND");
             }
         });
 

@@ -2,11 +2,14 @@ package hieucdph29636.fpoly.tuhubread.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +27,7 @@ import hieucdph29636.fpoly.tuhubread.DAO.KhuyenMaiDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.KhuyenMai;
 import hieucdph29636.fpoly.tuhubread.R;
+import hieucdph29636.fpoly.tuhubread.SetNotification;
 import hieucdph29636.fpoly.tuhubread.adapter.ChiTietDonHangAdapter;
 
 public class DonHangChiTietActivity extends AppCompatActivity {
@@ -33,11 +37,12 @@ public class DonHangChiTietActivity extends AppCompatActivity {
     ChiTietDonHangDAO dao;
     TextView tv_tongTamTinh;
     LinearLayout view_km,ln_km;
+    SetNotification notification;
     Button btn_km_ctdh;
     DonHangDAO donHangDAO;
     KhuyenMaiDAO khuyenMaiDAO;
     EditText ed_km_ctdh;
-    TextView tv_giaKM,tv_tongTienCTHD,tv_tt_dh;
+    TextView tv_giaKM,tv_tongTienCTHD,tv_tt_dh,tv_diachi_ctdh;
     CardView btn_thanhtoan;
     ImageView btn_back_ctdh;
     KhachHangDAO khachHangDAO;
@@ -49,9 +54,12 @@ public class DonHangChiTietActivity extends AppCompatActivity {
         setContentView(R.layout.activity_don_hang_chi_tiet);
         tv_tongTamTinh = findViewById(R.id.tv_tongTamTinh);
         view_km = findViewById(R.id.view_km);
+        notification = new SetNotification(this);
         btn_thanhtoan = findViewById(R.id.btn_thanhtoan);
         tv_giaKM = findViewById(R.id.tv_giaKM);
+        tv_diachi_ctdh = findViewById(R.id.tv_diachi_ctdh);
         ln_km = findViewById(R.id.ln_km);
+        NotificationManagerCompat.from(this).areNotificationsEnabled();
         khachHangDAO = new KhachHangDAO();
         btn_back_ctdh = findViewById(R.id.btn_back_ctdh);
         ed_km_ctdh = findViewById(R.id.ed_km_ctdh);
@@ -65,6 +73,8 @@ public class DonHangChiTietActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         int id_donHang = bundle.getInt("id_dh");
         int tt_dh = bundle.getInt("trangThai_dh");
+        String tk = bundle.getString("tk");
+        tv_diachi_ctdh.setText(khachHangDAO.getDiaChi(tk));
         rcv_ttdh = findViewById(R.id.rcv_ttdh);
         dao = new ChiTietDonHangDAO();
         list = (ArrayList<ChiTietDonHang>) dao.getAll(id_donHang);
@@ -85,6 +95,7 @@ public class DonHangChiTietActivity extends AppCompatActivity {
             btn_thanhtoan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    notification.sendNotification("Đơn hàng của bạn đã bị hủy");
                     donHangDAO.updateTrangThai(id_donHang,5);
                     khachHangDAO.updateTien(donHangDAO.getByID(id_donHang).get(0).getTongTien()+khachHangDAO.getSoDuVi(taiKhoan),taiKhoan);
                     onBackPressed();
@@ -96,19 +107,29 @@ public class DonHangChiTietActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (khachHangDAO.getSoDuVi(taiKhoan)<Integer.parseInt(tv_tongTienCTHD.getText().toString())){
-                        Toast.makeText(DonHangChiTietActivity.this, "Số dư ví không đủ,vui lòng nạp thêm tiền!", Toast.LENGTH_SHORT).show();
+                        Dialog dialog = new Dialog(DonHangChiTietActivity.this);
+                        dialog.setContentView(R.layout.dialog_thatbai);
+                        dialog.show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.dismiss();
+                            }
+                        },1000);
                         return;
                     }
                     if (km==null){
                         if (donHangDAO.updateDonHangKKM(id_donHang, 1, tongTamTinh)) {
                             khachHangDAO.updateTien(khachHangDAO.getSoDuVi(taiKhoan) - Integer.parseInt(tv_tongTienCTHD.getText().toString()), taiKhoan);
                             Toast.makeText(DonHangChiTietActivity.this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
+                            notification.sendNotification("Đơn hàng của bạn đang chờ xác nhận");
                             onBackPressed();
                         }
                     }else {
                         if (donHangDAO.updateDonHang(id_donHang, 1, km.getId_KhuyenMai(), giaSauKM)) {
                             khachHangDAO.updateTien(khachHangDAO.getSoDuVi(taiKhoan) - Integer.parseInt(tv_tongTienCTHD.getText().toString()), taiKhoan);
                             Toast.makeText(DonHangChiTietActivity.this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
+                            notification.sendNotification("Đơn hàng của bạn đang chờ xác nhận");
                             onBackPressed();
                         }
                     }
@@ -123,6 +144,7 @@ public class DonHangChiTietActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if( donHangDAO.updateTrangThai(id_donHang,4)){
+                        notification.sendNotification("Đơn hàng của bạn đã hoàn thành");
                         onBackPressed();
                     }
                 }
@@ -155,7 +177,15 @@ public class DonHangChiTietActivity extends AppCompatActivity {
                     });
                     break;
                 case 3:
-                    btn_thanhtoan.setVisibility(View.GONE);
+                    tv_tt_dh.setText("Giao hàng thất bại");
+                    btn_thanhtoan.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if( donHangDAO.updateTrangThai(id_donHang,6)){
+                                onBackPressed();
+                            }
+                        }
+                    });
                     break;
                 case 4:
                     btn_thanhtoan.setVisibility(View.GONE);

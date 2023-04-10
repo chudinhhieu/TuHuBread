@@ -7,7 +7,30 @@
     tools:context=".Activity.Chi_Tiet_Khuyen_Mai"
     android:orientation="vertical"
     >
-
+    <androidx.cardview.widget.CardView
+        app:cardElevation="5dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/btn_back_ctkm"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_baseline_arrow_back_24_black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chi tiết khuyến mãi"
+            android:textSize="24sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/alata"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -24,14 +47,15 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:src="@drawable/id" />
+            android:src="@drawable/icon_id_ctdnt" />
 
         <TextView
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/mali"
             android:layout_toRightOf="@+id/tv_ctls"
-            android:text="ID Khuyến Mãi: "
+            android:text="ID: "
             android:textColor="@color/black"
             android:textSize="17dp" />
 
@@ -41,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv1"
             android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
+            android:fontFamily="@font/alata"
             android:textSize="16dp" />
 
 
@@ -62,14 +86,15 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:src="@drawable/imgsl_2" />
+            android:src="@drawable/qrcode"/>
 
         <TextView
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/mali"
             android:layout_toRightOf="@id/img1"
-            android:text="Code Khuyến Mãi: "
+            android:text="Code: "
             android:textColor="@color/black"
             android:textSize="17dp" />
 
@@ -79,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv1"
             android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
+            android:fontFamily="@font/alata"
             android:textSize="16dp" />
 
 
@@ -99,15 +124,16 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:src="@drawable/imgsl_3" />
+            android:src="@drawable/icon_trangthai_ctdnt" />
 
         <TextView
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/img1"
-            android:text="Mô Tả Khuyến Mãi: "
+            android:text="Tên: "
             android:textColor="@color/black"
+            android:fontFamily="@font/mali"
             android:textSize="17dp" />
 
         <TextView
@@ -116,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv1"
             android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
+            android:fontFamily="@font/alata"
             android:textSize="16dp" />
 
 
@@ -137,13 +163,14 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:src="@drawable/verify" />
+            android:src="@drawable/icon_time_ctdnt" />
 
         <TextView
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/img1"
+            android:fontFamily="@font/mali"
             android:text="Ngày bắt đầu: "
             android:textColor="@color/black"
             android:textSize="17dp" />
@@ -154,7 +181,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv1"
             android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
+            android:fontFamily="@font/alata"
             android:textSize="16dp" />
 
     </LinearLayout>
@@ -174,7 +201,7 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:src="@drawable/verify" />
+            android:src="@drawable/icon_time_ctdnt" />
 
         <TextView
 
@@ -182,6 +209,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/img1"
             android:text="Ngày kết thúc: "
+            android:fontFamily="@font/mali"
             android:textColor="@color/black"
             android:textSize="17dp" />
 
@@ -191,7 +219,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv1"
             android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
+            android:fontFamily="@font/alata"
             android:textSize="16dp" />
 
 
@@ -221,6 +249,7 @@
             android:layout_toRightOf="@id/img1"
             android:text="Số tiền giảm: "
             android:textColor="@color/black"
+            android:fontFamily="@font/mali"
             android:textSize="17dp" />
 
         <TextView
@@ -229,7 +258,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv1"
             android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
+            android:fontFamily="@font/alata"
             android:textSize="16dp" />
 
 
@@ -241,27 +270,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="100dp"
         android:orientation="horizontal">
-
         <Button
             android:id="@+id/btn_chinhsua_km"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="100dp"
+            android:fontFamily="@font/mali"
             android:backgroundTint="@color/main"
             android:text="Sửa"
             android:textColor="@color/white" />
-
         <Button
             android:id="@+id/btn_xoa_km"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/main"
+            android:backgroundTint="@color/main2"
+            android:fontFamily="@font/mali"
             android:text="Xóa"
-            android:layout_marginLeft="15dp"
             android:textColor="@color/white" />
-
     </LinearLayout>
 
 

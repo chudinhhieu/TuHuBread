@@ -35,7 +35,7 @@ public class Ds_nv_Activity extends AppCompatActivity {
     NhanVienDAO nhanVienDAO;
     ArrayList<NhanVien> dsnv ;
     NhanVienAdapter nhanVienAdapter;
-    ImageView btn_search;
+    ImageView btn_search,btn_back_qlnv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +43,19 @@ public class Ds_nv_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_ds_nv);
 
         rcv_nv = findViewById(R.id.rcv_nv);
+        btn_back_qlnv = findViewById(R.id.btn_back_qlnv);
         flbtn_add_nv = findViewById(R.id.flbtn_add_nv);
         btn_search = findViewById(R.id.btn_search_nv);
         nhanVienDAO = new NhanVienDAO();
         dsnv = nhanVienDAO.getAll();
         nhanVienAdapter = new NhanVienAdapter(this,dsnv);
         rcv_nv.setAdapter(nhanVienAdapter);
-
+        btn_back_qlnv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

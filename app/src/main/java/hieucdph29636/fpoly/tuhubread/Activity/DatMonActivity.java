@@ -27,11 +27,12 @@ import hieucdph29636.fpoly.tuhubread.DAO.MonAnYeuThichDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAnYeuThich;
+import hieucdph29636.fpoly.tuhubread.Dialog_custom;
 import hieucdph29636.fpoly.tuhubread.R;
 
 public class DatMonActivity extends AppCompatActivity {
     MonAnYeuThichDAO monAnYeuThichDAO;
-    ImageView btn_back,btn_tru,btn_cong,img_datMon , btnMonAnyt,img_star;
+    ImageView btn_back,btn_tru,btn_cong,img_datMon , btnMonAnyt,star;
     TextView tv_tenMon_datMon,tv_gia_datMon,tv_thanhphan_datMon,tv_tongGiaMonAn,tv_soLuong;
     CardView btn_datMon;
     DonHangDAO donHangDAO;
@@ -39,13 +40,14 @@ public class DatMonActivity extends AppCompatActivity {
     RadioButton rdo_coRau,rdo_kRau,rdo_coOt,rdo_kOt;
     RelativeLayout view6,view2,view3;
     MonAnDAO monAnDAO;
-    int soluong;
+    int soluong = 1;
     int idDH;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dat_mon);
         btnMonAnyt = findViewById(R.id.btn_monAnYT);
+        star = findViewById(R.id.star);
         donHangDAO = new DonHangDAO();
         SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
         String taiKhoan = sharedPreferences.getString("TK","");
@@ -73,7 +75,6 @@ public class DatMonActivity extends AppCompatActivity {
         btn_tru = findViewById(R.id.btn_truSL);
         btn_cong = findViewById(R.id.btn_congSL);
         tv_gia_datMon = findViewById(R.id.tv_gia_datMon);
-        img_star=findViewById(R.id.star);
         tv_thanhphan_datMon = findViewById(R.id.tv_thanhphan_datMon);
         tv_soLuong = findViewById(R.id.tv_soluong_datMon);
         tv_tongGiaMonAn = findViewById(R.id.tv_tongGia_monAn);
@@ -89,12 +90,19 @@ public class DatMonActivity extends AppCompatActivity {
         tv_tongGiaMonAn.setText("Thêm vào giỏ hàng - "+gia+"");
         tv_tenMon_datMon.setText(ten);
         tv_gia_datMon.setText(gia+"đ");
-        img_star.setOnClickListener(new View.OnClickListener() {
+        star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(DatMonActivity.this,DanhGia_BinhLuan_Hien.class));
+                Intent intent = new Intent(DatMonActivity.this,DanhGia_BinhLuan_Hien.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("id_ma",id);
+                intent.putExtras(bundle1);
+                startActivity(intent);
             }
         });
+        if (monAnYeuThichDAO.kiemTraThichMonAn(taiKhoan,id)){
+            btnMonAnyt.setImageResource(R.drawable.ic_baseline_favorite_24_green);
+        }
         btnMonAnyt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +110,10 @@ public class DatMonActivity extends AppCompatActivity {
                 monAnYeuThich.setId_MonAn(id);
                 monAnYeuThich.setTaiKhoan(taiKhoan);
                 if(monAnYeuThichDAO.insert(monAnYeuThich)){
-                    Toast.makeText(DatMonActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                    btnMonAnyt.setImageResource(R.drawable.ic_baseline_favorite_24_green);
+                    Toast.makeText(DatMonActivity.this, "Đã thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(DatMonActivity.this, "Đã tồn tại", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -133,6 +144,9 @@ public class DatMonActivity extends AppCompatActivity {
         btn_tru.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (soluong==1){
+                    return;
+                }
                 soluong = Integer.parseInt(tv_soLuong.getText().toString());
                 soluong--;
                 tv_soLuong.setText(soluong+"");
@@ -180,7 +194,7 @@ public class DatMonActivity extends AppCompatActivity {
                            }
                        }
                         if (chiTietDonHangDAO.insert(ctdh)){
-                            Toast.makeText(DatMonActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                            new Dialog_custom(DatMonActivity.this).sendDialog();
                             onBackPressed();
                         }else {
                             Toast.makeText(DatMonActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
@@ -205,7 +219,7 @@ public class DatMonActivity extends AppCompatActivity {
                         }
                         if (chiTietDonHangDAO.insert(ctdh)){
                             donHangDAO.updateGia(idDH,donHangDAO.getByID(idDH).get(0).getTongTien()+ctdh.getGiaTien());
-                            Toast.makeText(DatMonActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                            new Dialog_custom(DatMonActivity.this).sendDialog();
                         }else {
                             Toast.makeText(DatMonActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
                         }

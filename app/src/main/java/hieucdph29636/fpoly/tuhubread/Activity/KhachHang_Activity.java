@@ -30,17 +30,24 @@ public class KhachHang_Activity extends AppCompatActivity {
     KhachHangDAO khachHangDAO;
     KhachHangAdapter khachHangAdapter;
     ArrayList<KhachHang> listKh;
-    ImageView btn_search;
+    ImageView btn_search,btn_back_qlkh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_khach_hang);
         rcv_kh=findViewById(R.id.rcv_Khang);
+        btn_back_qlkh=findViewById(R.id.btn_back_qlkh);
         khachHangDAO=new KhachHangDAO();
         listKh= (ArrayList<KhachHang>) khachHangDAO.getAll();
         khachHangAdapter=new KhachHangAdapter(this,listKh);
         rcv_kh.setAdapter(khachHangAdapter);
         btn_search = findViewById(R.id.btn_search_kh);
+        btn_back_qlkh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -50,6 +50,7 @@ public class KhuyenMaiDAO {
         }
         return list;
     }
+
     public boolean insert(KhuyenMai km) {
         boolean success = false;
         ConnectionHelper connectionHelper = new ConnectionHelper();
@@ -99,8 +100,8 @@ public class KhuyenMaiDAO {
         return success;
     }
     public void delete(int id) {
-        ConnectionHelper connectionHelper = new ConnectionHelper();
-        Connection connection = connectionHelper.connectionClass();
+       ConnectionHelper connectionHelper = new ConnectionHelper();
+       Connection connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
                 String sql = "DELETE FROM KhuyenMai WHERE id_KhuyenMai = " + id;

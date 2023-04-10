@@ -18,12 +18,13 @@ public class DanhGiaDAO {
         Connection connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
-                String query = "INSERT INTO DanhGia ( taiKhoan, id_monAn, binhLuan, diem) VALUES ( ?, ?, ?, ?)";
+                String query = "INSERT INTO DanhGia ( taiKhoan, id_monAn, binhLuan, diem,id_donHang) VALUES ( ?, ?, ?, ?,?)";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, danhGia.getTaiKhoan());
                 preparedStatement.setInt(2, danhGia.getId_monAn());
                 preparedStatement.setString(3, danhGia.getBinhLuan());
-                preparedStatement.setFloat(4, danhGia.getDiem());
+                preparedStatement.setInt(4, danhGia.getDiem());
+                preparedStatement.setInt(5, danhGia.getId_donHang());
                 int rowCount = preparedStatement.executeUpdate();
                 if (rowCount > 0) {
                     success = true;
@@ -34,13 +35,13 @@ public class DanhGiaDAO {
         }
         return success;
     }
-    public ArrayList<DanhGia> getAll() {
+    public ArrayList<DanhGia> getByID(int id) {
         ArrayList<DanhGia> list = new ArrayList<>();
         ConnectionHelper connectionHelper = new ConnectionHelper();
         Connection connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
-                String query = "SELECT * FROM DanhGia";
+                String query = "SELECT * FROM DanhGia where id_monAn='"+id+"'";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
                 while (resultSet.next()) {
@@ -50,6 +51,7 @@ public class DanhGiaDAO {
                     dg.setId_monAn(resultSet.getInt(3));
                     dg.setBinhLuan(resultSet.getString(4));
                     dg.setDiem(resultSet.getInt(5));
+                    dg.setId_donHang(resultSet.getInt(6));
                     list.add(dg);
                 }
             }

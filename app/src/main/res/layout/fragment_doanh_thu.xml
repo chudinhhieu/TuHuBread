@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context=".fragment.fragmentThongKe.DoanhThuFragment">
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textSize="26sp"
+        android:fontFamily="@font/alata"
+        android:textColor="@color/black"
+        android:text="Tổng doanh thu của cửa hàng"
+        android:gravity="center"
+        />
 
     <TextView
         android:id="@+id/tv_tongDoanhThu"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/mali"
         android:text="0"
-        android:layout_gravity="center"
-        android:textAlignment="center"/>
-</FrameLayout>
+        android:textColor="@color/red"
+        android:textSize="24sp" />
+</LinearLayout>

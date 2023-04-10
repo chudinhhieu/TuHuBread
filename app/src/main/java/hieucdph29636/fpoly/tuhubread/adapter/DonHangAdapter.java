@@ -65,6 +65,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
                 Bundle bundle = new Bundle();
                 bundle.putInt("id_dh",list.get(index).getId_DonHang());
                 bundle.putInt("trangThai_dh",list.get(index).getTrangThai());
+                bundle.putString("tk",list.get(index).getTaiKhoan());
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }
@@ -93,13 +94,15 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
                 case 5:
                 holder.trangthai.setText("Hủy");
                 break;
+            case 6:
+                holder.trangthai.setText("Giao hàng thất bại");
+                break;
         }
         if (chiTietDonHangDAO.getSoLuongChiTiet(list.get(position).getId_DonHang())>1){
             holder.tenMon.setText(chiTietDonHangDAO.layTenMonAn(list.get(position).getId_DonHang())+" + "+(chiTietDonHangDAO.getSoLuongChiTiet(list.get(position).getId_DonHang())-1)+" món ăn khác");
         }else {
             holder.tenMon.setText(chiTietDonHangDAO.layTenMonAn(list.get(position).getId_DonHang()));
         }
-        Log.d("zzzzzzz", position+"");
         Integer tong = chiTietDonHangDAO.tinhTongGiaTien(list.get(position).getId_DonHang());
         Integer idkm = list.get(position).getId_khuyenMai();
         if (idkm!=0){

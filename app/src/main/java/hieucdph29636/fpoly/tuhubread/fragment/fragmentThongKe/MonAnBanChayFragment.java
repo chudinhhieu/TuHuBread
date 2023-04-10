@@ -36,9 +36,5 @@ public class MonAnBanChayFragment extends Fragment {
          list =dao.topMonBanChay();
          adapter=new ThongkeAdapter(getActivity(),list);
          rcv_Top.setAdapter(adapter);
-//        for (int i = 0; i < list.size(); i++) {
-//            Log.d("tttttt", "Tên: "+list.get(i).getTen());
-//            Log.d("tttttt", "Số lượng: "+list.get(i).getSoLuong()+"");
-//        }
     }
 }

@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import hieucdph29636.fpoly.tuhubread.Activity.DatMonActivity;
 import hieucdph29636.fpoly.tuhubread.DAO.MonAnDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.MonAnYeuThichDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
@@ -83,6 +86,21 @@ public class MonAnYeuThichAdapter extends RecyclerView.Adapter<MonAnYeuThichAdap
                 AlertDialog dialog = builder.create();
                 dialog.show();
                 return true;
+            }
+        });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DatMonActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("idMon",monAn.getId_MonAn());
+                bundle.putString("tenMon",monAn.getTenMon());
+                bundle.putString("thanhPhan",monAn.getThanhPhan());
+                bundle.putInt("gia",monAn.getGia());
+                bundle.putInt("trangThai",monAn.getTrangThai());
+                bundle.putInt("id_loai",monAn.getId_LoaiDoAn());
+                intent.putExtras(bundle);
+                context.startActivity(intent);
             }
         });
     }

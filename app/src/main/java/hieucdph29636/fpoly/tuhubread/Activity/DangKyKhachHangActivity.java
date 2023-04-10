@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.StringReader;
 import java.util.Calendar;
 
 import hieucdph29636.fpoly.tuhubread.DAO.KhachHangDAO;
@@ -25,6 +26,7 @@ public class DangKyKhachHangActivity extends AppCompatActivity {
     Button btn_dangky;
     KhachHangDAO dao;
     MyDate date;
+    String ns = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,7 @@ public class DangKyKhachHangActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         calendar.set(i, i1, i2);
                         ed_ngaysinh.setText(date.toStringVn(calendar.getTime()));
+                        ns = date.toString(calendar.getTime());
                     }
                 }, year, month, day);
                 datePickerDialog.show();
@@ -71,7 +74,6 @@ public class DangKyKhachHangActivity extends AppCompatActivity {
                 String hoten = ed_hoTen.getText().toString().trim();
                 String sdt = ed_sdt.getText().toString().trim();
                 String diachi = ed_diaChi.getText().toString().trim();
-                String ngaysinh = ed_ngaysinh.getText().toString().trim();
 
                 if (kiemTraTrong()) {
                     return;
@@ -79,7 +81,7 @@ public class DangKyKhachHangActivity extends AppCompatActivity {
                 if (kiemTraKyTu()){
                     return;
                 }
-                KhachHang kh = new KhachHang(taiKhoan,hoten,sdt,matKhau,ngaysinh,diachi,0);
+                KhachHang kh = new KhachHang(taiKhoan,hoten,sdt,matKhau,ns,diachi,0);
                 if (dao.insert(kh)){
                     Toast.makeText(DangKyKhachHangActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                     onBackPressed();

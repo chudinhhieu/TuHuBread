@@ -35,9 +35,5 @@ public class DoanhThuMonFragment extends Fragment {
         ArrayList<TopDoanhThuMonAn> list =dao.topDoanhThuMonAn();
         adapter=new ThongKe_doanhThuMAdapter(getContext(),list);
         rcv.setAdapter(adapter);
-//        for (int i = 0; i < list.size(); i++) {
-//            Log.d("tttttt", "Tên: "+list.get(i).getTen());
-//            Log.d("tttttt", "Doanh thu: "+list.get(i).getDoanhThu()+"");
-//        }
     }
 }

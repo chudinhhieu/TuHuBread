@@ -1,41 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:padding="16sp"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.fragmentThongKe.DoanhThuTheoNgayFragment">
-    <EditText
-        android:id="@+id/ed_ngayBD"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edL_ngayBD"
+        android:layout_marginTop="10dp"
+        style="@style/LoginTextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Từ ngày"
-        android:layout_margin="20dp"/>
+        app:endIconMode="clear_text">
 
-    <EditText
-        android:id="@+id/ed_ngayEnd"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_ngayBD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ngày bắt đầu"
+            android:textSize="18dp"
+            android:fontFamily="@font/mali" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edL_ngayKT"
+        android:layout_marginTop="10dp"
+        style="@style/LoginTextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Đến ngày"
-        android:layout_marginTop="90dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_ngayKT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ngày kết thúc"
+            android:textSize="18dp"
+            android:fontFamily="@font/mali" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_tongDThu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tổng doanh thu"
-        android:layout_marginTop="160dp"
-        android:layout_marginLeft="120dp"/>
+        android:fontFamily="@font/mali"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:textSize="26sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/alata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Tổng doanh thu theo ngày"/>
     <TextView
         android:id="@+id/txtKetQua"
         android:textSize="24sp"
         android:textColor="#FF0000"
+        android:fontFamily="@font/mali"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:layout_marginLeft="180dp"
-        android:text="VND"/>
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text=""/>
 
-</FrameLayout>
+</LinearLayout>

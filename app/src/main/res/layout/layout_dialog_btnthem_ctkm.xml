@@ -1,146 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:layout_gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="10dp"
-    >
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_add_km_dialog_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Thêm phiếu khuyến mãi"
-        android:textSize="20sp"
-        android:layout_marginBottom="15dp"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/title_km_code"
-        style="@style/LoginTextInputLayoutStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_dialog_add_code"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="code khuyến mãi"
-            android:lines="1"
-            android:textSize="10sp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/title_km_mota"
-        style="@style/LoginTextInputLayoutStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-            <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_dialog_add_mota"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Mô tả khuyến mãi"
-            android:lines="1"
-            android:textSize="10sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:text="Ngày bắt đầu"
-            android:textSize="10sp"
-            android:textStyle="bold" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/title_km_ngaybatdau"
-        style="@style/LoginTextInputLayoutStyle"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_dialog_add_ngaybatdau"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="dd//mm//yyyy"
-            android:lines="1"
-            android:textSize="10sp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="5dp"
-        android:text="Ngày kết thúc"
-        android:textSize="10sp"
-        android:textStyle="bold" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/title_km_ngayketthuc"
-        style="@style/LoginTextInputLayoutStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_dialog_add_ngayketthuc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="dd/mm/yyyy"
-            android:lines="1"
-            android:textSize="10sp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/title_km_sotiengiam"
-        style="@style/LoginTextInputLayoutStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_dialog_add_sotiengiam"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Số tiền giảm"
-            android:lines="1"
-            android:textSize="10sp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:text="Thêm khuyến mãi"
+        android:textSize="22sp"
+        android:background="@color/main"
+        android:textColor="@color/white"
+        android:fontFamily="@font/mali"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:padding="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edL_code_km_new"
+            android:layout_marginTop="10dp"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:endIconMode="clear_text">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_dialog_add_cancel"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_code_km_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mali"
+                android:hint="Code khuyến mãi"
+                android:textSize="18dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edL_ten_km_new"
+            android:layout_marginTop="10dp"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_ten_km_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tên khuyến mãi"
+                android:textSize="18dp"
+                android:fontFamily="@font/mali" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edL_nbd_km_new"
+            android:layout_marginTop="10dp"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_nbd_km_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ngày bắt đầu"
+                android:textSize="18dp"
+                android:fontFamily="@font/mali" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edL_nkt_km_new"
+            android:layout_marginTop="10dp"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_nkt_km_new"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ngày kết thúc"
+                android:textSize="18dp"
+                android:fontFamily="@font/mali" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edL_tienGiamnew"
+            android:layout_marginTop="10dp"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_tienGiamnew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Số tiền giảm"
+                android:textSize="18dp"
+                android:fontFamily="@font/mali" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/material_on_surface_disabled"
-            android:text="Quay Lại"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            />
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_dialog_add_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="Thêm"
-            android:textColor="@color/white"
-            android:textSize="10sp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_dialog_new_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/main2"
+                android:fontFamily="@font/mali"
+                android:text="Quay Lại"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:cornerRadius="50dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_dialog_new_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="Xác nhận"
+                android:backgroundTint="@color/main"
+                android:fontFamily="@font/mali"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:cornerRadius="50dp" />
+        </LinearLayout>
     </LinearLayout>
-
 
 </LinearLayout>

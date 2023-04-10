@@ -3,19 +3,18 @@ package hieucdph29636.fpoly.tuhubread.DTO;
 public class DanhGia {
     private int id_DanhGia,id_monAn;
     private String binhLuan,taiKhoan;
-    private int diem;
+    private int diem,id_donHang;
 
     public DanhGia() {
     }
 
-    public DanhGia(int id_DanhGia, String taiKhoan, int id_monAn, String binhLuan, int diem) {
-        this.id_DanhGia = id_DanhGia;
-        this.taiKhoan = DanhGia.this.taiKhoan;
-        this.id_monAn = id_monAn;
-        this.binhLuan = binhLuan;
-        this.diem = diem;
+    public int getId_donHang() {
+        return id_donHang;
     }
 
+    public void setId_donHang(int id_donHang) {
+        this.id_donHang = id_donHang;
+    }
 
     public int getId_danhGia() {
         return id_DanhGia;

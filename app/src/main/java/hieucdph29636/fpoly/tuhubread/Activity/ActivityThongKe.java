@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import hieucdph29636.fpoly.tuhubread.R;
@@ -20,6 +22,7 @@ import hieucdph29636.fpoly.tuhubread.fragment.fragmentThongKe.MonAnBanChayFragme
 
 public class ActivityThongKe extends AppCompatActivity {
     Spinner spinner;
+    ImageView btn_back_tk;
     DoanhThuTheoNgayFragment doanhThuTheoNgayFragment;
     DoanhThuMonTheoNgayFragment doanhThuMonTheoNgayFragment;
     MonAnBanChayFragment monAnBanChayFragment;
@@ -32,6 +35,7 @@ public class ActivityThongKe extends AppCompatActivity {
         setContentView(R.layout.activity_thong_ke);
         spinner = findViewById(R.id.spn_tk);
         frameLayout= findViewById(R.id.frame_main);
+        btn_back_tk= findViewById(R.id.btn_back_tk);
         doanhThuMonTheoNgayFragment = new DoanhThuMonTheoNgayFragment();
         doanhThuFragment = new DoanhThuFragment();
         doanhThuMonFragment = new DoanhThuMonFragment();
@@ -40,6 +44,12 @@ public class ActivityThongKe extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(ActivityThongKe.this,R.layout.item_spn_tk,getResources().getStringArray(R.array.fragmentTK));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        btn_back_tk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

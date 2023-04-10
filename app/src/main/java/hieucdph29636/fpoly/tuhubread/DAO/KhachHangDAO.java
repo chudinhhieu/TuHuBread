@@ -160,6 +160,25 @@ public class KhachHangDAO {
         }
         return hoTen;
     }
+    public String getDiaChi(String taiKhoan) {
+        String diaChi = null;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+
+            if (connection != null) {
+                String query = "SELECT diaChi FROM KhachHang WHERE taiKhoan = '"+taiKhoan+"'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                if (resultSet.next()) {
+                    diaChi = resultSet.getString("hoTen");
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return diaChi;
+    }
     public int getSoDuVi(String taiKhoan) {
         int soDu = 0;
         ConnectionHelper connectionHelper = new ConnectionHelper();

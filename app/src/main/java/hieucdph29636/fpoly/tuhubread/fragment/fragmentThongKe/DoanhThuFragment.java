@@ -28,6 +28,6 @@ public class DoanhThuFragment extends Fragment {
         TextView tv_tongDoanhThu;
         tv_tongDoanhThu=view.findViewById(R.id.tv_tongDoanhThu);
         ThongKeDAO dao=new ThongKeDAO();
-        tv_tongDoanhThu.setText("Doanh Thu: "+dao.tongDoanhThu() + " VND");
+        tv_tongDoanhThu.setText(dao.tongDoanhThu()+" VND");
     }
 }

@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +30,7 @@ import hieucdph29636.fpoly.tuhubread.adapter.DonNapTienKHAdapter;
 
 public class ChiTiet_Don_nap_tien extends AppCompatActivity {
     TextView id,ten,tien,time,trangThai;
-    ImageView img_hoadon;
+    ImageView img_hoadon,btn_back_ctdn;
     Button btn_xacNhan,btn_huy;
     KhachHangDAO khachHangDAO;
     DonNapTienDAO donNapTienDAO;
@@ -39,6 +41,7 @@ public class ChiTiet_Don_nap_tien extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
         String quyen = sharedPreferences.getString("quyen","");
         id = findViewById(R.id.tv_id_ctdnt);
+        btn_back_ctdn = findViewById(R.id.btn_back_ctdn);
         khachHangDAO = new KhachHangDAO();
         donNapTienDAO = new DonNapTienDAO();
         ten = findViewById(R.id.tv_hoTen_ctdnt);
@@ -49,11 +52,26 @@ public class ChiTiet_Don_nap_tien extends AppCompatActivity {
         btn_xacNhan = findViewById(R.id.btn_xacNhan_ctdnt);
         btn_huy = findViewById(R.id.btn_huy_ctdnt);
         Bundle bundle = getIntent().getExtras();
-        DonNapTien donNapTien = (DonNapTien) bundle.getSerializable("DonNapTien");
+        DonNapTien donNapTien = new DonNapTien();
+        donNapTien.setid_DonNapTien(bundle.getInt("id_dnt"));
+        donNapTien.setTienNap(bundle.getInt("tien_dnt"));
+        donNapTien.setTrangThai(bundle.getInt("tt_dnt"));
+        donNapTien.setTaiKhoan(bundle.getString("tk_dnt"));
+        donNapTien.setThoiGianTao(bundle.getString("time_dnt"));
+        donNapTien.setAnhHoaDon(donNapTienDAO.layAnhTheoID(bundle.getInt("id_dnt")));
         id.setText(donNapTien.getid_DonNapTien()+"");
         ten.setText(khachHangDAO.getHoTen(donNapTien.getTaiKhoan()));
         time.setText(donNapTien.getThoiGianTao());
         tien.setText(donNapTien.getTienNap()+"");
+        Bitmap bitmap = BitmapFactory.decodeByteArray(donNapTien.getAnhHoaDon(), 0, donNapTien.getAnhHoaDon().length);
+        img_hoadon.setImageBitmap(bitmap);
+
+        btn_back_ctdn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         int tt = donNapTien.getTrangThai();
         if(tt==0){
             trangThai.setText("Chờ xác nhận");

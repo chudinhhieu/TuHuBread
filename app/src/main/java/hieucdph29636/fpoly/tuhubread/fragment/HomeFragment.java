@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
         khuyenMaiDAO = new KhuyenMaiDAO();
         listKM = khuyenMaiDAO.getAll();
         khachHangDAO = new KhachHangDAO();
-        adapterSPNB = new SanPhamNoiBatAdapter(monAnDAO.getAll(),getContext());
+        adapterSPNB = new SanPhamNoiBatAdapter(monAnDAO.layTheoLoai(0,1),getContext());
         adapterKM = new KhuyenMaiHomeAdapter(listKM,getContext());
         rcv_spnb.setAdapter(adapterSPNB);
         rcv_km.setAdapter(adapterKM);

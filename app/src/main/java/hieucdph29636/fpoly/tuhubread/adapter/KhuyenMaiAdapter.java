@@ -25,7 +25,7 @@ import hieucdph29636.fpoly.tuhubread.R;
 public class KhuyenMaiAdapter extends RecyclerView.Adapter<KhuyenMaiAdapter.ViewHolder> {
     Context context ;
     List<KhuyenMai> km ;
-
+    View view;
     public KhuyenMaiAdapter(Context context, List<KhuyenMai> km) {
         this.context = context;
         this.km = km;
@@ -35,17 +35,17 @@ public class KhuyenMaiAdapter extends RecyclerView.Adapter<KhuyenMaiAdapter.View
     @Override
     public KhuyenMaiAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_km,parent,false);
+        view = inflater.inflate(R.layout.item_km,parent,false);
         return new KhuyenMaiAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int index = position;
-        holder.tv_mota_km.setText(km.get(position).getMoTaKM());
-        holder.tv_sotiengiam_km.setText(km.get(position).getSoTienGiam()+"");
-
-        holder.linear_km.setOnClickListener(new View.OnClickListener() {
+        holder.tien.setText(km.get(index).getSoTienGiam()+"");
+        holder.code.setText(km.get(index).getCode());
+        holder.ten.setText(km.get(index).getMoTaKM());
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, Chi_Tiet_Khuyen_Mai.class);
@@ -69,13 +69,12 @@ public class KhuyenMaiAdapter extends RecyclerView.Adapter<KhuyenMaiAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_mota_km , tv_sotiengiam_km ;
-        LinearLayout linear_km ;
+        TextView ten , tien,code ;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
-            tv_mota_km = itemView.findViewById(R.id.tv_mota_km);
-            tv_sotiengiam_km = itemView.findViewById(R.id.tv_sotiengiam_km);
-            linear_km = itemView.findViewById(R.id.linear_km);
+            ten = itemView.findViewById(R.id.tv_tenKM);
+            tien = itemView.findViewById(R.id.tv_tienGiamKM);
+            code = itemView.findViewById(R.id.tv_codeKM);
         }
 
 }

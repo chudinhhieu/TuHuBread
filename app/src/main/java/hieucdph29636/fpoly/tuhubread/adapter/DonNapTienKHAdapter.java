@@ -72,7 +72,11 @@ public class DonNapTienKHAdapter extends RecyclerView.Adapter<DonNapTienKHAdapte
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("DonNapTien",donNapTien);
+                bundle.putInt("id_dnt",donNapTien.getid_DonNapTien());
+                bundle.putString("tk_dnt",donNapTien.getTaiKhoan());
+                bundle.putInt("tien_dnt",donNapTien.getTienNap());
+                bundle.putString("time_dnt",donNapTien.getThoiGianTao());
+                bundle.putInt("tt_dnt",donNapTien.getTrangThai());
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }

@@ -9,6 +9,7 @@ import android.util.Log;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class MonAnYeuThichDAO {
         connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
-                String sql = "DELETE FROM MonAnYeuThich WHERE id_MonAN = " + id;
+                String sql = "DELETE FROM MonAnYeuThich WHERE id_MonAn = " + id;
                 Statement statement = connection.createStatement();
                 statement.executeUpdate(sql);
             }
@@ -74,5 +75,33 @@ public class MonAnYeuThichDAO {
             Log.e("READ_ERROR", ex.getMessage());
         }
         return list;
+    }
+    public boolean kiemTraThichMonAn(String tk, int idMonAn) {
+        connectionHelper = new ConnectionHelper();
+        connection = connectionHelper.connectionClass();
+        boolean daThich = false;
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM MonAnYeuThich WHERE taiKhoan = ? AND id_MonAn = ?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, tk);
+                statement.setInt(2, idMonAn);
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    daThich = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException ex) {
+                Log.e("CLOSE_CONN_ERROR", ex.getMessage());
+            }
+        }
+        return daThich;
     }
 }

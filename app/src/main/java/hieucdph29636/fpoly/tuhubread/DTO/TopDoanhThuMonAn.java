@@ -1,15 +1,19 @@
 package hieucdph29636.fpoly.tuhubread.DTO;
 
 public class TopDoanhThuMonAn {
+    int id;
     String ten;
     int doanhThu;
 
     public TopDoanhThuMonAn() {
     }
 
-    public TopDoanhThuMonAn(String ten, int doanhThu) {
-        this.ten = ten;
-        this.doanhThu = doanhThu;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTen() {

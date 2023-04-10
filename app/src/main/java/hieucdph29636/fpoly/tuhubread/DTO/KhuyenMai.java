@@ -12,7 +12,6 @@ public class KhuyenMai {
     }
 
     public KhuyenMai(String code, String moTaKM, String ngayBatDau, String ngayKetThuc, int soTienGiam) {
-        this.id_KhuyenMai = id_KhuyenMai;
         this.code = code;
         this.moTaKM = moTaKM;
         this.ngayBatDau = ngayBatDau;

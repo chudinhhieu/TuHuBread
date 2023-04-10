@@ -17,18 +17,17 @@ import android.widget.TextView;
 
 import hieucdph29636.fpoly.tuhubread.Activity.ActivityThongKe;
 import hieucdph29636.fpoly.tuhubread.Activity.DangNhapActivity;
-import hieucdph29636.fpoly.tuhubread.Activity.Ds_DonNapTien_Activity;
 import hieucdph29636.fpoly.tuhubread.Activity.Ds_nv_Activity;
 import hieucdph29636.fpoly.tuhubread.Activity.KhachHang_Activity;
 import hieucdph29636.fpoly.tuhubread.Activity.KhuyenMaiActivity;
 import hieucdph29636.fpoly.tuhubread.Activity.ViTienActivity;
+import hieucdph29636.fpoly.tuhubread.DAO.NhanVienDAO;
 import hieucdph29636.fpoly.tuhubread.R;
 
 public class OtherFragment extends Fragment {
     RelativeLayout qlkh_other,vitien_other,qlnv_other,qlkm_other,tk_other,tttk_other,dangXuat_other;
     TextView tv_other_3;
-
-
+    NhanVienDAO dao;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_other, container, false);
@@ -39,6 +38,7 @@ public class OtherFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
         String quyen = sharedPreferences.getString("quyen","");
+        String taiKhoan = sharedPreferences.getString("TK","");
         qlkh_other = view.findViewById(R.id.qlkh_other);
         vitien_other = view.findViewById(R.id.vitien_other);
         qlnv_other = view.findViewById(R.id.qlnv_other);
@@ -47,6 +47,7 @@ public class OtherFragment extends Fragment {
         tttk_other = view.findViewById(R.id.tttk_other);
         dangXuat_other = view.findViewById(R.id.dangXuat_other);
         tv_other_3 = view.findViewById(R.id.tv_other_3);
+        dao = new NhanVienDAO();
 
         if (quyen.equalsIgnoreCase("khachhang")){
             qlkh_other.setVisibility(View.GONE);
@@ -56,6 +57,14 @@ public class OtherFragment extends Fragment {
         }
         if (quyen.equalsIgnoreCase("nhanvien")){
             vitien_other.setVisibility(View.GONE);
+            if (dao.getQuyen(taiKhoan)==2){
+                qlkh_other.setVisibility(View.GONE);
+                qlnv_other.setVisibility(View.GONE);
+                qlkm_other.setVisibility(View.GONE);
+                tk_other.setVisibility(View.GONE);
+            }else if (dao.getQuyen(taiKhoan)==1){
+                qlnv_other.setVisibility(View.GONE);
+            }
         }
         tk_other.setOnClickListener(new View.OnClickListener() {
             @Override
