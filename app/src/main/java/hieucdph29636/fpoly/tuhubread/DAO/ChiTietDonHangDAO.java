@@ -1,22 +1,14 @@
 package hieucdph29636.fpoly.tuhubread.DAO;
 
-import android.annotation.SuppressLint;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
-import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
 import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
 
 public class ChiTietDonHangDAO {

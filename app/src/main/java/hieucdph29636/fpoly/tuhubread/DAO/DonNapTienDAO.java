@@ -24,7 +24,7 @@ public class DonNapTienDAO {
     public ArrayList<DonNapTien> getAll() {
         ArrayList<DonNapTien> list = new ArrayList<>();
         ConnectionHelper connectionHelper = new ConnectionHelper();
-       Connection connection = connectionHelper.connectionClass();
+        Connection connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
                 String query = "SELECT * FROM DonNapTien ORDER BY id_DonNapTien DESC";
@@ -145,7 +145,7 @@ public class DonNapTienDAO {
     public boolean delete(int id) {
         boolean success = false;
         ConnectionHelper  connectionHelper = new ConnectionHelper();
-       Connection connection = connectionHelper.connectionClass();
+        Connection connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
                 String sql = "DELETE FROM DonNapTien WHERE id_DonNapTien = " + id;
@@ -161,7 +161,7 @@ public class DonNapTienDAO {
     public byte[] layAnhTheoID(int id_DonNapTien) {
         byte[] anhHoaDon = null;
         ConnectionHelper connectionHelper = new ConnectionHelper();
-       Connection connection = connectionHelper.connectionClass();
+        Connection connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
                 String query = "SELECT anhHoaDon FROM DonNapTien WHERE id_DonNapTien = '"+id_DonNapTien+"'";

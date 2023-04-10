@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +35,7 @@ public class Ds_nv_Activity extends AppCompatActivity {
     NhanVienDAO nhanVienDAO;
     ArrayList<NhanVien> dsnv ;
     NhanVienAdapter nhanVienAdapter;
+    ImageView btn_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,34 @@ public class Ds_nv_Activity extends AppCompatActivity {
 
         rcv_nv = findViewById(R.id.rcv_nv);
         flbtn_add_nv = findViewById(R.id.flbtn_add_nv);
+        btn_search = findViewById(R.id.btn_search_nv);
+        nhanVienDAO = new NhanVienDAO();
+        dsnv = nhanVienDAO.getAll();
+        nhanVienAdapter = new NhanVienAdapter(this,dsnv);
+        rcv_nv.setAdapter(nhanVienAdapter);
+
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(Ds_nv_Activity.this);
+                dialog.setContentView(R.layout.activity_search_share);
+                TextInputEditText tied = dialog.findViewById(R.id.ed_search);
+                TextInputLayout til = dialog.findViewById(R.id.edL_search);
+                TextView btn_xacnhan = dialog.findViewById(R.id.btn_xacNhan_searchKH);
+
+                btn_xacnhan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dsnv = nhanVienDAO.getByHoTen(tied.getText().toString().trim());
+                        nhanVienAdapter = new NhanVienAdapter(Ds_nv_Activity.this,dsnv);
+                        rcv_nv.setAdapter(nhanVienAdapter);
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
+
 
 
 
@@ -159,10 +190,7 @@ public class Ds_nv_Activity extends AppCompatActivity {
         });
 
 
-        nhanVienDAO = new NhanVienDAO();
-        dsnv = nhanVienDAO.getAll();
-        nhanVienAdapter = new NhanVienAdapter(this,dsnv);
-        rcv_nv.setAdapter(nhanVienAdapter);
+
 
 
     }
