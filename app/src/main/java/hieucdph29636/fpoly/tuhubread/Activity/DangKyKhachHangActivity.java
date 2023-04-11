@@ -161,8 +161,14 @@ public class DangKyKhachHangActivity extends AppCompatActivity {
             edL_matKhau.setErrorEnabled(false);
 
         }
-        if (ed_sdt.getText().toString().length()>10) {
-            edL_sdt.setError("Số điện thoại tối đa 10 ký tự!");
+        if (!ed_matKhau.getText().toString().equals(ed_nhapLaiMatKhau.getText().toString())){
+            edL_nhapLaiMatKhau.setError("Phải trùng với mật khẩu");
+            isEmpty=true;
+        }else{
+            edL_nhapLaiMatKhau.setErrorEnabled(false);
+        }
+        if (!ed_sdt.getText().toString().matches("^0[3589]{1}\\d{8}$")) {
+            edL_sdt.setError("Số điện thoại phải đúng định dạng!");
             isEmpty = true;
         } else {
             edL_sdt.setErrorEnabled(false);

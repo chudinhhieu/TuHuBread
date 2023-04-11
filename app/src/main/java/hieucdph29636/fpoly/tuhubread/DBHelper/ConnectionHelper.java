@@ -15,10 +15,10 @@ public class ConnectionHelper {
         {
             //192.168.43.16
             //192.168.100.30
-            ip ="192.168.43.16";
+            ip ="10.24.54.100";
             database = "TuhuBread";
-            user ="tuhubread";
-            pass="123456";
+            user ="xuantruong";
+            pass="123";
             port="1433";
 
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
