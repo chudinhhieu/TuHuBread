@@ -105,6 +105,33 @@ public class MonAnDAO {
         }
         return list;
     }
+    public ArrayList<MonAn> timKiemMonAnTheoTen(String keyword,int tt) {
+        ArrayList<MonAn> list = new ArrayList<>();
+        connectionHelper = new ConnectionHelper();
+        connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM MonAn WHERE tenMon LIKE '%" + keyword + "%'and trangThai= '"+tt+"'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    MonAn monAn = new MonAn();
+                    monAn.setId_MonAn(resultSet.getInt(1));
+                    monAn.setTenMon(resultSet.getString(2));
+                    monAn.setGia(resultSet.getInt(3));
+                    monAn.setThanhPhan(resultSet.getString(4));
+                    monAn.setTrangThai(resultSet.getInt(5));
+                    monAn.setId_LoaiDoAn(resultSet.getInt(6));
+                    monAn.setAnhMonAn(resultSet.getBytes(7));
+                    list.add(monAn);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return list;
+    }
+
     public ArrayList<MonAn> getAll() {
         ArrayList<MonAn> list = new ArrayList<>();
         connectionHelper = new ConnectionHelper();

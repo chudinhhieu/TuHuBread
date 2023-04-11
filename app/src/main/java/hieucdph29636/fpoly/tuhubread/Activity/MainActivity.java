@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,20 +19,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import hieucdph29636.fpoly.tuhubread.DAO.DonHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.KhachHangDAO;
+import hieucdph29636.fpoly.tuhubread.DAO.MonAnDAO;
+import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
 import hieucdph29636.fpoly.tuhubread.R;
+import hieucdph29636.fpoly.tuhubread.adapter.Ds_mon_Adapter;
 import hieucdph29636.fpoly.tuhubread.adapter.ViewPagerAdapter;
+import hieucdph29636.fpoly.tuhubread.fragment.FoodFragment;
 import hieucdph29636.fpoly.tuhubread.fragment.OtherFragment;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     ImageView btn_ds_mayt;
-    ImageView btn_search_ma;
     BottomNavigationView bottomNavigationView;
     private TextView tv_toolbar;
     KhachHangDAO khachHangDAO;
@@ -42,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewPager = findViewById(R.id.view_pager);
         tv_toolbar = findViewById(R.id.tv_toolbar);
-        btn_search_ma = findViewById(R.id.btn_search_ma);
         btn_ds_mayt = findViewById(R.id.btn_ds_mayt);
         bottomNavigationView = findViewById(R.id.bottom_nav);
         khachHangDAO = new KhachHangDAO();
@@ -53,15 +59,12 @@ public class MainActivity extends AppCompatActivity {
         String hoTen= khachHangDAO.getHoTen(taiKhoan);
         if (quyen.equalsIgnoreCase("khachhang")){
             tv_toolbar.setText(hoTen+" ơi,Bánh mì đi!");
-            btn_search_ma.setVisibility(View.GONE);
             btn_ds_mayt.setVisibility(View.VISIBLE);
         }
         if (quyen.equalsIgnoreCase("nhanvien")){
             tv_toolbar.setText("Danh sách");
-            btn_search_ma.setVisibility(View.VISIBLE);
             btn_ds_mayt.setVisibility(View.GONE);
         }
-
         btn_ds_mayt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,12 +87,10 @@ public class MainActivity extends AppCompatActivity {
                         bottomNavigationView.getMenu().findItem(R.id.action_home).setChecked(true);
                         if (quyen.equalsIgnoreCase("khachhang")){
                             tv_toolbar.setText(hoTen+" ơi,Bánh mì đi!");
-                            btn_search_ma.setVisibility(View.GONE);
                             btn_ds_mayt.setVisibility(View.VISIBLE);
                         }
                         if (quyen.equalsIgnoreCase("nhanvien")){
                             tv_toolbar.setText("Danh sách");
-                            btn_search_ma.setVisibility(View.VISIBLE);
                             btn_ds_mayt.setVisibility(View.GONE);
                             bottomNavigationView.getMenu().findItem(R.id.action_home).setTitle("Danh sách");
                             bottomNavigationView.getMenu().findItem(R.id.action_home).setIcon(R.drawable.icon_food_nav);
@@ -99,11 +100,9 @@ public class MainActivity extends AppCompatActivity {
                         bottomNavigationView.getMenu().findItem(R.id.action_food).setChecked(true);
                         if (quyen.equalsIgnoreCase("khachhang")){
                             tv_toolbar.setText("Danh sách");
-                            btn_search_ma.setVisibility(View.VISIBLE);
                             btn_ds_mayt.setVisibility(View.VISIBLE);
                         }
                         if (quyen.equalsIgnoreCase("nhanvien")){
-                            btn_search_ma.setVisibility(View.GONE);
                             btn_ds_mayt.setVisibility(View.GONE);
                             tv_toolbar.setText("Đơn hàng hiện tại");
                             bottomNavigationView.getMenu().findItem(R.id.action_food).setTitle("Đơn hàng");
@@ -114,11 +113,9 @@ public class MainActivity extends AppCompatActivity {
                         bottomNavigationView.getMenu().findItem(R.id.action_cart).setChecked(true);
                         if (quyen.equalsIgnoreCase("khachhang")){
                             tv_toolbar.setText("Đơn hàng");
-                            btn_search_ma.setVisibility(View.GONE);
                             btn_ds_mayt.setVisibility(View.VISIBLE);
                         }
                         if (quyen.equalsIgnoreCase("nhanvien")){
-                            btn_search_ma.setVisibility(View.GONE);
                             btn_ds_mayt.setVisibility(View.GONE);
                             tv_toolbar.setText("Đơn nạp tiền");
                             bottomNavigationView.getMenu().findItem(R.id.action_cart).setTitle("Lịch sử");
@@ -129,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
                     case 3:
                         bottomNavigationView.getMenu().findItem(R.id.action_other).setChecked(true);
                         tv_toolbar.setText("Khác");
-                        btn_search_ma.setVisibility(View.GONE);
                         btn_ds_mayt.setVisibility(View.GONE);
                         break;
                 }

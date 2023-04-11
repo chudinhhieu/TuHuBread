@@ -7,24 +7,39 @@
     android:padding="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.FoodFragment">
-      <Spinner
-          android:id="@+id/spn_thucdon"
+      <RelativeLayout
+          android:id="@+id/rlt1"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          />
-   <View
-       android:id="@+id/viewww1"
-       android:layout_below="@id/spn_thucdon"
-       android:layout_width="match_parent"
-       android:layout_height="0.5dp"
-       android:background="@color/grey"
-       />
+          android:layout_height="wrap_content">
+          <Spinner
+              android:id="@+id/spn_thucdon"
+              android:layout_width="match_parent"
+              android:layout_toLeftOf="@id/btn_tkma"
+              android:layout_centerVertical="true"
+              android:layout_height="wrap_content"
+              />
+          <ImageView
+              android:id="@+id/btn_tkma"
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:layout_centerVertical="true"
+              android:layout_alignParentRight="true"
+              android:layout_marginStart="10dp"
+              android:src="@drawable/search_icon"/>
+      </RelativeLayout>
+    <View
+        android:id="@+id/viewww1"
+        android:layout_below="@id/rlt1"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey"
+        />
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/rcv_dsm"
        android:layout_marginTop="10dp"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_below="@+id/viewww1"
+       android:layout_height="match_parent"
+       android:layout_below="@+id/rlt1"
        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_themMon"

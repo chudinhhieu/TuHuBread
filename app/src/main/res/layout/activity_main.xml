@@ -30,15 +30,6 @@
             android:text="Hiếu ơi,Bánh mì đi!"/>
 
         <ImageView
-            android:id="@+id/btn_search_ma"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_baseline_search_24"
-            android:layout_toLeftOf="@id/btn_ds_mayt"
-            />
-
-        <ImageView
             android:id="@+id/img_thongbao"
             android:layout_width="30dp"
             android:layout_height="30dp"
