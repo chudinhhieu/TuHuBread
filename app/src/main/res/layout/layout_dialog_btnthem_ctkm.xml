@@ -91,6 +91,7 @@
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -99,7 +100,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Số tiền giảm"
                 android:textSize="18dp"
-                android:fontFamily="@font/mali" />
+                android:fontFamily="@font/mali"
+                android:inputType="number"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout

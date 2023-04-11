@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,16 +33,17 @@ import hieucdph29636.fpoly.tuhubread.R;
 import hieucdph29636.fpoly.tuhubread.adapter.KhuyenMaiAdapter;
 
 public class KhuyenMaiActivity extends AppCompatActivity {
-    TextView tv_mota_km , tv_sotiengiam_km ;
-    Button btn_chinhsua_km ;
+    TextView tv_mota_km, tv_sotiengiam_km;
+    Button btn_chinhsua_km;
     KhuyenMaiAdapter khuyenMaiAdapter;
-    List<KhuyenMai> list ;
-    KhuyenMaiDAO khuyenMaiDAO ;
+    List<KhuyenMai> list;
+    KhuyenMaiDAO khuyenMaiDAO;
     ImageView btn_back_km;
     RecyclerView rcv_khuyenMai;
     FloatingActionButton btn_add_km;
     MyDate date;
-    String nbd,nkt;
+    String nbd, nkt;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class KhuyenMaiActivity extends AppCompatActivity {
 
 
         list = khuyenMaiDAO.getAll();
-        khuyenMaiAdapter = new KhuyenMaiAdapter(this,list);
+        khuyenMaiAdapter = new KhuyenMaiAdapter(this, list);
         rcv_khuyenMai.setAdapter(khuyenMaiAdapter);
         btn_back_km.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,15 +73,23 @@ public class KhuyenMaiActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Dialog mdDialog = new Dialog(KhuyenMaiActivity.this);
                 mdDialog.setContentView(R.layout.layout_dialog_btnthem_ctkm);
-                TextInputEditText edCode,edMota,edNgayBD,edNgayKT,edSTgiam;
-                MaterialButton btnCancel,btnAdd;
+                TextInputEditText edCode, edMota, edNgayBD, edNgayKT, edSTgiam;
+                MaterialButton btnCancel, btnAdd;
+                TextInputLayout edLCode, edLMota, edLNgayBD, edLNgayKT, edLSTgiam;
+                edLCode = mdDialog.findViewById(R.id.edL_code_km_new);
+                edLMota = mdDialog.findViewById(R.id.edL_ten_km_new);
+                edLNgayBD = mdDialog.findViewById(R.id.edL_nbd_km_new);
+                edLNgayKT = mdDialog.findViewById(R.id.edL_nkt_km_new);
+                edLSTgiam = mdDialog.findViewById(R.id.edL_tienGiamnew);
+
+
                 edCode = mdDialog.findViewById(R.id.ed_code_km_new);
                 edMota = mdDialog.findViewById(R.id.ed_ten_km_new);
                 edNgayBD = mdDialog.findViewById(R.id.ed_nbd_km_new);
                 edNgayKT = mdDialog.findViewById(R.id.ed_nkt_km_new);
                 edSTgiam = mdDialog.findViewById(R.id.ed_tienGiamnew);
-                 btnAdd= mdDialog.findViewById(R.id.btn_dialog_new_update);
-                btnCancel  = mdDialog.findViewById(R.id.btn_dialog_new_cancel);
+                btnAdd = mdDialog.findViewById(R.id.btn_dialog_new_update);
+                btnCancel = mdDialog.findViewById(R.id.btn_dialog_new_cancel);
 
                 edNgayBD.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -121,15 +131,44 @@ public class KhuyenMaiActivity extends AppCompatActivity {
                 btnAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        KhuyenMai objkm = new KhuyenMai(edCode.getText().toString(),edMota.getText().toString(),nbd,nkt,Integer.parseInt(edSTgiam.getText().toString()));
-                        if(khuyenMaiDAO.insert(objkm)){
+                        if (edCode.getText().toString().isEmpty()) {
+                            edLCode.setError("Chưa nhập code");
+                            return;
+                        } else {
+                            edLCode.setErrorEnabled(false);
+                        }
+                        if (edMota.getText().toString().isEmpty()) {
+                            edLMota.setError("Chưa nhập mô tả");
+                            return;
+                        } else {
+                            edLMota.setErrorEnabled(false);
+                        }
+                        if (edNgayBD.getText().toString().isEmpty()) {
+                            edLNgayBD.setError("Hãy chọn ngày bắt đầu");
+                            return;
+                        } else {
+                            edLNgayBD.setErrorEnabled(false);
+                        }
+                        if (edNgayKT.getText().toString().isEmpty()) {
+                            edLNgayKT.setError("Hãy chọn ngày kết thúc");
+                            return;
+                        } else {
+                            edLNgayKT.setErrorEnabled(false);
+                        }
+                        if (edSTgiam.getText().toString().isEmpty()) {
+                            edLSTgiam.setError("Chưa nhập số tiền giảm");
+                            return;
+                        } else {
+                            edLSTgiam.setErrorEnabled(false);
+                        }
+                        KhuyenMai objkm = new KhuyenMai(edCode.getText().toString(), edMota.getText().toString(), nbd, nkt, Integer.parseInt(edSTgiam.getText().toString()));
+                        if (khuyenMaiDAO.insert(objkm)) {
                             new Dialog_custom(KhuyenMaiActivity.this).sendDialog();
                             list = khuyenMaiDAO.getAll();
-                            khuyenMaiAdapter = new KhuyenMaiAdapter(KhuyenMaiActivity.this,list);
+                            khuyenMaiAdapter = new KhuyenMaiAdapter(KhuyenMaiActivity.this, list);
                             rcv_khuyenMai.setAdapter(khuyenMaiAdapter);
-                        }else{
+                        } else {
                             Toast.makeText(KhuyenMaiActivity.this, "Thất bại!", Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });
@@ -144,7 +183,6 @@ public class KhuyenMaiActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
 }
