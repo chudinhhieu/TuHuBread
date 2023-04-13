@@ -63,11 +63,18 @@ public class Ds_nv_Activity extends AppCompatActivity {
                 dialog.setContentView(R.layout.activity_search_share);
                 TextInputEditText tied = dialog.findViewById(R.id.ed_search);
                 TextInputLayout til = dialog.findViewById(R.id.edL_search);
+
                 TextView btn_xacnhan = dialog.findViewById(R.id.btn_xacNhan_searchKH);
 
                 btn_xacnhan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (tied.getText().toString().isEmpty()){
+                            til.setError("Không được để trống");
+                            return;
+                        }else{
+                            til.setErrorEnabled(false);
+                        }
                         dsnv = nhanVienDAO.getByHoTen(tied.getText().toString().trim());
                         nhanVienAdapter = new NhanVienAdapter(Ds_nv_Activity.this,dsnv);
                         rcv_nv.setAdapter(nhanVienAdapter);

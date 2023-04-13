@@ -31,6 +31,9 @@ public class KhachHang_Activity extends AppCompatActivity {
     KhachHangAdapter khachHangAdapter;
     ArrayList<KhachHang> listKh;
     ImageView btn_search,btn_back_qlkh;
+    TextInputLayout edL_search;
+    TextInputEditText ed_search;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,7 @@ public class KhachHang_Activity extends AppCompatActivity {
         khachHangAdapter=new KhachHangAdapter(this,listKh);
         rcv_kh.setAdapter(khachHangAdapter);
         btn_search = findViewById(R.id.btn_search_kh);
+
         btn_back_qlkh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,9 +61,17 @@ public class KhachHang_Activity extends AppCompatActivity {
                 TextInputEditText tied = dialog.findViewById(R.id.ed_search);
                 TextView btn_xacnhan = dialog.findViewById(R.id.btn_xacNhan_searchKH);
 
+
+
                 btn_xacnhan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (tied.getText().toString().isEmpty()){
+                            til.setError("Không được để trống");
+                            return;
+                        }else {
+                            til.setErrorEnabled(false);
+                        }
                         listKh =khachHangDAO.getBySoDienThoai(tied.getText().toString().trim());
                         khachHangAdapter = new KhachHangAdapter(KhachHang_Activity.this,listKh);
                         rcv_kh.setAdapter(khachHangAdapter);
