@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Activity.Ds_nv_Activity">
     <androidx.cardview.widget.CardView
+        android:id="@+id/viewnv1"
         app:cardElevation="5dp"
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -50,8 +51,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_nv"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/viewnv1"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

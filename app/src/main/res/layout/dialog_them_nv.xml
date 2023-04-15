@@ -1,136 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="350dp"
-    android:padding="15dp"
     android:orientation="vertical"
     android:layout_height="wrap_content">
     <TextView
-
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
         android:fontFamily="@font/mali"
-        android:textColor="@color/black"
-        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+        android:background="@color/main"
         android:textSize="24dp"
         android:layout_height="wrap_content"
-
         android:text="Thêm Nhân viên"/>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etl_them_tennv"
-        android:layout_marginBottom="10dp"
-        style="@style/LoginTextInputLayoutStyle"
-        android:fontFamily="@font/mali"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_them_tennv"
-            android:hint="Họ và tên"
-            android:fontFamily="@font/mali"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etl_them_sdtnv"
-        android:layout_marginBottom="10dp"
-        style="@style/LoginTextInputLayoutStyle"
-        android:fontFamily="@font/mali"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_them_sdtnv"
-            android:hint="Số điện thoại"
-            android:fontFamily="@font/mali"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etl_them_usernv"
-        android:layout_marginBottom="10dp"
-        style="@style/LoginTextInputLayoutStyle"
-        android:fontFamily="@font/mali"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_them_usernv"
-            android:hint="Tên đăng nhập"
-            android:fontFamily="@font/mali"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etl_them_mknv"
-        android:layout_marginBottom="10dp"
-        style="@style/LoginTextInputLayoutStyle"
-        android:fontFamily="@font/mali"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_them_mknv"
-            android:hint="Mật khẩu"
-            android:fontFamily="@font/mali"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etl_them_ngaysinh_nv"
-        android:layout_marginBottom="10dp"
-        style="@style/LoginTextInputLayoutStyle"
-        android:fontFamily="@font/mali"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_them_ngaysinh_nv"
-            android:hint="Ngày sinh"
-            android:focusable="false"
-            android:inputType="date"
-            android:fontFamily="@font/mali"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etl_them_quyennv"
-        android:layout_marginBottom="10dp"
-        style="@style/LoginTextInputLayoutStyle"
-        android:fontFamily="@font/mali"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_them_quyennv"
-            android:hint="Quyền nhân viên"
-            android:fontFamily="@font/mali"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
-        <Button
-            android:id="@+id/btn_them_nv"
-            android:text="Thêm"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etl_them_tennv"
+            android:layout_marginBottom="10dp"
+            style="@style/LoginTextInputLayoutStyle"
             android:fontFamily="@font/mali"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/main"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"/>
-        <Button
-            android:id="@+id/btn_huy_nv"
-            android:text="Hủy"
-            android:textColor="@color/white"
-            android:fontFamily="@font/mali"
-            android:backgroundTint="#DD0A0A"
-            android:layout_marginLeft="60dp"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_them_tennv"
+                android:hint="Họ và tên"
+                android:fontFamily="@font/mali"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etl_them_sdtnv"
+            android:layout_marginBottom="10dp"
+            style="@style/LoginTextInputLayoutStyle"
+            android:fontFamily="@font/mali"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_them_sdtnv"
+                android:hint="Số điện thoại"
+                android:fontFamily="@font/mali"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etl_them_usernv"
+            android:layout_marginBottom="10dp"
+            style="@style/LoginTextInputLayoutStyle"
+            android:fontFamily="@font/mali"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_them_usernv"
+                android:hint="Tên đăng nhập"
+                android:fontFamily="@font/mali"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etl_them_mknv"
+            android:layout_marginBottom="10dp"
+            style="@style/LoginTextInputLayoutStyle"
+            android:fontFamily="@font/mali"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_them_mknv"
+                android:hint="Mật khẩu"
+                android:fontFamily="@font/mali"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etl_them_ngaysinh_nv"
+            android:layout_marginBottom="10dp"
+            style="@style/LoginTextInputLayoutStyle"
+            android:fontFamily="@font/mali"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_them_ngaysinh_nv"
+                android:hint="Ngày sinh"
+                android:focusable="false"
+                android:inputType="date"
+                android:fontFamily="@font/mali"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <RadioGroup
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rdoTCH"
+                android:layout_width="0dp"
+                android:layout_weight="1.2"
+                android:layout_height="30dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/alata"
+                android:text="Trưởng cửa hàng"/>
+            <RadioButton
+                android:id="@+id/rdoNV"
+                android:layout_width="0dp"
+                android:layout_weight="0.8"
+                android:layout_height="30dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/alata"
+                android:text="Nhân viên"/>
+        </RadioGroup>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_them_nv"
+                android:text="Thêm"
+                android:fontFamily="@font/mali"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/main"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/btn_huy_nv"
+                android:text="Hủy"
+                android:textColor="@color/white"
+                android:fontFamily="@font/mali"
+                android:backgroundTint="#DD0A0A"
+                android:layout_marginLeft="60dp"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

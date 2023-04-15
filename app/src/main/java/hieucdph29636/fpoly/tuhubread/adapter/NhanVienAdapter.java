@@ -23,7 +23,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
 
     Context context;
     ArrayList<NhanVien> dsnv;
-
+    View view;
     public NhanVienAdapter(Context context, ArrayList<NhanVien> dsnv) {
         this.context = context;
         this.dsnv = dsnv;
@@ -33,7 +33,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_ds_nv,parent,false);
+        view = inflater.inflate(R.layout.item_ds_nv,parent,false);
         return new ViewHolder(view);
     }
 
@@ -42,7 +42,19 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
         int index = position;
         holder.tv_ten_nv.setText(dsnv.get(position).getHoTen());
         holder.tv_sdt_nv.setText(dsnv.get(position).getSoDienThoai());
-        holder.linear_nv.setOnClickListener(new View.OnClickListener() {
+        int quyenNV = dsnv.get(index).getQuenNhanVien();
+        switch (quyenNV){
+            case 0:
+                holder.tv_quyen_nv.setText("Chủ cửa hàng");
+                break;
+            case 1:
+                holder.tv_quyen_nv.setText("Trưởng cửa hàng");
+                break;
+            case 2:
+                holder.tv_quyen_nv.setText("Nhân viên");
+                break;
+        }
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ChiTiet_Nhan_vien.class);
@@ -68,13 +80,12 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-    TextView tv_ten_nv,tv_sdt_nv;
-    LinearLayout linear_nv;
+    TextView tv_ten_nv,tv_sdt_nv,tv_quyen_nv;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_ten_nv = itemView.findViewById(R.id.tv_ten_nv);
-            tv_sdt_nv = itemView.findViewById(R.id.tv_sdt_nv);
-            linear_nv = itemView.findViewById(R.id.linear_nv);
+            tv_ten_nv = itemView.findViewById(R.id.tv_tenNV);
+            tv_sdt_nv = itemView.findViewById(R.id.tv_sdtNV);
+            tv_quyen_nv = itemView.findViewById(R.id.tv_quyenNV);
         }
     }
 }
