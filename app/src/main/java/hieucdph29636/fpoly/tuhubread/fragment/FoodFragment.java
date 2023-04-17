@@ -103,6 +103,7 @@ public class FoodFragment extends Fragment {
                         }
 
 
+
                         ArrayList<MonAn> list1 = monAnDAO.timKiemMonAnTheoTen(tied.getText().toString().trim(),1);
                         ds_mon_adapter = new Ds_mon_Adapter(getContext(),list1);
                         rcv_dsm.setAdapter(ds_mon_adapter);
