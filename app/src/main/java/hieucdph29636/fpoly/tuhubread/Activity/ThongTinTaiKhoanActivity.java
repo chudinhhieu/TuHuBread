@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -32,6 +33,7 @@ public class ThongTinTaiKhoanActivity extends AppCompatActivity {
     Button xacnhan,dmk;
     MyDate date;
     String quyen;
+    ImageView btn_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,7 @@ public class ThongTinTaiKhoanActivity extends AppCompatActivity {
         dao = new KhachHangDAO();
         nhanVienDAO = new NhanVienDAO();
         ltk = findViewById(R.id.edL_tttk_tk);
+        btn_back = findViewById(R.id.btn_back_tttk);
         tk = findViewById(R.id.ed_tttk_tk);
         lht = findViewById(R.id.edL_tttk_ht);
         ht = findViewById(R.id.ed_tttk_ht);
@@ -50,6 +53,12 @@ public class ThongTinTaiKhoanActivity extends AppCompatActivity {
         sdt = findViewById(R.id.ed_tttk_sdt);
         xacnhan = findViewById(R.id.btn_tttk_xacnhan);
         dmk = findViewById(R.id.btn_tttk_dmk);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
          quyen = sharedPreferences.getString("quyen","");
         String taiKhoan = sharedPreferences.getString("TK","");

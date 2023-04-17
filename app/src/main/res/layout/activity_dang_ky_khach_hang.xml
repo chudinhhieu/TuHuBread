@@ -159,7 +159,7 @@
             android:hint="Địa chỉ"
             android:textSize="18dp"
             android:fontFamily="@font/mali"
-            android:maxLength="20"/>
+            android:maxLength="50"/>
     </com.google.android.material.textfield.TextInputLayout>
         <Button
             android:id="@+id/btn_dangKy_KH"

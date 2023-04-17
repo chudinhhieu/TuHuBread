@@ -207,6 +207,8 @@ public class Ds_nv_Activity extends AppCompatActivity {
                                 Toast.makeText(Ds_nv_Activity.this, "Thành công!", Toast.LENGTH_SHORT).show();
                                 loadData();
                                 dialog.dismiss();
+                            }else {
+                                edL_usernv.setError("Tên đăng nhập đã tồn tại!");
                             }
                         }catch (Exception ex){
                             Toast.makeText(Ds_nv_Activity.this, "Tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();

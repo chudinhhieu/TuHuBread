@@ -57,16 +57,30 @@ public class KhuyenMaiDAO {
         Connection connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
-                String query = "INSERT INTO KhuyenMai (code, moTaKM, ngayBatDau, ngayKetThuc, soTienGiam) VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, km.getCode());
-                preparedStatement.setString(2, km.getMoTaKM());
-                preparedStatement.setString(3, km.getNgayBatDau());
-                preparedStatement.setString(4, km.getNgayKetThuc());
-                preparedStatement.setInt(5, km.getSoTienGiam());
-                int rowCount = preparedStatement.executeUpdate();
-                if (rowCount > 0) {
-                    success = true;
+// Kiểm tra mã khuyến mãi đã tồn tại chưa
+                String checkQuery = "SELECT COUNT(*) FROM KhuyenMai WHERE code = ?";
+                PreparedStatement checkStatement = connection.prepareStatement(checkQuery);
+                checkStatement.setString(1, km.getCode());
+                ResultSet checkResult = checkStatement.executeQuery();
+                checkResult.next();
+                int count = checkResult.getInt(1);
+                // Nếu mã khuyến mãi đã tồn tại, không chèn mới và trả về false
+                if (count > 0) {
+                    success = false;
+                }
+                // Nếu mã khuyến mãi chưa tồn tại, chèn mới và trả về true
+                else {
+                    String insertQuery = "INSERT INTO KhuyenMai (code, moTaKM, ngayBatDau, ngayKetThuc, soTienGiam) VALUES (?, ?, ?, ?, ?)";
+                    PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
+                    insertStatement.setString(1, km.getCode());
+                    insertStatement.setString(2, km.getMoTaKM());
+                    insertStatement.setString(3, km.getNgayBatDau());
+                    insertStatement.setString(4, km.getNgayKetThuc());
+                    insertStatement.setInt(5, km.getSoTienGiam());
+                    int rowCount = insertStatement.executeUpdate();
+                    if (rowCount > 0) {
+                        success = true;
+                    }
                 }
             }
         } catch (Exception ex) {
@@ -74,6 +88,7 @@ public class KhuyenMaiDAO {
         }
         return success;
     }
+
     public boolean update(KhuyenMai km) {
         boolean success = false;
         ConnectionHelper connectionHelper = new ConnectionHelper();

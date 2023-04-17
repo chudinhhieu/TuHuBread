@@ -22,13 +22,15 @@ import hieucdph29636.fpoly.tuhubread.Activity.KhachHang_Activity;
 import hieucdph29636.fpoly.tuhubread.Activity.KhuyenMaiActivity;
 import hieucdph29636.fpoly.tuhubread.Activity.ThongTinTaiKhoanActivity;
 import hieucdph29636.fpoly.tuhubread.Activity.ViTienActivity;
+import hieucdph29636.fpoly.tuhubread.DAO.KhachHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.NhanVienDAO;
 import hieucdph29636.fpoly.tuhubread.R;
 
 public class OtherFragment extends Fragment {
     RelativeLayout qlkh_other,vitien_other,qlnv_other,qlkm_other,tk_other,tttk_other,dangXuat_other;
-    TextView tv_other_3;
+    TextView tv_other_3,tv_ten_other;
     NhanVienDAO dao;
+    KhachHangDAO khachHangDAO;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_other, container, false);
@@ -44,12 +46,18 @@ public class OtherFragment extends Fragment {
         vitien_other = view.findViewById(R.id.vitien_other);
         qlnv_other = view.findViewById(R.id.qlnv_other);
         qlkm_other = view.findViewById(R.id.qlkm_other);
+        tv_ten_other = view.findViewById(R.id.tv_ten_other);
         tk_other = view.findViewById(R.id.tk_other);
         tttk_other = view.findViewById(R.id.tttk_other);
         dangXuat_other = view.findViewById(R.id.dangXuat_other);
         tv_other_3 = view.findViewById(R.id.tv_other_3);
         dao = new NhanVienDAO();
-
+        khachHangDAO = new KhachHangDAO();
+        if (quyen.equalsIgnoreCase("khachhang")){
+            tv_ten_other.setText(khachHangDAO.getHoTen(taiKhoan));
+        }else {
+            tv_ten_other.setText(dao.getByTK(taiKhoan).get(0).getHoTen());
+        }
         if (quyen.equalsIgnoreCase("khachhang")){
             qlkh_other.setVisibility(View.GONE);
             qlnv_other.setVisibility(View.GONE);

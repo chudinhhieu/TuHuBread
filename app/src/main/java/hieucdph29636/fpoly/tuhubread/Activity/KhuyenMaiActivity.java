@@ -161,7 +161,6 @@ public class KhuyenMaiActivity extends AppCompatActivity {
                         KhuyenMai objkm = new KhuyenMai(edCode.getText().toString(), edMota.getText().toString(), nbd, nkt, Integer.parseInt(edSTgiam.getText().toString()));
                         if (khuyenMaiDAO.insert(objkm)) {
                             Toast.makeText(KhuyenMaiActivity.this, "Thành công!", Toast.LENGTH_SHORT).show();
-
                             list = khuyenMaiDAO.getAll();
                             khuyenMaiAdapter = new KhuyenMaiAdapter(KhuyenMaiActivity.this, list);
                             rcv_khuyenMai.setAdapter(khuyenMaiAdapter);

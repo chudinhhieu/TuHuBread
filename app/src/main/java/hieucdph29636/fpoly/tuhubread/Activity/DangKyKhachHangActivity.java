@@ -87,6 +87,7 @@ public class DangKyKhachHangActivity extends AppCompatActivity {
                     onBackPressed();
                 }else {
                     Toast.makeText(DangKyKhachHangActivity.this, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
+                    edL_taiKhoan.setError("Tài khoản đã tồn tại!");
                 }
             }
         });
