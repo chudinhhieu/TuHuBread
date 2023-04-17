@@ -52,6 +52,7 @@ public class ThongKeDAO {
                 String query = "SELECT MonAn.id_MonAn, MonAn.tenMon, SUM(ChiTietDonHang.soLuong) as TongSoLuong\n" +
                         "FROM MonAn\n" +
                         "JOIN ChiTietDonHang ON MonAn.id_MonAn = ChiTietDonHang.id_monAn\n" +
+                        "JOIN DonHang ON ChiTietDonHang.id_donHang = DonHang.id_madonhang\n" +
                         "WHERE MonAn.trangThai = 1 AND DonHang.trangThai = 4\n"+
                         "GROUP BY MonAn.id_MonAn, MonAn.tenMon\n" +
                         "ORDER BY TongSoLuong DESC;";
