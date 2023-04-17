@@ -24,6 +24,7 @@ import hieucdph29636.fpoly.tuhubread.DAO.ChiTietDonHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.DonHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.MonAnDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.MonAnYeuThichDAO;
+import hieucdph29636.fpoly.tuhubread.DAO.NhanVienDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAnYeuThich;
@@ -40,6 +41,7 @@ public class DatMonActivity extends AppCompatActivity {
     RadioButton rdo_coRau,rdo_kRau,rdo_coOt,rdo_kOt;
     RelativeLayout view6,view2,view3;
     MonAnDAO monAnDAO;
+    NhanVienDAO nhanVienDAO;
     int soluong = 1;
     int idDH;
     @Override
@@ -52,12 +54,16 @@ public class DatMonActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
         String taiKhoan = sharedPreferences.getString("TK","");
         String quyen = sharedPreferences.getString("quyen","");
+        if(quyen.equalsIgnoreCase("khachhang")){
+            btnMonAnyt.setVisibility(View.VISIBLE);
+        }else {
+            btnMonAnyt.setVisibility(View.GONE);
+        }
         try {
             idDH = donHangDAO.checkDonHang().get(0).getId_DonHang();
         }catch (Exception e){
 
         }
-
         chiTietDonHangDAO = new ChiTietDonHangDAO();
         monAnYeuThichDAO = new MonAnYeuThichDAO();
         monAnDAO = new MonAnDAO();

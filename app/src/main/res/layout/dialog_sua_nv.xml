@@ -113,7 +113,7 @@
         >
 
         <Button
-            android:id="@+id/btn_sua_nv"
+            android:id="@+id/btn_dal_sua_nv"
             android:text="Sửa"
             android:fontFamily="@font/mali"
             android:textColor="@color/white"
@@ -121,7 +121,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"/>
         <Button
-            android:id="@+id/btn_huy_nv"
+            android:id="@+id/btn_sua_huy_nv"
             android:text="Hủy"
             android:textColor="@color/white"
             android:fontFamily="@font/mali"

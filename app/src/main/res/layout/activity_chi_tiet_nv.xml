@@ -1,327 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.ChiTiet_Nhan_vien">
-
-    <ImageView
-        android:id="@+id/bg_chitiet"
-        android:layout_width="wrap_content"
-        android:layout_height="275dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="-100dp"
-        android:src="@drawable/bg_chitiet" />
-
-    <ImageView
-        android:id="@+id/avatar_chitiet_ls"
-        android:layout_width="150dp"
-        android:layout_height="110dp"
-        android:layout_below="@id/bg_chitiet"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="-75dp"
-        android:src="@drawable/userrrrrrrr" />
-
-    <TextView
-        android:id="@+id/tv_ctls"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/avatar_chitiet_ls"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="THÔNG TIN NHÂN VIÊN"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
-
-    <LinearLayout
-
+    <androidx.cardview.widget.CardView
+        app:cardElevation="5dp"
+        android:id="@+id/viewctnv1"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_ctls"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp">
-
+        android:layout_height="wrap_content">
         <ImageView
-
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/id" />
-
+            android:id="@+id/btn_back_ctnv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_baseline_arrow_back_24_black"/>
         <TextView
-
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img1"
-            android:text="Mã nhân viên: "
+            android:text="Chi tiết nhân viên"
+            android:textSize="24sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/alata"
             android:textColor="@color/black"
-            android:textSize="17dp" />
+            android:gravity="center"/>
+    </androidx.cardview.widget.CardView>
+   <LinearLayout
+       android:layout_below="@id/viewctnv1"
+       android:orientation="vertical"
+       android:layout_marginTop="10dp"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <LinearLayout
+           android:gravity="center_vertical"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/tv_ctls"
+           android:layout_marginLeft="20dp"
+           android:layout_marginTop="10dp"
+           android:layout_marginRight="10dp">
 
-        <TextView
-            android:id="@+id/tv_id_nv_ct"
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv1"
-            android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
-            android:textSize="16dp" />
+           <ImageView
 
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:layout_centerVertical="true"
+               android:layout_marginRight="10dp"
+               android:src="@drawable/name_tv" />
 
-    </LinearLayout>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_toRightOf="@id/img1"
+               android:text="Tên nhân viên: "
+               android:fontFamily="@font/mali"
+               android:textColor="@color/black"
+               android:textSize="17dp" />
 
-<!--     Tên nhân viên-->
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_ctls"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp">
-
-        <ImageView
-
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/name_tv" />
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img1"
-            android:text="Tên nhân viên: "
-            android:textColor="@color/black"
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/tv_ten_nv_ct"
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv1"
-            android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
-            android:textSize="16dp" />
+           <TextView
+               android:id="@+id/tv_ten_nv_ct"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/tv1"
+               android:layout_toRightOf="@id/img1"
+               android:fontFamily="@font/alata"
+                android:textColor="@color/black"
+               android:textSize="16dp" />
 
 
-    </LinearLayout>
+       </LinearLayout>
 
-<!--    số điện thoại-->
-    <LinearLayout
+       <!--    số điện thoại-->
+       <LinearLayout
+           android:gravity="center_vertical"
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_ctls"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp">
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/tv_ctls"
+           android:layout_marginLeft="20dp"
+           android:layout_marginTop="10dp"
+           android:layout_marginRight="10dp">
 
-        <ImageView
+           <ImageView
 
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/phone_icon" />
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:layout_centerVertical="true"
+               android:layout_marginRight="10dp"
+               android:src="@drawable/phone_user" />
 
-        <TextView
+           <TextView
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img1"
-            android:text="Số điện thoại: "
-            android:textColor="@color/black"
-            android:textSize="17dp" />
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_toRightOf="@id/img1"
+               android:text="Số điện thoại: "
+               android:fontFamily="@font/mali"
+               android:textColor="@color/black"
+               android:textSize="17dp" />
 
-        <TextView
-            android:id="@+id/tv_sdt_nv_ct"
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv1"
-            android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
-            android:textSize="16dp" />
+           <TextView
+               android:id="@+id/tv_sdt_nv_ct"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/tv1"
+               android:layout_toRightOf="@id/img1"
+               android:fontFamily="@font/alata"
+                android:textColor="@color/black"
+               android:textSize="16dp" />
 
-    </LinearLayout>
-    <LinearLayout
+       </LinearLayout>
+       <LinearLayout
+           android:gravity="center_vertical"
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_ctls"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp">
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/tv_ctls"
+           android:layout_marginLeft="20dp"
+           android:layout_marginTop="10dp"
+           android:layout_marginRight="10dp">
 
-        <ImageView
+           <ImageView
 
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/username" />
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:layout_centerVertical="true"
+               android:layout_marginRight="10dp"
+               android:src="@drawable/icon_id_ctdnt" />
 
-        <TextView
+           <TextView
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img1"
-            android:text="Tên đăng nhập: "
-            android:textColor="@color/black"
-            android:textSize="17dp" />
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_toRightOf="@id/img1"
+               android:text="Tên đăng nhập: "
+               android:textColor="@color/black"
+               android:fontFamily="@font/mali"
+               android:textSize="17dp" />
 
-        <TextView
-            android:id="@+id/tv_user_nv_ct"
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv1"
-            android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
-            android:textSize="16dp" />
+           <TextView
+               android:id="@+id/tv_user_nv_ct"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/tv1"
+               android:layout_toRightOf="@id/img1"
+               android:fontFamily="@font/alata"
+                android:textColor="@color/black"
+               android:textSize="16dp" />
 
-    </LinearLayout>
-    <LinearLayout
+       </LinearLayout>
+       <LinearLayout
+           android:gravity="center_vertical"
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_ctls"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp">
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/tv_ctls"
+           android:layout_marginLeft="20dp"
+           android:layout_marginTop="10dp"
+           android:layout_marginRight="10dp">
 
-        <ImageView
+           <ImageView
 
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/passwd" />
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:layout_centerVertical="true"
+               android:layout_marginRight="10dp"
+               android:src="@drawable/password_user" />
 
-        <TextView
+           <TextView
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img1"
-            android:text="Mật khẩu: "
-            android:textColor="@color/black"
-            android:textSize="17dp" />
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_toRightOf="@id/img1"
+               android:text="Mật khẩu: "
+               android:textColor="@color/black"
+               android:fontFamily="@font/mali"
+               android:textSize="17dp" />
 
-        <TextView
-            android:id="@+id/tv_passwd_nv_ct"
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv1"
-            android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
-            android:textSize="16dp" />
-
-
-    </LinearLayout>
-    <LinearLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_ctls"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp">
-
-        <ImageView
-
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/celebrate" />
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img1"
-            android:text="Ngày sinhn: "
-            android:textColor="@color/black"
-            android:textSize="17dp" />
-
-        <TextView
-            android:id="@+id/tv_ngaysinh_nv_ct"
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv1"
-            android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
-            android:textSize="16dp" />
+           <TextView
+               android:id="@+id/tv_passwd_nv_ct"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/tv1"
+               android:layout_toRightOf="@id/img1"
+               android:fontFamily="@font/alata"
+                android:textColor="@color/black"
+               android:textSize="16dp" />
 
 
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ct1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_ctls"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp">
+       </LinearLayout>
+       <LinearLayout
+           android:gravity="center_vertical"
 
-        <ImageView
-            android:id="@+id/img1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/dmk_menu" />
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/tv_ctls"
+           android:layout_marginLeft="20dp"
+           android:layout_marginTop="10dp"
+           android:layout_marginRight="10dp">
 
-        <TextView
-            android:id="@+id/tv1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/img1"
-            android:text="Quyền nhân viên: "
-            android:textColor="@color/black"
-            android:textSize="17dp" />
+           <ImageView
 
-        <TextView
-            android:id="@+id/tv_quyen_nv_ct"
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv1"
-            android:layout_toRightOf="@id/img1"
-            android:fontFamily="@font/mali"
-            android:textSize="16dp" />
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:layout_centerVertical="true"
+               android:layout_marginRight="10dp"
+               android:src="@drawable/icon_time_ctdnt" />
 
+           <TextView
 
-    </LinearLayout>
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_toRightOf="@id/img1"
+               android:text="Ngày sinh: "
+               android:textColor="@color/black"
+               android:fontFamily="@font/mali"
+               android:textSize="17dp" />
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="80dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_sua_nv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:backgroundTint="@color/main"
-
-            android:text="Sửa"
-            android:textColor="@color/white" />
-
-        <Button
-            android:id="@+id/btn_xoa_nv"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/xam"
-            android:text="Xóa"
-            android:textColor="@color/white" />
-    </LinearLayout>
+           <TextView
+               android:id="@+id/tv_ngaysinh_nv_ct"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/tv1"
+               android:layout_toRightOf="@id/img1"
+               android:fontFamily="@font/alata"
+                android:textColor="@color/black"
+               android:textSize="16dp" />
 
 
-</LinearLayout>
+       </LinearLayout>
+       <LinearLayout
+           android:gravity="center_vertical"
+           android:id="@+id/ct1"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/tv_ctls"
+           android:layout_marginLeft="20dp"
+           android:layout_marginTop="10dp"
+           android:layout_marginRight="10dp">
+
+           <ImageView
+               android:id="@+id/img1"
+               android:layout_width="50dp"
+               android:layout_height="50dp"
+               android:layout_centerVertical="true"
+               android:layout_marginRight="10dp"
+               android:src="@drawable/icon_trangthai_ctdnt" />
+
+           <TextView
+               android:id="@+id/tv1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:fontFamily="@font/mali"
+
+               android:layout_toRightOf="@id/img1"
+               android:text="Quyền nhân viên: "
+               android:textColor="@color/black"
+               android:textSize="17dp" />
+
+           <TextView
+               android:id="@+id/tv_quyen_nv_ct"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/tv1"
+               android:layout_toRightOf="@id/img1"
+               android:fontFamily="@font/alata"
+                android:textColor="@color/black"
+               android:textSize="16dp" />
+
+
+       </LinearLayout>
+
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:layout_marginTop="20dp"
+           android:orientation="horizontal">
+           <Button
+               android:id="@+id/btn_sua_nv"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginRight="100dp"
+               android:backgroundTint="@color/main"
+               android:text="Sửa"
+               android:textColor="@color/white" />
+
+           <Button
+               android:id="@+id/btn_xoa_nv"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:backgroundTint="@color/main2"
+               android:text="Xóa"
+               android:textColor="@color/white" />
+       </LinearLayout>
+
+
+   </LinearLayout>
+
+</RelativeLayout>
