@@ -1,16 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.fragmentThongKe.DoanhThuMonTheoNgayFragment"
     android:padding="10dp">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edL_ed_ngayBD_TKMA"
+        android:layout_marginTop="10dp"
+        style="@style/LoginTextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_ngayBD_TKMA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:hint="Ngày bắt đầu"
+            android:textSize="18dp"
+            android:fontFamily="@font/mali" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edL_ed_ngayKT_TKMA"
+        android:layout_marginTop="5dp"
+        style="@style/LoginTextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_ed_ngayKT_TKMA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ngày kết thúc"
+            android:focusable="false"
+            android:textSize="18dp"
+            android:fontFamily="@font/mali" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_tongDThuMATN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tổng doanh thu"
+        android:fontFamily="@font/mali"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_DThu_mon_theoNgay"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"/>
 
-</FrameLayout>
+</LinearLayout>

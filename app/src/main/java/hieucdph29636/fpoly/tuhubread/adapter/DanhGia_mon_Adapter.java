@@ -70,7 +70,6 @@ public class DanhGia_mon_Adapter extends RecyclerView.Adapter<DanhGia_mon_Adapte
              public void onClick(View v) {
                  Dialog dialog = new Dialog(context);
                  dialog.setContentView(R.layout.dialog_danhgia);
-                 TextView tv_themAnh = dialog.findViewById(R.id.tv_themAnh);
                  TextInputLayout edL_binhLuan = dialog.findViewById(R.id.edL_binhLuan);
                  TextInputEditText ed_binhLuan = dialog.findViewById(R.id.ed_binhLuan);
                  Button btn_xacNhan = dialog.findViewById(R.id.btn_xacNhan_Dgia);

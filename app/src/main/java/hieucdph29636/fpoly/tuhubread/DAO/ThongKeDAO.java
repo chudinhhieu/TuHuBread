@@ -100,13 +100,13 @@ public class ThongKeDAO {
         Connection connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
-                String query = "CT MonAn.tenMon, SUM(ChiTietDonHang.soLuong * MonAn.gia) as DoanhThu\n" +
+                String query = "SELECT MonAn.tenMon, SUM(ChiTietDonHang.soLuong * MonAn.gia) as DoanhThu\n" +
                         "FROM MonAn\n" +
                         "INNER JOIN ChiTietDonHang ON MonAn.id_MonAn = ChiTietDonHang.id_monAn\n" +
                         "INNER JOIN DonHang ON ChiTietDonHang.id_donHang = DonHang.id_madonhang\n" +
                         "WHERE DonHang.thoiGianTao >= '"+tuNgay+"' AND DonHang.thoiGianTao <= '"+denNgay+"'" +
                         "GROUP BY MonAn.id_MonAn, MonAn.tenMon\n" +
-                        "ORDER BY DoanhThu DESC;";
+                        "ORDER BY DoanhThu DESC";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
                 while (resultSet.next()) {

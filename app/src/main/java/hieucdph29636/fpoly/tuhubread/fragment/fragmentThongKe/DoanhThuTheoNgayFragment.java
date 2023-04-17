@@ -25,7 +25,7 @@ import hieucdph29636.fpoly.tuhubread.R;
 
 public class DoanhThuTheoNgayFragment extends Fragment {
     ThongKeDAO dao;
-
+    String tuNgay,denNgay;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class DoanhThuTheoNgayFragment extends Fragment {
                         int thang=i1;
                         int ngay=i2;
                         edtStart.setText(ngay+"/"+(thang+1)+"/"+nam);
-
+                        tuNgay = nam+"-"+(thang+1)+"-"+ngay;
                     }
                 },
                         calendar.get(Calendar.YEAR),
@@ -80,7 +80,7 @@ public class DoanhThuTheoNgayFragment extends Fragment {
                         int thang=i1;
                         int ngay=i2;
                         edtEnd.setText(ngay+"/"+(thang+1)+"/"+nam);
-
+                        denNgay = nam+"-"+(thang+1)+"-"+ngay;
                     }
                 },
                         calendar.get(Calendar.YEAR),
@@ -94,10 +94,20 @@ public class DoanhThuTheoNgayFragment extends Fragment {
         btnThongKe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (edtStart.getText().toString().isEmpty()){
+                    edtLStart.setError("Vui lòng chọn ngày!");
+                    return;
+                }else {
+                    edtLStart.setErrorEnabled(false);
+                }
+                if (edtEnd.getText().toString().isEmpty()){
+                    edtLEnd.setError("Vui lòng chọn ngày!");
+                    return;
+                }else {
+                    edtLEnd.setErrorEnabled(false);
+                }
                 dao=new ThongKeDAO();
-                String tungay = edtStart.getText().toString();
-                String denngay = edtEnd.getText().toString();
-                txtKetQua.setText(dao.tongDoanhThuTheoNgay(tungay,denngay) + " VND");
+                txtKetQua.setText(dao.tongDoanhThuTheoNgay(tuNgay,denNgay) + " VND");
             }
         });
 
