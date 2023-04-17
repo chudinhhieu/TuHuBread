@@ -24,6 +24,8 @@ public class ThongKeDAO {
                 String query = "SELECT MonAn.id_MonAn, MonAn.tenMon, SUM(ChiTietDonHang.soLuong) as TongSoLuong\n" +
                         "FROM MonAn\n" +
                         "JOIN ChiTietDonHang ON MonAn.id_MonAn = ChiTietDonHang.id_monAn\n" +
+                        "JOIN DonHang ON ChiTietDonHang.id_donHang = DonHang.id_madonhang\n" +
+                        "WHERE DonHang.trangThai = 4\n" +
                         "GROUP BY MonAn.id_MonAn, MonAn.tenMon\n" +
                         "ORDER BY TongSoLuong DESC;";
                 Statement statement = connection.createStatement();
@@ -50,7 +52,7 @@ public class ThongKeDAO {
                 String query = "SELECT MonAn.id_MonAn, MonAn.tenMon, SUM(ChiTietDonHang.soLuong) as TongSoLuong\n" +
                         "FROM MonAn\n" +
                         "JOIN ChiTietDonHang ON MonAn.id_MonAn = ChiTietDonHang.id_monAn\n" +
-                        "WHERE MonAn.trangThai = 1"+
+                        "WHERE MonAn.trangThai = 1 AND DonHang.trangThai = 4\n"+
                         "GROUP BY MonAn.id_MonAn, MonAn.tenMon\n" +
                         "ORDER BY TongSoLuong DESC;";
                 Statement statement = connection.createStatement();
@@ -77,6 +79,8 @@ public class ThongKeDAO {
                 String query = "SELECT MonAn.id_MonAn,MonAn.tenMon, SUM(ChiTietDonHang.soLuong * MonAn.gia) as DoanhThu\n" +
                         "FROM MonAn\n" +
                         "INNER JOIN ChiTietDonHang ON MonAn.id_MonAn = ChiTietDonHang.id_monAn\n" +
+                        "INNER JOIN DonHang ON ChiTietDonHang.id_donHang = DonHang.id_madonhang\n" +
+                        "WHERE DonHang.trangThai = 4\n" +
                         "GROUP BY MonAn.id_MonAn, MonAn.tenMon\n" +
                         "ORDER BY DoanhThu DESC;";
                 Statement statement = connection.createStatement();
@@ -94,6 +98,7 @@ public class ThongKeDAO {
         }
         return list;
     }
+
     public ArrayList<TopDoanhThuMonAn> topDoanhThuMonAnTheoNgay(String tuNgay,String denNgay){
         ArrayList<TopDoanhThuMonAn> list = new ArrayList<>();
         ConnectionHelper connectionHelper = new ConnectionHelper();
@@ -104,7 +109,7 @@ public class ThongKeDAO {
                         "FROM MonAn\n" +
                         "INNER JOIN ChiTietDonHang ON MonAn.id_MonAn = ChiTietDonHang.id_monAn\n" +
                         "INNER JOIN DonHang ON ChiTietDonHang.id_donHang = DonHang.id_madonhang\n" +
-                        "WHERE DonHang.thoiGianTao >= '"+tuNgay+"' AND DonHang.thoiGianTao <= '"+denNgay+"'" +
+                        "WHERE DonHang.thoiGianTao >= '"+tuNgay+"' AND DonHang.thoiGianTao <= '"+denNgay+"'AND DonHang.trangThai = 4" +
                         "GROUP BY MonAn.id_MonAn, MonAn.tenMon\n" +
                         "ORDER BY DoanhThu DESC";
                 Statement statement = connection.createStatement();
@@ -126,7 +131,7 @@ public class ThongKeDAO {
         Connection connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
-                String query = "SELECT SUM(tongTien) AS TongDoanhThu FROM DonHang;";
+                String query = "SELECT SUM(tongTien) AS TongDoanhThu FROM DonHang WHERE trangThai = 4;";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
                 if (resultSet.next()) {
@@ -145,7 +150,7 @@ public class ThongKeDAO {
         try {
             if (connection != null) {
                 String query = "SELECT SUM(tongTien) AS TongDoanhThu FROM DonHang " +
-                        "WHERE thoiGianTao >= '" + tuNgay + "' AND thoiGianTao <= '" + denNgay + "'";
+                        "WHERE thoiGianTao >= '" + tuNgay + "' AND thoiGianTao <= '" + denNgay + "' AND trangThai = 4";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
                 while (resultSet.next()) {

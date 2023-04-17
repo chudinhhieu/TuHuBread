@@ -26,6 +26,7 @@ import hieucdph29636.fpoly.tuhubread.DAO.DonHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.KhachHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.KhuyenMaiDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
+import hieucdph29636.fpoly.tuhubread.DTO.KhachHang;
 import hieucdph29636.fpoly.tuhubread.DTO.KhuyenMai;
 import hieucdph29636.fpoly.tuhubread.R;
 import hieucdph29636.fpoly.tuhubread.SetNotification;
@@ -43,7 +44,7 @@ public class DonHangChiTietActivity extends AppCompatActivity {
     DonHangDAO donHangDAO;
     KhuyenMaiDAO khuyenMaiDAO;
     EditText ed_km_ctdh;
-    TextView tv_giaKM,tv_tongTienCTHD,tv_tt_dh,tv_diachi_ctdh;
+    TextView tv_giaKM,tv_tongTienCTHD,tv_tt_dh,tv_diachi_ctdh,tv_tenkh_ctdh,tv_sdtkh_ctdh;
     CardView btn_thanhtoan;
     ImageView btn_back_ctdh;
     KhachHangDAO khachHangDAO;
@@ -69,6 +70,8 @@ public class DonHangChiTietActivity extends AppCompatActivity {
         ed_km_ctdh = findViewById(R.id.ed_km_ctdh);
         tv_tongTienCTHD = findViewById(R.id.tv_tongTienCTHD);
         tv_tt_dh = findViewById(R.id.tv_tt_dh);
+        tv_tenkh_ctdh = findViewById(R.id.tv_tenkh_ctdh);
+        tv_sdtkh_ctdh = findViewById(R.id.tv_sdtkh_ctdh);
         view_km.setVisibility(View.GONE);
         btn_km_ctdh = findViewById(R.id.btn_km_ctdh);
         SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
@@ -78,7 +81,10 @@ public class DonHangChiTietActivity extends AppCompatActivity {
         id_donHang = bundle.getInt("id_dh");
         int tt_dh = bundle.getInt("trangThai_dh");
         String tk = bundle.getString("tk");
+        KhachHang kh = khachHangDAO.getByTK(tk).get(0);
         tv_diachi_ctdh.setText(khachHangDAO.getDiaChi(tk));
+        tv_tenkh_ctdh.setText(khachHangDAO.getHoTen(tk));
+        tv_sdtkh_ctdh.setText(kh.getSoDienThoai());
         rcv_ttdh = findViewById(R.id.rcv_ttdh);
         khuyenMaiDAO = new KhuyenMaiDAO();
         loadData();

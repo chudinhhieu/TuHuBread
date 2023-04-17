@@ -58,7 +58,7 @@ public class DatMonActivity extends AppCompatActivity {
             btnMonAnyt.setVisibility(View.GONE);
         }
         try {
-            idDH = donHangDAO.checkDonHang().get(0).getId_DonHang();
+            idDH = donHangDAO.checkDonHang(taiKhoan).get(0).getId_DonHang();
         }catch (Exception e){
 
         }
@@ -170,7 +170,7 @@ public class DatMonActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (quyen.equalsIgnoreCase("khachhang")){
-                    if (donHangDAO.checkDonHang().isEmpty()){
+                    if (donHangDAO.checkDonHang(taiKhoan).isEmpty()){
                         Date currentDate = new Date();
                         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss yyyy/MM/dd");
                         String time = dateFormat.format(currentDate.getTime());
@@ -180,7 +180,7 @@ public class DatMonActivity extends AppCompatActivity {
                         donHang.setTrangThai(0);
                         donHang.setTongTien(0);
                         donHangDAO.insert(donHang);
-                        idDH = donHangDAO.checkDonHang().get(0).getId_DonHang();
+                        idDH = donHangDAO.checkDonHang(taiKhoan).get(0).getId_DonHang();
                         ChiTietDonHang ctdh = new ChiTietDonHang();
                         ctdh.setId_donHang(idDH);
                         ctdh.setSoLuong(Integer.parseInt(tv_soLuong.getText().toString()));
@@ -216,7 +216,7 @@ public class DatMonActivity extends AppCompatActivity {
                         }
                     }else {
                         ChiTietDonHang ctdh = new ChiTietDonHang();
-                        ctdh.setId_donHang(donHangDAO.checkDonHang().get(0).getId_DonHang());
+                        ctdh.setId_donHang(donHangDAO.checkDonHang(taiKhoan).get(0).getId_DonHang());
                         ctdh.setSoLuong(Integer.parseInt(tv_soLuong.getText().toString()));
                         ctdh.setGiaTien(Integer.parseInt(tv_soLuong.getText().toString())*gia);
                         ctdh.setId_monAn(id);

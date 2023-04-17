@@ -32,6 +32,41 @@
             android:textColor="@color/black"
             android:gravity="center"/>
     </LinearLayout>
+        <RelativeLayout
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@color/white">
+            <ImageView
+                android:id="@+id/img_ctdh_0"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/boy"/>
+            <TextView
+                android:id="@+id/tv_tenkh_ctdh"
+                android:layout_marginStart="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mali"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="Chu Đình Hiếu"
+                android:layout_toRightOf="@id/img_ctdh_0"/>
+            <TextView
+                android:id="@+id/tv_sdtkh_ctdh"
+                android:layout_marginStart="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alata"
+                android:textColor="@color/gray"
+                android:textSize="15sp"
+                android:layout_below="@id/tv_tenkh_ctdh"
+                android:text="0369066475"
+                android:layout_toRightOf="@id/img_ctdh_0"/>
+        </RelativeLayout>
     <RelativeLayout
         android:padding="5dp"
         android:layout_marginTop="5dp"

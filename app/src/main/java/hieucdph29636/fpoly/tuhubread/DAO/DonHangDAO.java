@@ -161,27 +161,29 @@ public class DonHangDAO {
         return success;
     }
 
-    public List<DonHang> checkDonHang(){
+    public List<DonHang> checkDonHang(String taiKhoan) {
         List<DonHang> listABC = new ArrayList<>();
         ConnectionHelper connectionHelper = new ConnectionHelper();
         Connection connection = connectionHelper.connectionClass();
         try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT TOP 1 * FROM DonHang WHERE trangThai = 0 ORDER BY id_madonhang DESC");
+            PreparedStatement pstmt = connection.prepareStatement("SELECT TOP 1 * FROM DonHang WHERE trangThai = 0 AND taiKhoan = ? ORDER BY id_madonhang DESC");
+            pstmt.setString(1, taiKhoan);
+            ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id_madonhang");
-                String taiKhoan = rs.getString("taiKhoan");
+                String tk = rs.getString("taiKhoan");
                 String thoiGianTao = rs.getString("thoiGianTao");
                 int trangThai = rs.getInt("trangThai");
                 int id_khuyenMai = rs.getInt("id_khuyenMai");
                 int tongTien = rs.getInt("tongTien");
-                DonHang ttKhachHang = new DonHang(id, taiKhoan, thoiGianTao, trangThai, id_khuyenMai, tongTien);
-                listABC.add(ttKhachHang);
+                DonHang dh = new DonHang(id, tk, thoiGianTao, trangThai, id_khuyenMai, tongTien);
+                listABC.add(dh);
             }
             rs.close();
-            stmt.close();
+            pstmt.close();
             connection.close();
-        }catch (Exception e){
+        } catch (Exception e) {
+            // handle exception
         }
         return listABC;
     }
