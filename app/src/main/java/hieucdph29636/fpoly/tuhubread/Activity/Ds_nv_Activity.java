@@ -75,6 +75,7 @@ public class Ds_nv_Activity extends AppCompatActivity {
                         }else {
                             til.setErrorEnabled(false);
                         }
+
                         dsnv = nhanVienDAO.getByHoTen(tied.getText().toString().trim());
                         nhanVienAdapter = new NhanVienAdapter(Ds_nv_Activity.this,dsnv);
                         rcv_nv.setAdapter(nhanVienAdapter);
