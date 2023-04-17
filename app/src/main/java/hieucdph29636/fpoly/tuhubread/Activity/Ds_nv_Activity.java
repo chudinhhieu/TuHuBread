@@ -72,7 +72,7 @@ public class Ds_nv_Activity extends AppCompatActivity {
                         if (tied.getText().toString().isEmpty()){
                             til.setError("Không được để trống");
                             return;
-                        }else{
+                        }else {
                             til.setErrorEnabled(false);
                         }
                         dsnv = nhanVienDAO.getByHoTen(tied.getText().toString().trim());

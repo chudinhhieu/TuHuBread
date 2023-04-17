@@ -15,7 +15,7 @@ public class ConnectionHelper {
         {
             //192.168.43.16
             //192.168.100.30
-            ip ="10.24.36.247";
+            ip ="192.168.1.207";
             database = "TuhuBread";
             user ="linh2k3";
             pass="123";

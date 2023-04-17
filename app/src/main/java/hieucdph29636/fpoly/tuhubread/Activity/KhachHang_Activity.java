@@ -72,6 +72,7 @@ public class KhachHang_Activity extends AppCompatActivity {
                         }else {
                             til.setErrorEnabled(false);
                         }
+
                         listKh =khachHangDAO.getBySoDienThoai(tied.getText().toString().trim());
                         khachHangAdapter = new KhachHangAdapter(KhachHang_Activity.this,listKh);
                         rcv_kh.setAdapter(khachHangAdapter);
