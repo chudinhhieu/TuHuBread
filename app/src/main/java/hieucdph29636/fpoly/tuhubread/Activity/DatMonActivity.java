@@ -2,7 +2,6 @@ package hieucdph29636.fpoly.tuhubread.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +27,6 @@ import hieucdph29636.fpoly.tuhubread.DAO.NhanVienDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.DonHang;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAnYeuThich;
-import hieucdph29636.fpoly.tuhubread.Dialog_custom;
 import hieucdph29636.fpoly.tuhubread.R;
 
 public class DatMonActivity extends AppCompatActivity {
@@ -141,6 +139,9 @@ public class DatMonActivity extends AppCompatActivity {
         btn_cong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (soluong==10){
+                    return;
+                }
                 soluong = Integer.parseInt(tv_soLuong.getText().toString());
                 soluong++;
                 tv_soLuong.setText(soluong+"");
@@ -171,13 +172,13 @@ public class DatMonActivity extends AppCompatActivity {
                 if (quyen.equalsIgnoreCase("khachhang")){
                     if (donHangDAO.checkDonHang().isEmpty()){
                         Date currentDate = new Date();
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss yyyy/MM/dd");
                         String time = dateFormat.format(currentDate.getTime());
                         DonHang donHang = new DonHang();
                         donHang.setTaiKhoan(taiKhoan);
                         donHang.setThoiGianTao(time);
                         donHang.setTrangThai(0);
-                        donHang.setTongTien(soluong*gia);
+                        donHang.setTongTien(0);
                         donHangDAO.insert(donHang);
                         idDH = donHangDAO.checkDonHang().get(0).getId_DonHang();
                         ChiTietDonHang ctdh = new ChiTietDonHang();
@@ -199,8 +200,16 @@ public class DatMonActivity extends AppCompatActivity {
                                ctdh.setOt(0);
                            }
                        }
+                       if (!rdo_kOt.isChecked()&&!rdo_coOt.isChecked()){
+                           Toast.makeText(DatMonActivity.this, "Vui lòng chọn ớt", Toast.LENGTH_SHORT).show();
+                            return;
+                       }
+                        if (!rdo_kRau.isChecked()&&!rdo_coRau.isChecked()){
+                            Toast.makeText(DatMonActivity.this, "Vui lòng chọn rau", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         if (chiTietDonHangDAO.insert(ctdh)){
-                            new Dialog_custom(DatMonActivity.this).sendDialog();
+                            Toast.makeText(DatMonActivity.this, "Thành công!", Toast.LENGTH_SHORT).show();
                             onBackPressed();
                         }else {
                             Toast.makeText(DatMonActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
@@ -223,9 +232,16 @@ public class DatMonActivity extends AppCompatActivity {
                         if (rdo_kOt.isChecked()){
                             ctdh.setOt(0);
                         }
+                        if (!rdo_kOt.isChecked()&&!rdo_coOt.isChecked()){
+                            Toast.makeText(DatMonActivity.this, "Vui lòng chọn ớt", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (!rdo_kRau.isChecked()&&!rdo_coRau.isChecked()){
+                            Toast.makeText(DatMonActivity.this, "Vui lòng chọn rau", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         if (chiTietDonHangDAO.insert(ctdh)){
-                            donHangDAO.updateGia(idDH,donHangDAO.getByID(idDH).get(0).getTongTien()+ctdh.getGiaTien());
-                            new Dialog_custom(DatMonActivity.this).sendDialog();
+                            Toast.makeText(DatMonActivity.this, "Thành công!", Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(DatMonActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
                         }

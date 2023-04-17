@@ -25,14 +25,16 @@
             android:id="@+id/tv_ten_spnb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:fontFamily="@font/mali"
             android:textColor="@color/black"
+            android:maxLength="30"
             android:text="Bánh mì"/>
         <TextView
             android:id="@+id/tv_gia_spnb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:textSize="12sp"
             android:fontFamily="@font/mali"
             android:textColor="@color/gray"

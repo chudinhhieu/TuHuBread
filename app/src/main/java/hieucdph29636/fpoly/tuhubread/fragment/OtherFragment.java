@@ -20,6 +20,7 @@ import hieucdph29636.fpoly.tuhubread.Activity.DangNhapActivity;
 import hieucdph29636.fpoly.tuhubread.Activity.Ds_nv_Activity;
 import hieucdph29636.fpoly.tuhubread.Activity.KhachHang_Activity;
 import hieucdph29636.fpoly.tuhubread.Activity.KhuyenMaiActivity;
+import hieucdph29636.fpoly.tuhubread.Activity.ThongTinTaiKhoanActivity;
 import hieucdph29636.fpoly.tuhubread.Activity.ViTienActivity;
 import hieucdph29636.fpoly.tuhubread.DAO.NhanVienDAO;
 import hieucdph29636.fpoly.tuhubread.R;
@@ -66,6 +67,12 @@ public class OtherFragment extends Fragment {
                 qlnv_other.setVisibility(View.GONE);
             }
         }
+        tttk_other.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ThongTinTaiKhoanActivity.class));
+            }
+        });
         tk_other.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -26,6 +26,7 @@ import java.util.TimerTask;
 import hieucdph29636.fpoly.tuhubread.DAO.KhachHangDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.KhuyenMaiDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.MonAnDAO;
+import hieucdph29636.fpoly.tuhubread.DAO.ThongKeDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.KhuyenMai;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
 import hieucdph29636.fpoly.tuhubread.DTO.PhotoSlideShow;
@@ -50,6 +51,7 @@ public class HomeFragment extends Fragment {
     private KhuyenMaiHomeAdapter adapterKM;
     private KhachHangDAO khachHangDAO;
     private TextView tv_home1,tv_home2;
+    private ThongKeDAO thongKeDAO;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
@@ -62,6 +64,7 @@ public class HomeFragment extends Fragment {
         circleIndicator = view.findViewById(R.id.circle_indicator);
         rcv_spnb = view.findViewById(R.id.rcv_spnb);
         rcv_km = view.findViewById(R.id.rcv_kmkh);
+        thongKeDAO = new ThongKeDAO();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
         String taiKhoan = sharedPreferences.getString("TK","");
         String quyen = sharedPreferences.getString("quyen","");
@@ -75,7 +78,7 @@ public class HomeFragment extends Fragment {
         khuyenMaiDAO = new KhuyenMaiDAO();
         listKM = khuyenMaiDAO.getAll();
         khachHangDAO = new KhachHangDAO();
-        adapterSPNB = new SanPhamNoiBatAdapter(monAnDAO.layTheoLoai(0,1),getContext());
+        adapterSPNB = new SanPhamNoiBatAdapter(thongKeDAO.topMonBanChayKH(),getContext());
         adapterKM = new KhuyenMaiHomeAdapter(listKM,getContext());
         rcv_spnb.setAdapter(adapterSPNB);
         rcv_km.setAdapter(adapterKM);

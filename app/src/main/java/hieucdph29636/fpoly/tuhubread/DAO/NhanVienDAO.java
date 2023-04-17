@@ -66,7 +66,31 @@ public class NhanVienDAO {
         }
         return list;
     }
-
+    public ArrayList<NhanVien> getByTK(String tk) {
+        ArrayList<NhanVien> list = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM NhanVien WHERE taiKhoan = '" + tk + "'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    NhanVien nv = new NhanVien();
+                    nv.setTaiKhoan(resultSet.getString(1));
+                    nv.setHoTen(resultSet.getString(2));
+                    nv.setSoDienThoai(resultSet.getString(3));
+                    nv.setMatKhau(resultSet.getString(4));
+                    nv.setNgaySinh(resultSet.getString(5));
+                    nv.setQuenNhanVien(resultSet.getInt(6));
+                    list.add(nv);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return list;
+    }
     public ArrayList<NhanVien> getAll() {
         ArrayList<NhanVien> list = new ArrayList<>();
         ConnectionHelper connectionHelper = new ConnectionHelper();
@@ -141,20 +165,63 @@ public class NhanVienDAO {
         }
         return success;
     }
-
+    public boolean updateNV(String ht,String ns,String sdt,String tk) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE NhanVien SET hoTen = ?, soDienThoai = ?, ngaySinh = ? WHERE taiKhoan = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, ht);
+                preparedStatement.setString(2, sdt);
+                preparedStatement.setString(3, ns);
+                preparedStatement.setString(4, tk);
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
+        }
+        return success;
+    }
+    public boolean updateMK(String tk,String mk) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE NhanVien SET matKhau = ? WHERE taiKhoan = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, mk);
+                preparedStatement.setString(2, tk);
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
+        }
+        return success;
+    }
     public void delete(String taiKhoan) {
         ConnectionHelper connectionHelper = new ConnectionHelper();
         Connection connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
-                String sql = "DELETE FROM NhanVien WHERE taiKhoan = " + taiKhoan;
-                Statement statement = connection.createStatement();
-                statement.executeUpdate(sql);
+                String sql = "DELETE FROM NhanVien WHERE taiKhoan = ?";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setString(1, taiKhoan);
+                statement.executeUpdate();
             }
         } catch (Exception ex) {
             Log.e("DELETE_ERROR", ex.getMessage());
         }
     }
+
     public boolean checkDangNhap(String taiKhoan, String matKhau) {
         boolean success = false;
         ConnectionHelper connectionHelper = new ConnectionHelper();

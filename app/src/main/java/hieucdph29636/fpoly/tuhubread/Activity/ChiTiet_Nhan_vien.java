@@ -3,7 +3,6 @@ package hieucdph29636.fpoly.tuhubread.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,15 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import hieucdph29636.fpoly.tuhubread.DAO.NhanVienDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.NhanVien;
-import hieucdph29636.fpoly.tuhubread.Dialog_custom;
 import hieucdph29636.fpoly.tuhubread.MyDate;
 import hieucdph29636.fpoly.tuhubread.R;
-import hieucdph29636.fpoly.tuhubread.adapter.NhanVienAdapter;
 
 public class ChiTiet_Nhan_vien extends AppCompatActivity {
 
@@ -85,7 +81,7 @@ public class ChiTiet_Nhan_vien extends AppCompatActivity {
             public void onClick(View view) {
                 nhanVien = new NhanVien();
                 Dialog dialog = new Dialog(ChiTiet_Nhan_vien.this);
-                dialog.setContentView(R.layout.dialog_them_nv);
+                dialog.setContentView(R.layout.dialog_sua_nv);
                 TextInputEditText ten_nv = dialog.findViewById(R.id.ed_them_tennv);
                 TextInputEditText sdt_nv = dialog.findViewById(R.id.ed_them_sdtnv);
                 TextInputEditText user_nv = dialog.findViewById(R.id.ed_them_usernv);
@@ -100,11 +96,11 @@ public class ChiTiet_Nhan_vien extends AppCompatActivity {
                 TextInputLayout edL_usernv = dialog.findViewById(R.id.etl_them_usernv);
                 TextInputLayout edL_passnv = dialog.findViewById(R.id.etl_them_mknv);
                 TextInputLayout edL_ngaysinhnv = dialog.findViewById(R.id.etl_them_ngaysinh_nv);
-                ten_nv.setText(tenNV);
-                sdt_nv.setText(sdtNV);
-                user_nv.setText(taiKhoanNV);
-                pass_nv.setText(passNV);
-                ngaysinh_nv.setText(ngaySinhNV);
+                ten_nv.setText(tv_ten_nv_ct.getText().toString());
+                sdt_nv.setText(tv_sdt_nv_ct.getText().toString());
+                user_nv.setText(tv_user_nv_ct.getText().toString());
+                pass_nv.setText(tv_passwd_nv_ct.getText().toString());
+                ngaysinh_nv.setText(tv_ngaysinh_nv_ct.getText().toString());
                 if (quyen == 1){
                     rdoTCH.setChecked(true);
                 }else {
@@ -197,14 +193,21 @@ public class ChiTiet_Nhan_vien extends AppCompatActivity {
                         }
                         nhanVien.setHoTen(ten_nv.getText().toString());
                         nhanVien.setSoDienThoai(sdt_nv.getText().toString());
-                        nhanVien.setTaiKhoan(user_nv.getText().toString());
+                        nhanVien.setTaiKhoan(tv_user_nv_ct.getText().toString());
                         nhanVien.setMatKhau(pass_nv.getText().toString());
                         try {
+                            if(nhanVien.getNgaySinh().isEmpty()){
+                                nhanVien.setNgaySinh(ngaysinh_nv.getText().toString());
+                            }
+                        }catch (Exception ex){
+                            nhanVien.setNgaySinh(ngaysinh_nv.getText().toString());
+                        }
+
+                        try {
                             if (nhanVienDAO.update(nhanVien)) {
-                                new Dialog_custom(ChiTiet_Nhan_vien.this).sendDialog();
+                                Toast.makeText(ChiTiet_Nhan_vien.this, "Thành công!", Toast.LENGTH_SHORT).show();
                                 tv_ten_nv_ct.setText(ten_nv.getText().toString());
                                 tv_sdt_nv_ct.setText(sdt_nv.getText().toString());
-                                tv_user_nv_ct.setText(user_nv.getText().toString());
                                 tv_passwd_nv_ct.setText(pass_nv.getText().toString());
                                 tv_ngaysinh_nv_ct.setText(ngaysinh_nv.getText().toString());
                                 if (rdoTCH.isChecked()) {
@@ -213,6 +216,8 @@ public class ChiTiet_Nhan_vien extends AppCompatActivity {
                                     tv_quyen_nv_ct.setText("Nhân viên");
                                 }
                                 dialog.dismiss();
+                            }else {
+                                Toast.makeText(ChiTiet_Nhan_vien.this, "Thất bại", Toast.LENGTH_SHORT).show();
                             }
                         }catch (Exception ex){
                             Toast.makeText(ChiTiet_Nhan_vien.this, "Tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
@@ -227,8 +232,8 @@ public class ChiTiet_Nhan_vien extends AppCompatActivity {
         btn_xoa_nv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nhanVienDAO.delete((bundle.getString("tv_user_nv")));
-                Toast.makeText(ChiTiet_Nhan_vien.this, "Đã xóa thành công", Toast.LENGTH_SHORT).show();
+                nhanVienDAO.delete(taiKhoanNV);
+                Toast.makeText(ChiTiet_Nhan_vien.this, "Xóa thành công!", Toast.LENGTH_SHORT).show();
                 onBackPressed();
             }
         });

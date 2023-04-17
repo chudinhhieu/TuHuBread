@@ -149,7 +149,6 @@ public class DonHangDAO {
                 preparedStatement.setString(1, dh.getTaiKhoan());
                 preparedStatement.setString(2, dh.getThoiGianTao());
                 preparedStatement.setInt(3, dh.getTrangThai());
-//                preparedStatement.setInt(4, dh.getId_khuyenMai());
                 preparedStatement.setInt(4, dh.getTongTien());
                 int rowCount = preparedStatement.executeUpdate();
                 if (rowCount > 0) {

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,6 +49,8 @@ public class DonHangChiTietActivity extends AppCompatActivity {
     KhachHangDAO khachHangDAO;
     KhuyenMai km;
     int giaSauKM;
+    int id_donHang;
+    ChiTietDonHangDAO chiTietDonHangDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,7 @@ public class DonHangChiTietActivity extends AppCompatActivity {
         tv_giaKM = findViewById(R.id.tv_giaKM);
         tv_diachi_ctdh = findViewById(R.id.tv_diachi_ctdh);
         ln_km = findViewById(R.id.ln_km);
+        chiTietDonHangDAO = new ChiTietDonHangDAO();
         NotificationManagerCompat.from(this).areNotificationsEnabled();
         khachHangDAO = new KhachHangDAO();
         btn_back_ctdh = findViewById(R.id.btn_back_ctdh);
@@ -71,23 +75,49 @@ public class DonHangChiTietActivity extends AppCompatActivity {
         String taiKhoan = sharedPreferences.getString("TK","");
         String quyen = sharedPreferences.getString("quyen","");
         Bundle bundle = getIntent().getExtras();
-        int id_donHang = bundle.getInt("id_dh");
+        id_donHang = bundle.getInt("id_dh");
         int tt_dh = bundle.getInt("trangThai_dh");
         String tk = bundle.getString("tk");
         tv_diachi_ctdh.setText(khachHangDAO.getDiaChi(tk));
         rcv_ttdh = findViewById(R.id.rcv_ttdh);
-        dao = new ChiTietDonHangDAO();
-        list = (ArrayList<ChiTietDonHang>) dao.getAll(id_donHang);
-        adapter = new ChiTietDonHangAdapter(list,this);
-        rcv_ttdh.setAdapter(adapter);
+        khuyenMaiDAO = new KhuyenMaiDAO();
+        loadData();
         int tongTamTinh = dao.tinhTongGiaTien(id_donHang);
         donHangDAO = new DonHangDAO();
         tv_tongTamTinh.setText(tongTamTinh+"");
-        tv_tongTienCTHD.setText(donHangDAO.getByID(id_donHang).get(0).getTongTien()+"");
-        khuyenMaiDAO = new KhuyenMaiDAO();
+        Integer idkm= donHangDAO.getByID(id_donHang).get(0).getId_khuyenMai();
+        if (idkm==null){
+            tv_tongTienCTHD.setText(chiTietDonHangDAO.tinhTongGiaTien(id_donHang)+"");
+        }else if(tt_dh!=0){
+            tv_tongTienCTHD.setText(donHangDAO.getByID(id_donHang).get(0).getTongTien()+"");
+        }else {
+            tv_tongTienCTHD.setText(chiTietDonHangDAO.tinhTongGiaTien(id_donHang)+"");
+        }
         if (tt_dh!=0){
             ln_km.setVisibility(View.GONE);
         }
+        btn_km_ctdh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!khuyenMaiDAO.checkCode(ed_km_ctdh.getText().toString().trim()).isEmpty()){
+                    km = khuyenMaiDAO.checkCode(ed_km_ctdh.getText().toString()).get(0);
+                    view_km.setVisibility(View.VISIBLE);
+                    int khuyenMai = khuyenMaiDAO.checkCode(ed_km_ctdh.getText().toString().trim()).get(0).getSoTienGiam();
+                    tv_giaKM.setText(khuyenMai+"");
+                    giaSauKM = tongTamTinh-khuyenMai;
+                    if (giaSauKM<0){
+                        tv_tongTienCTHD.setText(0+"");
+                    }else {
+                        tv_tongTienCTHD.setText(giaSauKM+"");
+                    }
+                }else {
+                    view_km.setVisibility(View.GONE);
+                    Toast.makeText(DonHangChiTietActivity.this, "Mã khuyến mãi không tồn tại!", Toast.LENGTH_SHORT).show();
+                        tv_tongTienCTHD.setText(chiTietDonHangDAO.tinhTongGiaTien(id_donHang)+"");
+                }
+            }
+        });
+
         if ((tt_dh!=0&&tt_dh!=3&&tt_dh!=1)&&quyen.equalsIgnoreCase("khachhang")){
             btn_thanhtoan.setVisibility(View.GONE);
         }else if(tt_dh==1){
@@ -107,15 +137,8 @@ public class DonHangChiTietActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (khachHangDAO.getSoDuVi(taiKhoan)<Integer.parseInt(tv_tongTienCTHD.getText().toString())){
-                        Dialog dialog = new Dialog(DonHangChiTietActivity.this);
-                        dialog.setContentView(R.layout.dialog_thatbai);
-                        dialog.show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                dialog.dismiss();
-                            }
-                        },1000);
+                        Toast.makeText(DonHangChiTietActivity.this, "Vui lòng nạp tiền", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(DonHangChiTietActivity.this,ViTienActivity.class));
                         return;
                     }
                     if (km==null){
@@ -183,6 +206,7 @@ public class DonHangChiTietActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             if( donHangDAO.updateTrangThai(id_donHang,6)){
                                 onBackPressed();
+                                khachHangDAO.updateTien(donHangDAO.getByID(id_donHang).get(0).getTongTien()+khachHangDAO.getSoDuVi(donHangDAO.getByID(id_donHang).get(0).getTaiKhoan()),donHangDAO.getByID(id_donHang).get(0).getTaiKhoan());
                             }
                         }
                     });
@@ -205,28 +229,12 @@ public class DonHangChiTietActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        btn_km_ctdh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!khuyenMaiDAO.checkCode(ed_km_ctdh.getText().toString().trim()).isEmpty()){
-                    km = khuyenMaiDAO.checkCode(ed_km_ctdh.getText().toString()).get(0);
-                    view_km.setVisibility(View.VISIBLE);
-                    int khuyenMai = khuyenMaiDAO.checkCode(ed_km_ctdh.getText().toString().trim()).get(0).getSoTienGiam();
-                    tv_giaKM.setText(khuyenMai+"");
-                    giaSauKM = tongTamTinh-khuyenMai;
-                    if (giaSauKM<0){
-                        tv_tongTienCTHD.setText(0+"");
 
-                    }else {
-                    tv_tongTienCTHD.setText(giaSauKM+"");
-                    }
-                }else {
-                    view_km.setVisibility(View.GONE);
-                    Toast.makeText(DonHangChiTietActivity.this, "Mã khuyến mãi không tồn tại!", Toast.LENGTH_SHORT).show();
-                    tv_tongTienCTHD.setText(tongTamTinh+"");
-                }
-            }
-        });
-
+    }
+    public void loadData(){
+        dao = new ChiTietDonHangDAO();
+        list = (ArrayList<ChiTietDonHang>) dao.getAll(id_donHang);
+        adapter = new ChiTietDonHangAdapter(list,this);
+        rcv_ttdh.setAdapter(adapter);
     }
 }

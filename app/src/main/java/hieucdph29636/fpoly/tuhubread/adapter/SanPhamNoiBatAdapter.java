@@ -19,21 +19,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import hieucdph29636.fpoly.tuhubread.Activity.DatMonActivity;
+import hieucdph29636.fpoly.tuhubread.DAO.MonAnDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
+import hieucdph29636.fpoly.tuhubread.DTO.TopMonBanChay;
 import hieucdph29636.fpoly.tuhubread.R;
 
 public class SanPhamNoiBatAdapter extends RecyclerView.Adapter<SanPhamNoiBatAdapter.MyViewHolder> {
-    private ArrayList<MonAn> list;
+    private ArrayList<TopMonBanChay> list;
     private Context context;
-
-    public SanPhamNoiBatAdapter(ArrayList<MonAn> list, Context context) {
+    private MonAnDAO dao;
+    public SanPhamNoiBatAdapter(ArrayList<TopMonBanChay> list, Context context) {
         this.list = list;
         this.context = context;
-    }
-
-    public void  setData(ArrayList<MonAn> list){
-        this.list = list;
-        notifyDataSetChanged();
     }
 
     @NonNull
@@ -45,7 +42,8 @@ public class SanPhamNoiBatAdapter extends RecyclerView.Adapter<SanPhamNoiBatAdap
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        MonAn monAn = list.get(position);
+        dao = new MonAnDAO();
+        MonAn monAn = dao.getById(list.get(position).getId_monAn());
         if (monAn== null){
             return;
         }

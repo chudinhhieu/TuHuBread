@@ -111,7 +111,7 @@ public class MonAnDAO {
         connection = connectionHelper.connectionClass();
         try {
             if (connection != null) {
-                String query = "SELECT * FROM MonAn WHERE tenMon LIKE '%" + keyword + "%'and trangThai= '"+tt+"'";
+                String query = "SELECT * FROM MonAn WHERE tenMon LIKE N'%"+keyword+"%'and trangThai= '"+tt+"'";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
                 while (resultSet.next()) {

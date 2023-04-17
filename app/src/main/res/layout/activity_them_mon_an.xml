@@ -140,6 +140,7 @@
                   android:layout_marginBottom="10dp"
                   android:backgroundTint="@color/main2">
                   <TextView
+                      android:id="@+id/tv_btn_suama"
                       android:layout_gravity="center"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"

@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,7 @@ import hieucdph29636.fpoly.tuhubread.adapter.Ds_thucDon_Spinner_Adapter;
 public class SuaMonAnActivity extends AppCompatActivity {
     TextInputLayout lmonAn,lthanhPhan,lgia;
     TextInputEditText emonAn,ethanhphan,egia;
+    TextView tv_btn_suama;
     RadioButton rdoBan,rdoNgung;
     Spinner spinner;
     ImageView img_back,img_anhMon;
@@ -47,6 +49,7 @@ public class SuaMonAnActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_them_mon_an);
         lmonAn = findViewById(R.id.edL_tenMon);
+        tv_btn_suama = findViewById(R.id.tv_btn_suama);
         lthanhPhan = findViewById(R.id.edL_thanhPhan);
         lgia = findViewById(R.id.edL_giaMon);
         emonAn = findViewById(R.id.ed_tenMon);
@@ -69,7 +72,9 @@ public class SuaMonAnActivity extends AppCompatActivity {
         spinner.setSelection(monAn.getId_LoaiDoAn());
         emonAn.setText(monAn.getTenMon());
         ethanhphan.setText(monAn.getThanhPhan());
+        tv_btn_suama.setText("Sửa món ăn");
         egia.setText(monAn.getGia()+"");
+
         if (monAn.getTrangThai()==0){
             rdoNgung.setChecked(true);
         }else {
@@ -100,8 +105,42 @@ public class SuaMonAnActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String ten = emonAn.getText().toString();
-                int gia = Integer.parseInt(egia.getText().toString());
+                String gia = egia.getText().toString();
                 String thanhPhan = ethanhphan.getText().toString();
+                // check tên món ăn thành phần, gia
+                if (ten.isEmpty()){
+                    lmonAn.setError("Chưa nhập tên");
+                    return;
+                }
+                else {
+                    lmonAn.setErrorEnabled(false);
+                }
+                if (thanhPhan.isEmpty()){
+                    lthanhPhan.setError("Chưa nhập loại thành phần");
+                    return;
+                }else{
+                    lthanhPhan.setErrorEnabled(false);
+                }
+                if (egia.getText().toString().isEmpty()){
+                    lgia.setError("Chưa nhập giá");
+                    return;
+                } else {
+                    lgia.setErrorEnabled(false);
+                }
+                try {
+                    if(monAn.getAnhMonAn().length == 0){
+                        Toast.makeText(SuaMonAnActivity.this, "Vui lòng chọn ảnh", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }catch (Exception e){
+                    Toast.makeText(SuaMonAnActivity.this, "Vui lòng chọn ảnh", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!rdoBan.isChecked() && !rdoNgung.isChecked()){
+                    Toast.makeText(SuaMonAnActivity.this, "Vui lòng chọn trạng thái", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // ..............
                 if (rdoBan.isChecked()){
                     monAn.setTrangThai(1);
                 }
@@ -109,7 +148,7 @@ public class SuaMonAnActivity extends AppCompatActivity {
                     monAn.setTrangThai(0);
                 }
                 monAn.setThanhPhan(thanhPhan);
-                monAn.setGia(gia);
+                monAn.setGia(Integer.parseInt(gia));
                 monAn.setTenMon(ten);
                 monAn.setId_MonAn(idSua);
                 if (monAn.getAnhMonAn()==null){

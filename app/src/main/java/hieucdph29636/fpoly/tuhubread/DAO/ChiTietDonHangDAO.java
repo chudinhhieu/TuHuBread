@@ -5,11 +5,13 @@ import android.util.Log;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import hieucdph29636.fpoly.tuhubread.DTO.ChiTietDonHang;
 import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
+import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
 
 public class ChiTietDonHangDAO {
     public boolean insert(ChiTietDonHang ctdh) {
@@ -36,7 +38,42 @@ public class ChiTietDonHangDAO {
         }
         return success;
     }
-
+    public boolean update(int sl,int rau,int ot,int gia,int id) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE ChiTietDonHang SET soLuong = ?, rau = ?, ot = ?, giaTien = ? WHERE id_ct = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, sl);
+                preparedStatement.setInt(2,rau );
+                preparedStatement.setInt(3,ot );
+                preparedStatement.setInt(4, gia);
+                preparedStatement.setInt(5, id);
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
+        }
+        return success;
+    }
+    public void delete(int id) {
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+       Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String sql = "DELETE FROM ChiTietDonHang WHERE id_ct = " + id;
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(sql);
+            }
+        } catch (Exception ex) {
+            Log.e("DELETE_ERROR", ex.getMessage());
+        }
+    }
     public int getSoLuongChiTiet(int id_donHang) {
         ConnectionHelper connectionHelper = new ConnectionHelper();
         Connection connection = connectionHelper.connectionClass();

@@ -80,6 +80,13 @@ public class FoodFragment extends Fragment {
         String taiKhoan = sharedPreferences.getString("TK","");
         String quyen = sharedPreferences.getString("quyen","");
         if (quyen.equalsIgnoreCase("khachhang")){
+            listmon = monAnDAO.layTheoLoai(0,1);
+        }else {
+            listmon = monAnDAO.layTheoLoaiNV(0);
+        }
+        ds_mon_adapter = new Ds_mon_Adapter(getContext(), listmon);
+        rcv_dsm.setAdapter(ds_mon_adapter);
+        if (quyen.equalsIgnoreCase("khachhang")){
             btn_themMon.setVisibility(View.GONE);
         }else {
             btn_themMon.setVisibility(View.VISIBLE);
@@ -92,9 +99,16 @@ public class FoodFragment extends Fragment {
                 TextInputEditText tied = dialog.findViewById(R.id.ed_search);
                 TextInputLayout til = dialog.findViewById(R.id.edL_search);
                 TextView btn_xacnhan = dialog.findViewById(R.id.btn_xacNhan_searchKH);
+                tied.setHint("Nhập tên món ăn");
                 btn_xacnhan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (tied.getText().toString().isEmpty()){
+                            til.setError("Không được để trống");
+                            return;
+                        } else {
+                            til.setErrorEnabled(false);
+                        }
                         ArrayList<MonAn> list1 = monAnDAO.timKiemMonAnTheoTen(tied.getText().toString().trim(),1);
                         ds_mon_adapter = new Ds_mon_Adapter(getContext(),list1);
                         rcv_dsm.setAdapter(ds_mon_adapter);
@@ -110,13 +124,7 @@ public class FoodFragment extends Fragment {
                 startActivity(new Intent(getContext(), ThemMonAnActivity.class));
             }
         });
-        if (quyen.equalsIgnoreCase("khachhang")){
-            listmon = monAnDAO.layTheoLoai(0,1);
-        }else {
-            listmon = monAnDAO.layTheoLoaiNV(0);
-        }
-        ds_mon_adapter = new Ds_mon_Adapter(getContext(), listmon);
-        rcv_dsm.setAdapter(ds_mon_adapter);
+
 
                 spn_thucdon.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override

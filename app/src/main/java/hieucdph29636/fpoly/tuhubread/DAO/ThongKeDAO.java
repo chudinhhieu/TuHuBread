@@ -41,6 +41,33 @@ public class ThongKeDAO {
         }
         return list;
     }
+    public ArrayList<TopMonBanChay> topMonBanChayKH(){
+        ArrayList<TopMonBanChay> list = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT MonAn.id_MonAn, MonAn.tenMon, SUM(ChiTietDonHang.soLuong) as TongSoLuong\n" +
+                        "FROM MonAn\n" +
+                        "JOIN ChiTietDonHang ON MonAn.id_MonAn = ChiTietDonHang.id_monAn\n" +
+                        "WHERE MonAn.trangThai = 1"+
+                        "GROUP BY MonAn.id_MonAn, MonAn.tenMon\n" +
+                        "ORDER BY TongSoLuong DESC;";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    TopMonBanChay top = new TopMonBanChay();
+                    top.setId_monAn(resultSet.getInt(1));
+                    top.setTen(resultSet.getString(2));
+                    top.setSoLuong(resultSet.getInt(3));
+                    list.add(top);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return list;
+    }
     public ArrayList<TopDoanhThuMonAn> topDoanhThuMonAn(){
         ArrayList<TopDoanhThuMonAn> list = new ArrayList<>();
         ConnectionHelper connectionHelper = new ConnectionHelper();

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,10 +18,8 @@ import hieucdph29636.fpoly.tuhubread.R;
 
 public class ChiTiet_KhachHang extends AppCompatActivity {
     TextView tv_maKH,tv_nameKH,tv_taiKhoanKH,tv_dateKH,tv_passKH,tv_addressKH,tv_soDuTK_KH,tv_sdtKH;
-    Button btn_deleteKH,btn_editKH;
     KhachHangDAO khachHangDAO;
-    ArrayList<KhachHang> listKH;
-    KhachHang objKH;
+    ImageView btn_back_ctkh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +28,7 @@ public class ChiTiet_KhachHang extends AppCompatActivity {
         tv_taiKhoanKH=findViewById(R.id.tv_taiKhoanKH);
         tv_dateKH=findViewById(R.id.tv_dateKH);
         tv_passKH=findViewById(R.id.tv_passKH);
+        btn_back_ctkh=findViewById(R.id.btn_back_ctkh);
         tv_sdtKH=findViewById(R.id.tv_sdtKH);
         tv_addressKH=findViewById(R.id.tv_AddressKH);
         tv_soDuTK_KH=findViewById(R.id.tv_soDuTK_KH);
@@ -50,6 +50,11 @@ public class ChiTiet_KhachHang extends AppCompatActivity {
         tv_addressKH.setText(diachi);
         tv_soDuTK_KH.setText(sodu);
         khachHangDAO=new KhachHangDAO();
-
+        btn_back_ctkh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 }

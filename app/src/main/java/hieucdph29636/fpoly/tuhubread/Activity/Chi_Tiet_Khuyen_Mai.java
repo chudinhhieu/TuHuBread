@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -49,6 +51,13 @@ public class Chi_Tiet_Khuyen_Mai extends AppCompatActivity {
         btn_chinhsua_km = findViewById(R.id.btn_chinhsua_km);
         btn_xoa_km = findViewById(R.id.btn_xoa_km);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("luuDangNhap", Context.MODE_PRIVATE);
+        String taiKhoan = sharedPreferences.getString("TK","");
+        String quyen = sharedPreferences.getString("quyen","");
+        if(quyen.equalsIgnoreCase("khachhang")){
+            btn_chinhsua_km.setVisibility(View.GONE);
+            btn_xoa_km.setVisibility(View.GONE);
+        }
 
         Bundle bundle = getIntent().getExtras();
         int id = bundle.getInt("tv_id");

@@ -23,7 +23,7 @@ import hieucdph29636.fpoly.tuhubread.R;
 public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.ViewHolder> {
     Context context;
     ArrayList<KhachHang> listKH;
-
+    View view;
     public KhachHangAdapter(Context context, ArrayList<KhachHang> listKH) {
         this.context = context;
         this.listKH = listKH;
@@ -35,7 +35,7 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_khachhang,parent,false);
+        view = inflater.inflate(R.layout.item_khachhang,parent,false);
         return new ViewHolder(view);
     }
 
@@ -44,7 +44,7 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.View
         int k_hang=position;
         holder.tv_ten_kh.setText(listKH.get(position).getHoTen());
         holder.tv_sdt_kh.setText(listKH.get(position).getSoDienThoai());
-        holder.chitietKH.setOnClickListener(new View.OnClickListener() {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(context, ChiTiet_KhachHang.class);
@@ -71,12 +71,10 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView tv_ten_kh,tv_sdt_kh;
-        LinearLayout chitietKH;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_ten_kh = itemView.findViewById(R.id.tvTen_KH);
             tv_sdt_kh = itemView.findViewById(R.id.tv_Sdt_kH);
-            chitietKH=itemView.findViewById(R.id.chitietKH);
         }
     }
 }

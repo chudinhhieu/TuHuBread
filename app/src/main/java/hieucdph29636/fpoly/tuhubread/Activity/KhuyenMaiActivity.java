@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -21,13 +20,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import hieucdph29636.fpoly.tuhubread.DAO.KhuyenMaiDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.KhuyenMai;
-import hieucdph29636.fpoly.tuhubread.Dialog_custom;
 import hieucdph29636.fpoly.tuhubread.MyDate;
 import hieucdph29636.fpoly.tuhubread.R;
 import hieucdph29636.fpoly.tuhubread.adapter.KhuyenMaiAdapter;
@@ -163,7 +160,8 @@ public class KhuyenMaiActivity extends AppCompatActivity {
                         }
                         KhuyenMai objkm = new KhuyenMai(edCode.getText().toString(), edMota.getText().toString(), nbd, nkt, Integer.parseInt(edSTgiam.getText().toString()));
                         if (khuyenMaiDAO.insert(objkm)) {
-                            new Dialog_custom(KhuyenMaiActivity.this).sendDialog();
+                            Toast.makeText(KhuyenMaiActivity.this, "Thành công!", Toast.LENGTH_SHORT).show();
+
                             list = khuyenMaiDAO.getAll();
                             khuyenMaiAdapter = new KhuyenMaiAdapter(KhuyenMaiActivity.this, list);
                             rcv_khuyenMai.setAdapter(khuyenMaiAdapter);

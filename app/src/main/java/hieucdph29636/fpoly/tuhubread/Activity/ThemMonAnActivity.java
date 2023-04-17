@@ -4,11 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -28,7 +25,6 @@ import hieucdph29636.fpoly.tuhubread.DAO.LoaiMonDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.MonAnDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.LoaiMon;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
-import hieucdph29636.fpoly.tuhubread.Dialog_custom;
 import hieucdph29636.fpoly.tuhubread.R;
 import hieucdph29636.fpoly.tuhubread.adapter.Ds_thucDon_Spinner_Adapter;
 
@@ -138,7 +134,8 @@ public class ThemMonAnActivity extends AppCompatActivity {
                     return;
                 }
                 monAnDAO.insert(monAn);
-                new Dialog_custom(ThemMonAnActivity.this).sendDialog();
+                Toast.makeText(ThemMonAnActivity.this, "Thành công!", Toast.LENGTH_SHORT).show();
+
                 onBackPressed();
 
             }

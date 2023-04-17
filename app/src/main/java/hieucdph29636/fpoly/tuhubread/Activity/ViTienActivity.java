@@ -91,7 +91,7 @@ public class ViTienActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Date currentDate = new Date();
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss yyyy/MM/dd");
                         String time = dateFormat.format(currentDate.getTime());
 
                         donNapTien.setMota("Nạp tiền");

@@ -19,6 +19,7 @@ import java.util.List;
 import hieucdph29636.fpoly.tuhubread.DTO.DonNapTien;
 import hieucdph29636.fpoly.tuhubread.DTO.KhachHang;
 import hieucdph29636.fpoly.tuhubread.DBHelper.ConnectionHelper;
+import hieucdph29636.fpoly.tuhubread.DTO.NhanVien;
 
 public class KhachHangDAO {
     public KhachHangDAO() {
@@ -30,6 +31,32 @@ public class KhachHangDAO {
         try {
             if (connection != null) {
                 String query = "SELECT * FROM KhachHang WHERE SoDienThoai = '" + soDienThoai + "'";
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                while (resultSet.next()) {
+                    KhachHang kh = new KhachHang();
+                    kh.setTaiKhoan(resultSet.getString(1));
+                    kh.setHoTen(resultSet.getString(2));
+                    kh.setSoDienThoai(resultSet.getString(3));
+                    kh.setMatKhau(resultSet.getString(4));
+                    kh.setNgaySinh(resultSet.getString(5));
+                    kh.setDiaChi(resultSet.getString(6));
+                    kh.setSoDuTaiKhoan(resultSet.getInt(7));
+                    list.add(kh);
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("READ_ERROR", ex.getMessage());
+        }
+        return list;
+    }
+    public ArrayList<KhachHang> getByTK(String tk) {
+        ArrayList<KhachHang> list = new ArrayList<>();
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "SELECT * FROM KhachHang WHERE taiKhoan = '" + tk + "'";
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
                 while (resultSet.next()) {
@@ -74,6 +101,49 @@ public class KhachHangDAO {
             Log.e("READ_ERROR", ex.getMessage());
         }
         return list;
+    }
+    public boolean update(String tk,String ht,String ns,String sdt,String dc) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE KhachHang SET hoTen = ?, soDienThoai = ?, ngaySinh = ?,diaChi =? WHERE taiKhoan = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, ht);
+                preparedStatement.setString(2, sdt);
+                preparedStatement.setString(3, ns);
+                preparedStatement.setString(4, dc);
+                preparedStatement.setString(5, tk);
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
+        }
+        return success;
+    }
+    public boolean updateMK(String tk,String mk) {
+        boolean success = false;
+        ConnectionHelper connectionHelper = new ConnectionHelper();
+        Connection connection = connectionHelper.connectionClass();
+        try {
+            if (connection != null) {
+                String query = "UPDATE KhachHang SET matKhau = ? WHERE taiKhoan = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, mk);
+                preparedStatement.setString(2, tk);
+                int rowCount = preparedStatement.executeUpdate();
+                if (rowCount > 0) {
+                    success = true;
+                }
+            }
+        } catch (Exception ex) {
+            Log.e("UPDATE_ERROR", ex.getMessage());
+        }
+        return success;
     }
     public boolean insert(KhachHang kh) {
         boolean success = false;
@@ -171,7 +241,7 @@ public class KhachHangDAO {
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
                 if (resultSet.next()) {
-                    diaChi = resultSet.getString("hoTen");
+                    diaChi = resultSet.getString("diaChi");
                 }
             }
         } catch (Exception ex) {
@@ -179,6 +249,7 @@ public class KhachHangDAO {
         }
         return diaChi;
     }
+
     public int getSoDuVi(String taiKhoan) {
         int soDu = 0;
         ConnectionHelper connectionHelper = new ConnectionHelper();

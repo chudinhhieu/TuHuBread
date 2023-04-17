@@ -23,7 +23,6 @@ import java.util.Calendar;
 
 import hieucdph29636.fpoly.tuhubread.DAO.NhanVienDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.NhanVien;
-import hieucdph29636.fpoly.tuhubread.Dialog_custom;
 import hieucdph29636.fpoly.tuhubread.MyDate;
 import hieucdph29636.fpoly.tuhubread.R;
 import hieucdph29636.fpoly.tuhubread.adapter.NhanVienAdapter;
@@ -67,10 +66,16 @@ public class Ds_nv_Activity extends AppCompatActivity {
                 TextInputEditText tied = dialog.findViewById(R.id.ed_search);
                 TextInputLayout til = dialog.findViewById(R.id.edL_search);
                 TextView btn_xacnhan = dialog.findViewById(R.id.btn_xacNhan_searchKH);
-
+                tied.setHint("Nhập họ tên");
                 btn_xacnhan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (tied.getText().toString().isEmpty()){
+                            til.setError("Không được để trống");
+                            return;
+                        } else {
+                            til.setErrorEnabled(false);
+                        }
                         dsnv = nhanVienDAO.getByHoTen(tied.getText().toString().trim());
                         nhanVienAdapter = new NhanVienAdapter(Ds_nv_Activity.this, dsnv);
                         rcv_nv.setAdapter(nhanVienAdapter);
@@ -199,7 +204,7 @@ public class Ds_nv_Activity extends AppCompatActivity {
                         nhanVien.setMatKhau(pass_nv.getText().toString());
                         try {
                             if (nhanVienDAO.insert(nhanVien)) {
-                                new Dialog_custom(Ds_nv_Activity.this).sendDialog();
+                                Toast.makeText(Ds_nv_Activity.this, "Thành công!", Toast.LENGTH_SHORT).show();
                                 loadData();
                                 dialog.dismiss();
                             }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,6 @@ import hieucdph29636.fpoly.tuhubread.DAO.DanhGiaDAO;
 import hieucdph29636.fpoly.tuhubread.DAO.MonAnDAO;
 import hieucdph29636.fpoly.tuhubread.DTO.DanhGia;
 import hieucdph29636.fpoly.tuhubread.DTO.MonAn;
-import hieucdph29636.fpoly.tuhubread.Dialog_custom;
 import hieucdph29636.fpoly.tuhubread.R;
 
 public class DanhGia_mon_Adapter extends RecyclerView.Adapter<DanhGia_mon_Adapter.ViewHolder> {
@@ -144,7 +144,7 @@ public class DanhGia_mon_Adapter extends RecyclerView.Adapter<DanhGia_mon_Adapte
                          danhGia.setDiem(Diem);
                          danhGia.setId_donHang(id_dh);
                          if (danhGiaDAO.insert_danhgia(danhGia)){
-                             new Dialog_custom(context).sendDialog();
+                             Toast.makeText(context, "Thành công!", Toast.LENGTH_SHORT).show();
                              dialog.dismiss();
                          }
                      }
@@ -163,7 +163,7 @@ public class DanhGia_mon_Adapter extends RecyclerView.Adapter<DanhGia_mon_Adapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_item_tendm,tv_item_thanhphandm,tv_item_tiendm;
         ImageView img_item_imgdm;
-        LinearLayout linear_dm;
+        RelativeLayout linear_dm;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

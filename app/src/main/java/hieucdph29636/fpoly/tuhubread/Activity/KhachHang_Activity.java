@@ -56,10 +56,16 @@ public class KhachHang_Activity extends AppCompatActivity {
                 TextInputLayout til = dialog.findViewById(R.id.edL_search);
                 TextInputEditText tied = dialog.findViewById(R.id.ed_search);
                 TextView btn_xacnhan = dialog.findViewById(R.id.btn_xacNhan_searchKH);
-
+                tied.setHint("Nhập số điện thoại");
                 btn_xacnhan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (tied.getText().toString().isEmpty()){
+                            til.setError("Không được để trống");
+                            return;
+                        } else {
+                            til.setErrorEnabled(false);
+                        }
                         listKh =khachHangDAO.getBySoDienThoai(tied.getText().toString().trim());
                         khachHangAdapter = new KhachHangAdapter(KhachHang_Activity.this,listKh);
                         rcv_kh.setAdapter(khachHangAdapter);
